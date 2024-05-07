@@ -32,12 +32,12 @@ class CustomButton extends StatelessWidget {
       child: Container(
         width:width?? 345.w,
         height: height ?? 52.h,
-        padding: const EdgeInsets.all(10),
+        padding: EdgeInsets.symmetric(vertical: 10.h),
         decoration: color == null
             ? ShapeDecoration(
           gradient: const LinearGradient(colors: [
-            Color(0xFFFA1131),
-            Color(0xFFB20C23),
+            Color(0xFF0A8100),
+            Color(0xFF0A8100),
           ]),
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(8.r)),
@@ -54,7 +54,7 @@ class CustomButton extends StatelessWidget {
           children: [
             loading?  SizedBox(
               height: 20.h,
-              width: 20.h,
+              width: 20.w,
               child: const CircularProgressIndicator(color: Colors.white,),
             ):
             CustomText(
