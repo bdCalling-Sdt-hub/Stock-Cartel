@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../utils/app_colors.dart';
 
 class CustomText extends StatelessWidget {
-  const CustomText(
+   CustomText(
       {super.key,
       this.maxline,
       this.textOverflow,
@@ -12,11 +13,11 @@ class CustomText extends StatelessWidget {
       this.right = 0,
       this.top = 0,
       this.bottom = 0,
-      this.fontsize = 14,
+      this.fontsize = 16,
       this.textHeight,
       this.decoration,
       this.fontWeight = FontWeight.w400,
-      this.color = AppColors.white,
+      this.color = Colors.black,
       this.text = ""});
 
   final double left;
@@ -48,7 +49,7 @@ class CustomText extends StatelessWidget {
           decoration: decoration,
           fontSize: fontsize,
           decorationColor: AppColors.primaryColor,
-          fontFamily: fontName ?? "Aldrich",
+          fontFamily: fontName ?? "Poppins",
           fontWeight: fontWeight,
           color: color,
         ),
