@@ -59,10 +59,10 @@ class CustomButton extends StatelessWidget {
             ):
             CustomText(
               text: title,
-              fontsize: fontSize ?? 20.h,
+              fontsize: fontSize ?? 18.h,
               color: titlecolor ?? Colors.white,
               fontName: 'Poppins',
-              fontWeight: FontWeight.w400,
+              fontWeight: FontWeight.w600,
             ),
           ],
         ),
