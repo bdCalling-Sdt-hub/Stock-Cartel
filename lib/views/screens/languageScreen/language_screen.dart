@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:stock_cartel/routes/app_routes.dart';
 import 'package:stock_cartel/utils/app_icons.dart';
 import 'package:stock_cartel/utils/app_strings.dart';
 import 'package:stock_cartel/views/widgets/custom_button.dart';
@@ -85,7 +86,9 @@ class _LanguageScreenState extends State<LanguageScreen> {
             const Spacer(),
             CustomButton(
               title: AppStrings.continues,
-              onpress: () {},
+              onpress: () {
+                Get.toNamed(AppRoutes.onboardingScreen);
+              },
             ),
             SizedBox(height: 54.h)
           ],
