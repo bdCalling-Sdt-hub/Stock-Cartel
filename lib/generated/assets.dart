@@ -24,5 +24,8 @@ class Assets {
   static const String iconsUser = 'assets/icons/user.svg';
   static const String imagesAppLogo = 'assets/images/appLogo.png';
   static const String imagesOnboardingBg = 'assets/images/onboardingBg.png';
+  static const String languageEn = 'assets/language/en.json';
+  static const String languageEs = 'assets/language/es.json';
+  static const String languageLanguage = 'assets/language/language.dart';
 
 }

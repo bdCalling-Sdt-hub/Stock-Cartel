@@ -11,6 +11,7 @@ import 'package:stock_cartel/views/widgets/custom_button.dart';
 import 'package:stock_cartel/views/widgets/custom_list_tile.dart';
 import 'package:stock_cartel/views/widgets/custom_text.dart';
 
+import '../../../helpers/prefs_helpers.dart';
 import '../../../utils/app_colors.dart';
 
 class LanguageScreen extends StatefulWidget {
@@ -21,11 +22,12 @@ class LanguageScreen extends StatefulWidget {
 }
 
 class _LanguageScreenState extends State<LanguageScreen> {
-  String selectedLanguage = ""; // String to store the selected language
+  String selectedLanguage = "";
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 20.w),
         child: Column(
@@ -33,7 +35,7 @@ class _LanguageScreenState extends State<LanguageScreen> {
           children: [
             SizedBox(height: 118.h),
             CustomText(
-              text: AppStrings.chooseLanguage,
+              text: AppStrings.chooseLanguage.tr,
               fontsize: 18.sp,
               fontWeight: FontWeight.w500,
             ),
@@ -42,20 +44,18 @@ class _LanguageScreenState extends State<LanguageScreen> {
             GestureDetector(
               onTap: () {
                 setState(() {
-                  selectedLanguage =
-                      AppStrings.english; // Update selected language
+                  selectedLanguage = AppStrings.english;
                 });
               },
               child: CustomListTile(
-                title: AppStrings.english,
+                title: AppStrings.english.tr,
                 prefixIcon: Radio(
                     value: AppStrings.english,
                     activeColor: AppColors.primaryColor,
-                    groupValue:
-                        selectedLanguage, // Use selectedLanguage as groupValue
+                    groupValue: selectedLanguage,
                     onChanged: (value) {
                       setState(() {
-                        selectedLanguage = value!; // Update selected language
+                        selectedLanguage = value!;
                       });
                     }),
               ),
@@ -65,28 +65,28 @@ class _LanguageScreenState extends State<LanguageScreen> {
             GestureDetector(
               onTap: () {
                 setState(() {
-                  selectedLanguage =
-                      AppStrings.spanish; // Update selected language
+                  selectedLanguage = AppStrings.spanish;
                 });
               },
               child: CustomListTile(
-                title: AppStrings.spanish,
+                title: AppStrings.spanish.tr,
                 prefixIcon: Radio(
                     value: AppStrings.spanish,
                     activeColor: AppColors.primaryColor,
-                    groupValue:
-                        selectedLanguage, // Use selectedLanguage as groupValue
+                    groupValue: selectedLanguage,
                     onChanged: (value) {
                       setState(() {
-                        selectedLanguage = value!; // Update selected language
+                        selectedLanguage = value!;
                       });
                     }),
               ),
             ),
             const Spacer(),
             CustomButton(
-              title: AppStrings.continues,
+              title: AppStrings.continues.tr,
               onpress: () {
+
+
                 Get.toNamed(AppRoutes.onboardingScreen);
               },
             ),
