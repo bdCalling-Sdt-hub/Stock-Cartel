@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:stock_cartel/routes/app_routes.dart';
 import 'package:stock_cartel/utils/app_colors.dart';
 import 'package:stock_cartel/views/widgets/custom_button.dart';
 import 'package:stock_cartel/views/widgets/custom_text.dart';
@@ -19,7 +21,7 @@ class OnboardingScreen extends StatelessWidget {
             Container(
               decoration: BoxDecoration(
                   image: DecorationImage(
-                image: AssetImage(AppImages.onboardingBg),
+                image: const AssetImage(AppImages.onboardingBg),
                 fit: BoxFit.cover,
                 colorFilter: ColorFilter.mode(
                   Colors.black.withOpacity(0.3),
@@ -44,17 +46,25 @@ class OnboardingScreen extends StatelessWidget {
                   //========================> Welcome Section <===================
                   const Spacer(),
                   CustomText(
-                    text: AppStrings.welcomeToStock,
+                    text: AppStrings.welcomeToStock.tr,
                     color: Colors.white,
                     fontWeight: FontWeight.w500,
                     fontsize: 20.sp,
                   ),
+                  //========================> Register Button <===================
                   SizedBox(height: 24.h),
-                  CustomButton(onpress: () {}, title: AppStrings.register),
+                  CustomButton(
+                      onpress: () {
+                        Get.toNamed(AppRoutes.registerScreen);
+                      },
+                      title: AppStrings.register.tr),
+                  //========================> Log In Button <===================
                   SizedBox(height: 16.h),
                   CustomButton(
-                    onpress: () {},
-                    title: AppStrings.logIn,
+                    onpress: () {
+                     // Get.toNamed(AppRoutes.logInScreen);
+                    },
+                    title: AppStrings.logIn.tr,
                     color: Colors.white,
                     titlecolor: AppColors.primaryColor,
                   ),
