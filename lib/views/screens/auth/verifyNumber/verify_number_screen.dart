@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:stock_cartel/routes/app_routes.dart';
 import 'package:stock_cartel/utils/app_colors.dart';
 import '../../../../utils/app_strings.dart';
 import '../../../widgets/custom_button.dart';
@@ -60,7 +61,9 @@ class VerifyNumberScreen extends StatelessWidget {
 
               //===============================> Verify Button  <=========================
               SizedBox(height: 203.h),
-              CustomButton(title: AppStrings.verifyNumber, onpress: () {}),
+              CustomButton(title: AppStrings.verifyNumber, onpress: () {
+                Get.toNamed(AppRoutes.setNewPasswordScreen);
+              }),
               SizedBox(height: 74.h)
             ],
           ),
