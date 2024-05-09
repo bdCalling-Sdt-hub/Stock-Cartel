@@ -27,7 +27,7 @@ class AppStrings {
   static String uploadProfilePhoto = "Upload profile photo";
   static String name = "Name";
   static String password = "Password";
-  static String yourPasswordMust = "Your password must be 8-10 character \nlong";
+  static String yourPasswordMust = "Your password must be 8-10 character long";
 
 //================> Log In Screen <====================
   static String logInToYour = "Log in to your account";

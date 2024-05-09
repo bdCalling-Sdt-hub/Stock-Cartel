@@ -52,6 +52,7 @@ class _LanguageScreenState extends State<LanguageScreen> {
                 prefixIcon: Radio(
                     value: AppStrings.english,
                     activeColor: AppColors.primaryColor,
+                    fillColor: MaterialStateColor.resolveWith((states) => AppColors.primaryColor),
                     groupValue: selectedLanguage,
                     onChanged: (value) {
                       setState(() {
@@ -73,6 +74,7 @@ class _LanguageScreenState extends State<LanguageScreen> {
                 prefixIcon: Radio(
                     value: AppStrings.spanish,
                     activeColor: AppColors.primaryColor,
+                    fillColor: MaterialStateColor.resolveWith((states) => AppColors.primaryColor),
                     groupValue: selectedLanguage,
                     onChanged: (value) {
                       setState(() {
