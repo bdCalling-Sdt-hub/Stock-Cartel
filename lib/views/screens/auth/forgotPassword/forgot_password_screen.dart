@@ -10,18 +10,17 @@ import '../../../widgets/custom_button.dart';
 import '../../../widgets/custom_text.dart';
 import '../../../widgets/custom_text_field.dart';
 
-class LogInScreen extends StatelessWidget {
-  LogInScreen({super.key});
+class ForgotPasswordScreen extends StatelessWidget {
+  ForgotPasswordScreen({super.key});
   final TextEditingController phoneNumberCodeCTRl = TextEditingController();
   final TextEditingController phoneNumberCTRl = TextEditingController();
-  final TextEditingController passwordCTRl = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: CustomText(
-          text: AppStrings.logIn.tr,
+          text: AppStrings.forgotPasswords.tr,
           fontsize: 18.h,
           fontWeight: FontWeight.w500,
         ),
@@ -31,11 +30,13 @@ class LogInScreen extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 20.w),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              SizedBox(height: 256.h),
               CustomText(
                 top: 24.h,
                 bottom: 24.h,
-                text: AppStrings.logInToYour.tr,
+                text: AppStrings.enterMobile.tr,
                 fontWeight: FontWeight.w500,
                 fontsize: 18.sp,
               ),
@@ -77,29 +78,10 @@ class LogInScreen extends StatelessWidget {
                   )
                 ],
               ),
-           //====================================> Password Text Field <=========================
-              SizedBox(height: 16.h),
-              CustomTextField(controller: passwordCTRl,
-              contenpaddingVertical: 16.h,
-                contenpaddingHorizontal: 12.w,
-                hintText: AppStrings.password.tr,
-                isPassword: true,
-              ),
-              InkWell(
-                onTap: () {
-                  Get.toNamed(AppRoutes.forgotPasswordScreen);
-                },
-                child: CustomText(
-                  top: 12.h,
-                  text: AppStrings.forgotPassword.tr,
-                  color: AppColors.primaryColor,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              //====================================> Log In Button  <=========================
-              SizedBox(height: 367.h),
-              CustomButton(title: AppStrings.logIn.tr, onpress: () {
-               // Get.toNamed(AppRoutes.verifyNumberScreen);
+              SizedBox(height: 24.h),
+              //====================================> Get OTP Button  <=========================
+              CustomButton(title: AppStrings.getOtp.tr, onpress: () {
+                Get.toNamed(AppRoutes.verifyNumberScreen);
               }),
               SizedBox(height: 74.h)
             ],

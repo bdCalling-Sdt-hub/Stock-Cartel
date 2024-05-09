@@ -33,6 +33,11 @@ class AppStrings {
   static String logInToYour = "Log in to your account";
   static String forgotPassword = "Forgot password?";
 
+  //================> Forgot Password  Screen <====================
+  static String forgotPasswords = "Forgot Password";
+  static String enterMobile = "Enter mobile number to reset password.";
+  static String getOtp = "Get OTP";
+
   //================> Set New Password Screen <====================
   static String setNewPassword = "Set New Password";
   static String setANewPassword = "Set a new Password";
