@@ -1,26 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:stock_cartel/routes/app_routes.dart';
-import 'package:stock_cartel/utils/app_strings.dart';
-import 'package:stock_cartel/views/widgets/custom_button.dart';
-import 'package:stock_cartel/views/widgets/custom_text.dart';
-import 'package:stock_cartel/views/widgets/custom_text_field.dart';
-
+import '../../../../routes/app_routes.dart';
+import '../../../../utils/app_colors.dart';
 import '../../../../utils/app_icons.dart';
+import '../../../../utils/app_strings.dart';
+import '../../../widgets/custom_button.dart';
+import '../../../widgets/custom_text.dart';
+import '../../../widgets/custom_text_field.dart';
 
-class RegisterScreen extends StatelessWidget {
-  RegisterScreen({super.key});
+class LogInScreen extends StatelessWidget {
+  LogInScreen({super.key});
   final TextEditingController phoneNumberCodeCTRl = TextEditingController();
   final TextEditingController phoneNumberCTRl = TextEditingController();
+  final TextEditingController passwordCTRl = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: CustomText(
-          text: AppStrings.register.tr,
+          text: AppStrings.logIn.tr,
           fontsize: 18.h,
           fontWeight: FontWeight.w500,
         ),
@@ -32,14 +33,10 @@ class RegisterScreen extends StatelessWidget {
           children: [
             CustomText(
               top: 24.h,
-              text: AppStrings.whatsYour.tr,
+              bottom: 24.h,
+              text: AppStrings.logInToYour.tr,
               fontWeight: FontWeight.w500,
               fontsize: 18.sp,
-            ),
-            CustomText(
-              top: 8.h,
-              text: AppStrings.weWillText.tr,
-              bottom: 24.h,
             ),
             //====================================> Phone Number Text Field <=========================
             Row(
@@ -79,9 +76,25 @@ class RegisterScreen extends StatelessWidget {
                 )
               ],
             ),
-            //====================================> Verify Button  <=========================
+            SizedBox(height: 16.h),
+            CustomTextField(controller: passwordCTRl,
+            contenpaddingVertical: 16.h,
+              contenpaddingHorizontal: 12.w,
+              hintText: AppStrings.password.tr,
+              isPassword: true,
+            ),
+            InkWell(
+              onTap: () {},
+              child: CustomText(
+                top: 12.h,
+                text: AppStrings.forgotPassword.tr,
+                color: AppColors.primaryColor,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+            //====================================> Log In Button  <=========================
             const Spacer(),
-            CustomButton(title: AppStrings.verifyNumber.tr, onpress: () {
+            CustomButton(title: AppStrings.logIn.tr, onpress: () {
               Get.toNamed(AppRoutes.verifyNumberScreen);
             }),
             SizedBox(height: 74.h)

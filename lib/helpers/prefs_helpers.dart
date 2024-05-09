@@ -93,6 +93,6 @@ class PrefsHelper extends GetxController {
     // preferences.remove("clientId");
     print("::::$token, $forgetPasswordToken, $clientId");
 
-    Get.offAllNamed(AppRoutes.signInScreen);
+    Get.offAllNamed(AppRoutes.logInScreen);
   }
 }

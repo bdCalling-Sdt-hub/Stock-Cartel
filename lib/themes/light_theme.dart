@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:stock_cartel/utils/app_colors.dart';
 ThemeData light({Color color = const Color(0xFF039D55)}) => ThemeData(
   fontFamily: 'Poppins',
-  iconTheme: IconThemeData(color: Colors.black),
+  iconTheme: IconThemeData(color: AppColors.primaryColor),
   primaryColor: color,
   secondaryHeaderColor: Color(0xFF1ED7AA),
   disabledColor: Color(0xFFBABFC4),
