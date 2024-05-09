@@ -99,7 +99,7 @@ class LogInScreen extends StatelessWidget {
               //====================================> Log In Button  <=========================
               SizedBox(height: 367.h),
               CustomButton(title: AppStrings.logIn.tr, onpress: () {
-               // Get.toNamed(AppRoutes.verifyNumberScreen);
+                Get.toNamed(AppRoutes.createAccountScreen);
               }),
               SizedBox(height: 74.h)
             ],

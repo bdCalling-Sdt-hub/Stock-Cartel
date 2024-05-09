@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import '../../../../routes/app_routes.dart';
 import '../../../../utils/app_strings.dart';
 import '../../../widgets/custom_button.dart';
 import '../../../widgets/custom_text.dart';
@@ -58,7 +59,7 @@ class SetNewPasswordScreen extends StatelessWidget {
               CustomButton(
                   title: AppStrings.resetPassword.tr,
                   onpress: () {
-                    // Get.toNamed(AppRoutes.verifyNumberScreen);
+                     //Get.toNamed(AppRoutes.createAccountScreen);
                   }),
               SizedBox(height: 74.h)
             ],

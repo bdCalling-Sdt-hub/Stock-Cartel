@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -101,7 +103,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
             ? GestureDetector(
           onTap: toggle,
           child: _suffixIcon(
-              obscureText ? AppIcons.eyeOff : AppIcons.eye),
+              obscureText ? AppIcons.eyeOff : AppIcons.eye,),
         )
             : widget.sufixicons,
         prefixIconConstraints: BoxConstraints(minHeight: 24.w, minWidth: 24.w),
@@ -132,6 +134,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 16.h),
       child: SvgPicture.asset(
+        color: AppColors.primaryColor,
         icon,
       ),
     );

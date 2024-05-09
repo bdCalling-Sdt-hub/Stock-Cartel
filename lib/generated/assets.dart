@@ -9,6 +9,7 @@ class Assets {
   static const String iconsChevronRight = 'assets/icons/chevron-right.svg';
   static const String iconsClipboardList = 'assets/icons/clipboard-list.svg';
   static const String iconsCog = 'assets/icons/cog.svg';
+  static const String iconsEditCam = 'assets/icons/editCam.svg';
   static const String iconsExclamationCircle = 'assets/icons/exclamation-circle.svg';
   static const String iconsEye = 'assets/icons/eye.svg';
   static const String iconsEyeOff = 'assets/icons/eye-off.svg';
@@ -24,6 +25,7 @@ class Assets {
   static const String iconsUser = 'assets/icons/user.svg';
   static const String imagesAppLogo = 'assets/images/appLogo.png';
   static const String imagesOnboardingBg = 'assets/images/onboardingBg.png';
+  static const String imagesPerson = 'assets/images/person.png';
   static const String languageEn = 'assets/language/en.json';
   static const String languageEs = 'assets/language/es.json';
   static const String languageLanguage = 'assets/language/language.dart';
