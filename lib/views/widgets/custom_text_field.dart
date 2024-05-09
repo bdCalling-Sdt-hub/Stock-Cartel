@@ -112,7 +112,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         labelText: widget.labelText,
         hintText: widget.hintText,
         hintStyle: TextStyle(
-            color:Colors.black, fontFamily: 'Poppins', fontSize: 16.sp),
+            color:AppColors.hintColor, fontFamily: 'Poppins', fontSize: 16.sp),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8.r),
           borderSide: BorderSide(
@@ -129,8 +129,11 @@ class _CustomTextFieldState extends State<CustomTextField> {
   }
 
   _suffixIcon(String icon) {
-    return SvgPicture.asset(
-      icon,
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 16.h),
+      child: SvgPicture.asset(
+        icon,
+      ),
     );
   }
 

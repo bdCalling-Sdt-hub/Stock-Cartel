@@ -62,7 +62,7 @@ class OnboardingScreen extends StatelessWidget {
                   SizedBox(height: 16.h),
                   CustomButton(
                     onpress: () {
-                     // Get.toNamed(AppRoutes.logInScreen);
+                      Get.toNamed(AppRoutes.logInScreen);
                     },
                     title: AppStrings.logIn.tr,
                     color: Colors.white,
