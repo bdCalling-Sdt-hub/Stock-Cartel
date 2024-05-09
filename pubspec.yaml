@@ -47,6 +47,7 @@ dependencies:
   shared_preferences: ^2.2.3
   cached_network_image: ^3.3.1
   intl:
+  flutter_spinkit:
 
 dev_dependencies:
   flutter_test:

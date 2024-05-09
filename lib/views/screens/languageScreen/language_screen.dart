@@ -85,8 +85,8 @@ class _LanguageScreenState extends State<LanguageScreen> {
             ),
             const Spacer(),
             CustomButton(
-              title: AppStrings.continues.tr,
-              onpress: () {
+              text: AppStrings.continues.tr,
+              onTap: () {
 
 
                 Get.toNamed(AppRoutes.onboardingScreen);

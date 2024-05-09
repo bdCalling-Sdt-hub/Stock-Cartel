@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:stock_cartel/routes/app_routes.dart';
+import 'package:stock_cartel/utils/app_colors.dart';
 import 'package:stock_cartel/utils/app_strings.dart';
 import 'package:stock_cartel/views/widgets/custom_button.dart';
 import 'package:stock_cartel/views/widgets/custom_text.dart';
@@ -49,30 +50,23 @@ class RegisterScreen extends StatelessWidget {
                   width: 84.w,
                   height: 56.h,
                   child: CustomTextField(
-                    contenpaddingHorizontal: 12.w,
-                    contenpaddingVertical: 16.h,
-                    readOnly: true,
                     controller: phoneNumberCodeCTRl,
-                    hintText: '+44'.tr,
+                    hintText: "+44",
                     sufixicons: Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: 16.w, vertical: 16.h),
-                      child: SvgPicture.asset(
-                        AppIcons.downArrow,
-                        width: 20.h,
-                        height: 12.h,
-                      ),
+                      padding: const EdgeInsets.all(8.0),
+                      child: SvgPicture.asset(AppIcons.downArrow),
                     ),
                   ),
+
                 ),
+
                 SizedBox(width: 16.w),
                 SizedBox(
                   width: 250.w,
                   height: 56.h,
                   child: CustomTextField(
                     keyboardType: TextInputType.phone,
-                    contenpaddingHorizontal: 12.w,
-                    contenpaddingVertical: 16.h,
+
                     controller: phoneNumberCTRl,
                     hintText: AppStrings.phoneNumber.tr,
                   ),
@@ -81,7 +75,7 @@ class RegisterScreen extends StatelessWidget {
             ),
             //====================================> Verify Button  <=========================
             const Spacer(),
-            CustomButton(title: AppStrings.verifyNumber.tr, onpress: () {
+            CustomButton(text: AppStrings.verifyNumber.tr, onTap: () {
               Get.toNamed(AppRoutes.verifyNumberScreen);
             }),
             SizedBox(height: 74.h)

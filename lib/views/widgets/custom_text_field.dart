@@ -1,8 +1,8 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+
+
 import '../../utils/app_colors.dart';
 import '../../utils/app_icons.dart';
 
@@ -95,26 +95,25 @@ class _CustomTextFieldState extends State<CustomTextField> {
       decoration: InputDecoration(
         contentPadding: EdgeInsets.symmetric(
             horizontal: widget.contenpaddingHorizontal ?? 12.w,
-            vertical: widget.contenpaddingVertical ?? 16.h),
+            vertical: widget.contenpaddingVertical ?? 16.w),
         filled: true,
-        fillColor: widget.filColor ?? const Color(0xFFe6f2e6),
+        fillColor: widget.filColor ??  AppColors.fillColor,
         prefixIcon: widget.prifixicon,
         suffixIcon: widget.isPassword
             ? GestureDetector(
           onTap: toggle,
           child: _suffixIcon(
-              obscureText ? AppIcons.eyeOff : AppIcons.eye,),
+              obscureText ? AppIcons.eyeOff : AppIcons.eye),
         )
             : widget.sufixicons,
         prefixIconConstraints: BoxConstraints(minHeight: 24.w, minWidth: 24.w),
-        suffixIconConstraints: BoxConstraints(minHeight: 24.w, minWidth: 24.w),
         errorStyle: TextStyle(color: AppColors.primaryColor),
         suffixIconColor: AppColors.primaryColor,
         prefixIconColor: AppColors.primaryColor,
         labelText: widget.labelText,
         hintText: widget.hintText,
         hintStyle: TextStyle(
-            color:AppColors.hintColor, fontFamily: 'Poppins', fontSize: 16.sp),
+            color: AppColors.hintColor, fontFamily: 'Poppins'),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8.r),
           borderSide: BorderSide(
@@ -132,10 +131,13 @@ class _CustomTextFieldState extends State<CustomTextField> {
 
   _suffixIcon(String icon) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 16.h),
+      padding: const EdgeInsets.all(10.0),
       child: SvgPicture.asset(
         color: AppColors.primaryColor,
         icon,
+        width: 12.h,
+        height: 12.h,
+        fit: BoxFit.contain,
       ),
     );
   }

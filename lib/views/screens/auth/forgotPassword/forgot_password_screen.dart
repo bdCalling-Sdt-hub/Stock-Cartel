@@ -44,34 +44,13 @@ class ForgotPasswordScreen extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  SizedBox(
-                    width: 84.w,
-                    height: 56.h,
-                    child: CustomTextField(
-                      contenpaddingHorizontal: 12.w,
-                      contenpaddingVertical: 16.h,
-                      readOnly: true,
-                      controller: phoneNumberCodeCTRl,
-                      hintText: '+44'.tr,
-                      sufixicons: Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 16.w, vertical: 16.h),
-                        child: SvgPicture.asset(
-                          AppIcons.downArrow,
-                          width: 20.h,
-                          height: 12.h,
-                        ),
-                      ),
-                    ),
-                  ),
+
                   SizedBox(width: 16.w),
                   SizedBox(
                     width: 250.w,
                     height: 56.h,
                     child: CustomTextField(
                       keyboardType: TextInputType.phone,
-                      contenpaddingHorizontal: 12.w,
-                      contenpaddingVertical: 16.h,
                       controller: phoneNumberCTRl,
                       hintText: AppStrings.phoneNumber.tr,
                     ),
@@ -80,7 +59,7 @@ class ForgotPasswordScreen extends StatelessWidget {
               ),
               SizedBox(height: 24.h),
               //====================================> Get OTP Button  <=========================
-              CustomButton(title: AppStrings.getOtp.tr, onpress: () {
+              CustomButton(text: AppStrings.getOtp.tr, onTap: () {
                 Get.toNamed(AppRoutes.verifyNumberScreen);
               }),
               SizedBox(height: 74.h)

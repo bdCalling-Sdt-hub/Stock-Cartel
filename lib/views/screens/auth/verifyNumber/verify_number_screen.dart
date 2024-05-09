@@ -61,9 +61,11 @@ class VerifyNumberScreen extends StatelessWidget {
 
               //===============================> Verify Button  <=========================
               SizedBox(height: 203.h),
-              CustomButton(title: AppStrings.verifyNumber, onpress: () {
-                Get.toNamed(AppRoutes.setNewPasswordScreen);
-              }),
+              CustomButton(
+                  text: AppStrings.verifyNumber,
+                  onTap: () {
+                    Get.toNamed(AppRoutes.setNewPasswordScreen);
+                  }),
               SizedBox(height: 74.h)
             ],
           ),

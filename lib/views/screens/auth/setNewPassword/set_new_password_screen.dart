@@ -40,8 +40,6 @@ class SetNewPasswordScreen extends StatelessWidget {
               SizedBox(height: 16.h),
               CustomTextField(
                 controller: setPasswordCTRl,
-                contenpaddingVertical: 16.h,
-                contenpaddingHorizontal: 12.w,
                 hintText: AppStrings.setANewPassword.tr,
                 isPassword: true,
               ),
@@ -49,16 +47,15 @@ class SetNewPasswordScreen extends StatelessWidget {
               SizedBox(height: 16.h),
               CustomTextField(
                 controller: confirmPasswordCTRl,
-                contenpaddingVertical: 16.h,
-                contenpaddingHorizontal: 12.w,
+
                 hintText: AppStrings.confirmNewPassword.tr,
                 isPassword: true,
               ),
               //====================================> Reset Password Button  <=========================
               SizedBox(height: 382.h),
               CustomButton(
-                  title: AppStrings.resetPassword.tr,
-                  onpress: () {
+                  text: AppStrings.resetPassword.tr,
+                  onTap: () {
                      //Get.toNamed(AppRoutes.createAccountScreen);
                   }),
               SizedBox(height: 74.h)
