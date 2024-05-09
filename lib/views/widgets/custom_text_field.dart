@@ -129,11 +129,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
   }
 
   _suffixIcon(String icon) {
-    return Padding(
-      padding:  EdgeInsets.only(right: 12.w),
-      child: SvgPicture.asset(
-        icon,
-      ),
+    return SvgPicture.asset(
+      icon,
     );
   }
 

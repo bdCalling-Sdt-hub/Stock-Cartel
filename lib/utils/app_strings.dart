@@ -18,7 +18,7 @@ class AppStrings {
   //================> Verify Number Screen <====================
   static String verifyNumber = "Verify Number";
   static String weHaveSent = "We have sent a verification code to your phone number. Please enter the code to verify your number.";
-  static String didntGet = "Did’t get the code?";
+  static String didntGet = "Didn’t get the code?";
   static String resend = "Resend";
 
   //================> Create Account Screen <====================
