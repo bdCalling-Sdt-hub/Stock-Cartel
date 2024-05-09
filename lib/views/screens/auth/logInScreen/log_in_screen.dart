@@ -43,34 +43,14 @@ class LogInScreen extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  SizedBox(
-                    width: 84.w,
-                    height: 56.h,
-                    child: CustomTextField(
-                      contenpaddingHorizontal: 12.w,
-                      contenpaddingVertical: 16.h,
-                      readOnly: true,
-                      controller: phoneNumberCodeCTRl,
-                      hintText: '+44'.tr,
-                      sufixicons: Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 16.w, vertical: 16.h),
-                        child: SvgPicture.asset(
-                          AppIcons.downArrow,
-                          width: 20.h,
-                          height: 12.h,
-                        ),
-                      ),
-                    ),
-                  ),
+
                   SizedBox(width: 16.w),
                   SizedBox(
                     width: 250.w,
                     height: 56.h,
                     child: CustomTextField(
                       keyboardType: TextInputType.phone,
-                      contenpaddingHorizontal: 12.w,
-                      contenpaddingVertical: 16.h,
+
                       controller: phoneNumberCTRl,
                       hintText: AppStrings.phoneNumber.tr,
                     ),
@@ -80,8 +60,6 @@ class LogInScreen extends StatelessWidget {
            //====================================> Password Text Field <=========================
               SizedBox(height: 16.h),
               CustomTextField(controller: passwordCTRl,
-              contenpaddingVertical: 16.h,
-                contenpaddingHorizontal: 12.w,
                 hintText: AppStrings.password.tr,
                 isPassword: true,
               ),
@@ -98,7 +76,7 @@ class LogInScreen extends StatelessWidget {
               ),
               //====================================> Log In Button  <=========================
               SizedBox(height: 367.h),
-              CustomButton(title: AppStrings.logIn.tr, onpress: () {
+              CustomButton(text: AppStrings.logIn.tr, onTap: () {
                 Get.toNamed(AppRoutes.createAccountScreen);
               }),
               SizedBox(height: 74.h)

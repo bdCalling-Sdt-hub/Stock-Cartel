@@ -43,4 +43,13 @@ class AppStrings {
   static String setANewPassword = "Set a new Password";
   static String confirmNewPassword = "Confirm new Password";
   static String resetPassword = "Reset Password";
+
+  //================> Subscription Screen Screen <====================
+  static String subscription = "Subscription";
+  static String pleaseChoose = "Please choose a subscription plan to continue with Stock-Cartel.";
+  static String selectYourPlan = "SELECT YOUR PLAN";
+  static String selectPlan = "Select Plan";
+  static String recurringBilling = "*Recurring billing. Cancel anytime.";
+
+
 }

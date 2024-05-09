@@ -8,6 +8,7 @@ import '../views/screens/auth/setNewPassword/set_new_password_screen.dart';
 import '../views/screens/auth/verifyNumber/verify_number_screen.dart';
 import '../views/screens/onboardingScreen/onboarding_screen.dart';
 import '../views/screens/splashScreen/splash_screen.dart';
+import '../views/screens/subscriptionScreen/subscription_screen.dart';
 
 class AppRoutes{
   static const String splashScreen = "/splash_screen.dart";
@@ -19,6 +20,7 @@ class AppRoutes{
   static const String forgotPasswordScreen = "/forgot_password_screen.dart";
   static const String setNewPasswordScreen = "/set_new_password_screen.dart";
   static const String createAccountScreen = "/create_account_screen.dart";
+  static const String subscriptionScreen = "/subscription_screen.dart";
 
   static List<GetPage> get routes => [
   GetPage(name: splashScreen, page: () => SplashScreen()),
@@ -30,5 +32,6 @@ class AppRoutes{
   GetPage(name: forgotPasswordScreen , page: () => ForgotPasswordScreen()),
   GetPage(name: setNewPasswordScreen , page: () => SetNewPasswordScreen()),
   GetPage(name: createAccountScreen , page: () => CreateAccountScreen()),
+  GetPage(name: subscriptionScreen , page: () => SubscriptionScreen()),
   ];
 }

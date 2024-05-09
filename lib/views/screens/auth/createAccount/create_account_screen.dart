@@ -107,16 +107,13 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
               SizedBox(height: 24.h),
               CustomTextField(
                 controller: nameCTRl,
-                contenpaddingVertical: 16.h,
-                contenpaddingHorizontal: 12.w,
+
                 hintText: AppStrings.name.tr,
               ),
               //====================================> Password Text Field <=========================
               SizedBox(height: 16.h),
               CustomTextField(
                 controller: setPasswordCTRl,
-                contenpaddingVertical: 16.h,
-                contenpaddingHorizontal: 12.w,
                 hintText: AppStrings.password.tr,
                 isPassword: true,
               ),
@@ -130,8 +127,8 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
               //====================================> Create Account Button  <=========================
               SizedBox(height: 175.h),
               CustomButton(
-                  title: AppStrings.createAccount.tr,
-                  onpress: () {
+                  text: AppStrings.createAccount.tr,
+                  onTap: () {
                     // Get.toNamed(AppRoutes.verifyNumberScreen);
                   }),
               SizedBox(height: 74.h)

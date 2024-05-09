@@ -54,19 +54,19 @@ class OnboardingScreen extends StatelessWidget {
                   //========================> Register Button <===================
                   SizedBox(height: 24.h),
                   CustomButton(
-                      onpress: () {
+                      onTap: () {
                         Get.toNamed(AppRoutes.registerScreen);
                       },
-                      title: AppStrings.register.tr),
+                      text: AppStrings.register.tr),
                   //========================> Log In Button <===================
                   SizedBox(height: 16.h),
                   CustomButton(
-                    onpress: () {
+                    onTap: () {
                       Get.toNamed(AppRoutes.logInScreen);
                     },
-                    title: AppStrings.logIn.tr,
+                    text: AppStrings.logIn.tr,
                     color: Colors.white,
-                    titlecolor: AppColors.primaryColor,
+                   textStyle: TextStyle(color:Get.theme.primaryColor),
                   ),
                   SizedBox(height: 54.h),
                 ],
