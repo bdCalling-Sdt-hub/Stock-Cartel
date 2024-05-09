@@ -18,6 +18,8 @@ ThemeData light({Color color = const Color(0xFF039D55)}) => ThemeData(
       .copyWith(background: const Color(0xFFF3F3F3))
       .copyWith(error: Color(0xFFE84D4F)),
   appBarTheme: AppBarTheme(
+    backgroundColor: Colors.transparent,
+    centerTitle: true,
     iconTheme: IconThemeData(color: Colors.black), // Set app bar icons color to black
   ),
 );
