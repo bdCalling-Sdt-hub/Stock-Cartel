@@ -53,4 +53,13 @@ class AppStrings {
   static String notifications = "Notifications";
 
 
+  //================> Profile Screen <====================
+  static String profile = "Profile";
+  static String personalInformation = "Personal Information";
+  static String settings = "Settings";
+  static String logOut = "Log out";
+  static String updateProfile = "Update Profile";
+
+
+
 }
