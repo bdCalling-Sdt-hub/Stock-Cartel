@@ -57,8 +57,7 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
                   bottom: 8.h,
                 ),
               ),
-              SizedBox(
-                height: 273.h,
+              Expanded(
                 child: ListView.builder(
                   physics:const NeverScrollableScrollPhysics(),
                     itemCount: 3,
