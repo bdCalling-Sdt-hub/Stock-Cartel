@@ -50,14 +50,17 @@ class RegisterScreen extends StatelessWidget {
                   width: 84.w,
                   height: 56.h,
                   child: CustomTextField(
+                    onTab: (){},
+                    readOnly: true,
                     controller: phoneNumberCodeCTRl,
+                    contenpaddingHorizontal: 12.w,
+                    contenpaddingVertical: 16.h,
                     hintText: "+44",
                     sufixicons: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: SvgPicture.asset(AppIcons.downArrow),
+                      padding: EdgeInsets.only(right: 10.w),
+                      child: SvgPicture.asset(AppIcons.downArrow,color: Colors.grey),
                     ),
                   ),
-
                 ),
 
                 SizedBox(width: 16.w),

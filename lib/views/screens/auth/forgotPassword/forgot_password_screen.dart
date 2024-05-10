@@ -44,7 +44,22 @@ class ForgotPasswordScreen extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-
+                  SizedBox(
+                    width: 84.w,
+                    height: 56.h,
+                    child: CustomTextField(
+                      onTab: (){},
+                      readOnly: true,
+                      controller: phoneNumberCodeCTRl,
+                      contenpaddingHorizontal: 12.w,
+                      contenpaddingVertical: 16.h,
+                      hintText: "+44",
+                      sufixicons: Padding(
+                        padding: EdgeInsets.only(right: 10.w),
+                        child: SvgPicture.asset(AppIcons.downArrow,color: Colors.grey),
+                      ),
+                    ),
+                  ),
                   SizedBox(width: 16.w),
                   SizedBox(
                     width: 250.w,

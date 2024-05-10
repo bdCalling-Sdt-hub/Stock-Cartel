@@ -106,7 +106,9 @@ class _CustomTextFieldState extends State<CustomTextField> {
               obscureText ? AppIcons.eyeOff : AppIcons.eye),
         )
             : widget.sufixicons,
-        prefixIconConstraints: BoxConstraints(minHeight: 24.w, minWidth: 24.w),
+        prefixIconConstraints: BoxConstraints(minHeight: 24.h, minWidth: 24.w),
+        suffixIconConstraints: BoxConstraints(minHeight: 24.h, minWidth: 24.w),
+
         errorStyle: TextStyle(color: AppColors.primaryColor),
         suffixIconColor: AppColors.primaryColor,
         prefixIconColor: AppColors.primaryColor,
@@ -131,13 +133,10 @@ class _CustomTextFieldState extends State<CustomTextField> {
 
   _suffixIcon(String icon) {
     return Padding(
-      padding: const EdgeInsets.all(10.0),
+      padding: EdgeInsets.only(right: 15.w),
       child: SvgPicture.asset(
         color: AppColors.primaryColor,
         icon,
-        width: 12.h,
-        height: 12.h,
-        fit: BoxFit.contain,
       ),
     );
   }
