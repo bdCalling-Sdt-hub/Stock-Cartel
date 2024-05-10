@@ -50,6 +50,7 @@ class AppStrings {
   static String selectYourPlan = "SELECT YOUR PLAN";
   static String selectPlan = "Select Plan";
   static String recurringBilling = "*Recurring billing. Cancel anytime.";
+  static String notifications = "Notifications";
 
 
 }

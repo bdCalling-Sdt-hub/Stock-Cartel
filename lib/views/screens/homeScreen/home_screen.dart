@@ -24,7 +24,7 @@ class HomeScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             //====================================> Logo With Notification <==========================
-            SizedBox(height: 52.h),
+            SizedBox(height: 62.h),
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -36,7 +36,7 @@ class HomeScreen extends StatelessWidget {
                 ),
                 GestureDetector(
                     onTap: () {
-                      //Get.toNamed(AppRoutes.notificationScreen);
+                      Get.toNamed(AppRoutes.notificationScreen);
                     },
                     child: SvgPicture.asset(AppIcons.notifications,
                         width: 36.w, height: 36.h))
@@ -49,7 +49,9 @@ class HomeScreen extends StatelessWidget {
                   itemCount: 3,
                   itemBuilder: (context, index) {
                     return GestureDetector(
-                      onTap: (){},
+                      onTap: (){
+                        Get.toNamed(AppRoutes.chatScreen);
+                      },
                       child: Container(
                         margin: EdgeInsets.symmetric(vertical: 8.h),
                         width: 350.w,

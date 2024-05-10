@@ -10,13 +10,12 @@ class BottomMenu extends StatelessWidget {
   final int menuIndex;
   const BottomMenu(this.menuIndex, {super.key});
   Color colorByIndex(ThemeData theme, int index) {
-    return index == menuIndex ? AppColors.primaryColor : theme.disabledColor;
+    return index == menuIndex ? AppColors.primaryColor : theme.disabledColor  ;
   }
 
   BottomNavigationBarItem getItem(
       String image, String title, ThemeData theme, int index) {
     return BottomNavigationBarItem(
-        backgroundColor: AppColors.primaryColor,
         label: title,
         icon: Padding(
           padding: const EdgeInsets.only(top: 8),
@@ -58,7 +57,7 @@ class BottomMenu extends StatelessWidget {
                 Get.offAndToNamed(AppRoutes.homeScreen);
                 break;
               case 1:
-                Get.offAndToNamed(AppRoutes.subscriptionScreen);
+                Get.offAndToNamed(AppRoutes.homeScreen);
                 break;
             }
           },

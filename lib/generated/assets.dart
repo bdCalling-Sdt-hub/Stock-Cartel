@@ -24,6 +24,8 @@ class Assets {
   static const String iconsNotifications = 'assets/icons/notifications.svg';
   static const String iconsPencilAlt = 'assets/icons/pencil-alt.svg';
   static const String iconsPhone = 'assets/icons/phone.svg';
+  static const String iconsPhoto = 'assets/icons/photo.svg';
+  static const String iconsSendIcon = 'assets/icons/sendIcon.svg';
   static const String iconsShieldCheck = 'assets/icons/shield-check.svg';
   static const String iconsUser = 'assets/icons/user.svg';
   static const String imagesAppLogo = 'assets/images/appLogo.png';
