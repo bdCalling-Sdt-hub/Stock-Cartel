@@ -42,7 +42,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
                 CustomListTile(
                   onTap: () {
-                    // Get.toNamed(AppRoutes.settingScreen);
+                    Get.toNamed(AppRoutes.settingsScreen);
                   },
                   title: AppStrings.settings,
                   prefixIcon: SvgPicture.asset(AppIcons.settings,
