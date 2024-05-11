@@ -74,7 +74,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                               : CircleAvatar(
                                   radius: 60.r,
                                   backgroundImage: const NetworkImage(
-                                      'https://st3.depositphotos.com/15648834/17930/v/450/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg'),
+                                      'https://st3.depositphotos.com/15648834/17930/v/450/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-settingsScreen.jpg'),
                                 ),
                           Positioned(
                               bottom: 12.h,
@@ -146,7 +146,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     );
   }
 
-  ///==================================> ShowImagePickerOption Function <===============================
+  //==================================> ShowImagePickerOption Function <===============================
 
   void showImagePickerOption(BuildContext context) {
     showModalBottomSheet(
@@ -224,6 +224,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       selectedIMage = File(returnImage.path);
       _image = File(returnImage.path).readAsBytesSync();
     });
-    // Get.back();
+     Get.back();
   }
 }
