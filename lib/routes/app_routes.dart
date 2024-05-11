@@ -10,7 +10,9 @@ import '../views/screens/homeScreen/home_screen.dart';
 import '../views/screens/messageScreen/chat_screen.dart';
 import '../views/screens/notificationsScreen/notifications_screen.dart';
 import '../views/screens/onboardingScreen/onboarding_screen.dart';
-import '../views/screens/profileScreen/profile_screen.dart';
+import '../views/screens/profileScreen/editProfile/edit_profile_screen.dart';
+import '../views/screens/profileScreen/presonalInformation/presonal_information.dart';
+import '../views/screens/profileScreen/profile/profile_screen.dart';
 import '../views/screens/splashScreen/splash_screen.dart';
 import '../views/screens/subscriptionScreen/subscription_screen.dart';
 
@@ -29,6 +31,8 @@ class AppRoutes{
   static const String chatScreen = "/chat_screen.dart";
   static const String notificationScreen = "/notification_screen.dart";
   static const String profileScreen = "/profile_screen.dart";
+  static const String personalInformation = "/personal_information.dart";
+  static const String editProfileScreen = "/edit_profile_screen.dart";
 
   static List<GetPage> get routes => [
   GetPage(name: splashScreen, page: () => SplashScreen()),
@@ -45,5 +49,7 @@ class AppRoutes{
   GetPage(name: chatScreen , page: () => ChatScreen()),
   GetPage(name: notificationScreen , page: () => NotificationScreen()),
   GetPage(name: profileScreen , page: () => ProfileScreen()),
+  GetPage(name: personalInformation , page: () => PersonalInformation()),
+  GetPage(name: editProfileScreen , page: () => EditProfileScreen()),
   ];
 }

@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import '../../../../../utils/app_colors.dart';
-import '../../../../../utils/app_icons.dart';
+import '../../../../../utils/app_images.dart';
 import '../../../../../utils/app_strings.dart';
-import '../../../../utils/app_images.dart';
-import '../../../widgets/custom_text.dart';
+import '../../../../widgets/custom_text.dart';
 
 
 class TopProfileCard extends StatelessWidget {
@@ -46,14 +44,14 @@ class TopProfileCard extends StatelessWidget {
             width: 100.w,
             decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                border: Border.all(color: AppColors.primaryColor)),
+                border: Border.all(width: 2.w, color: AppColors.white)),
 
-            ///------------------image------------------>
+            //=======================> Profile Image <===========================
             child: profileUrl == null
                 ? const CircleAvatar(
               backgroundImage: AssetImage(AppImages.person),
             )
-                : CircleAvatar(
+                : const CircleAvatar(
               backgroundImage:
               NetworkImage("https://st3.depositphotos.com/15648834/17930/v/450/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"),
             ),

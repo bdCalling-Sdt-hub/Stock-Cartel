@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
-
 import '../../utils/app_colors.dart';
 import '../../utils/app_icons.dart';
 
@@ -97,25 +96,23 @@ class _CustomTextFieldState extends State<CustomTextField> {
             horizontal: widget.contenpaddingHorizontal ?? 12.w,
             vertical: widget.contenpaddingVertical ?? 16.w),
         filled: true,
-        fillColor: widget.filColor ??  AppColors.fillColor,
+        fillColor: widget.filColor ?? AppColors.fillColor,
         prefixIcon: widget.prifixicon,
         suffixIcon: widget.isPassword
             ? GestureDetector(
-          onTap: toggle,
-          child: _suffixIcon(
-              obscureText ? AppIcons.eyeOff : AppIcons.eye),
-        )
+                onTap: toggle,
+                child:
+                    _suffixIcon(obscureText ? AppIcons.eyeOff : AppIcons.eye),
+              )
             : widget.sufixicons,
         prefixIconConstraints: BoxConstraints(minHeight: 24.h, minWidth: 24.w),
         suffixIconConstraints: BoxConstraints(minHeight: 24.h, minWidth: 24.w),
-
         errorStyle: TextStyle(color: AppColors.primaryColor),
         suffixIconColor: AppColors.primaryColor,
         prefixIconColor: AppColors.primaryColor,
         labelText: widget.labelText,
         hintText: widget.hintText,
-        hintStyle: TextStyle(
-            color: AppColors.hintColor, fontFamily: 'Poppins'),
+        hintStyle: TextStyle(color: AppColors.hintColor, fontFamily: 'Poppins'),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8.r),
           borderSide: BorderSide(
