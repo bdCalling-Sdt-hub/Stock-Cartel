@@ -21,8 +21,8 @@ class BottomMenu extends StatelessWidget {
           padding: const EdgeInsets.only(top: 8),
           child: SvgPicture.asset(
             image,
-            height: 24.0,
-            width: 24.0,
+            height: 24.0.h,
+            width: 24.0.w,
             color: colorByIndex(theme, index),
           ),
         ));

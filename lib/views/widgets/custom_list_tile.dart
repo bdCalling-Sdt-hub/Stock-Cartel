@@ -29,13 +29,16 @@ class CustomListTile extends StatelessWidget {
         trailing: sufixIcon,
         horizontalTitleGap: 0.w,
         dense: true,
-        title: CustomText(
-          textAlign: TextAlign.left,
-          text: title,
-          maxline: 2,
-          fontsize: 16.sp,
-          fontWeight: FontWeight.w400,
-          fontName: 'Poppins',
+        title: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 10.w),
+          child: CustomText(
+            textAlign: TextAlign.start,
+            text: title,
+            maxline: 2,
+            fontsize: 16.sp,
+            fontWeight: FontWeight.w400,
+            fontName: 'Poppins',
+          ),
         ),
       ),
     );

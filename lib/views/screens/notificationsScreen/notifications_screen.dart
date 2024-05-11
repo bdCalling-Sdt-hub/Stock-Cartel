@@ -54,17 +54,17 @@ class _NotificationScreenState extends State<NotificationScreen> {
 
       //================================> Body section <=======================
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 20.h, vertical: 15),
+        padding: EdgeInsets.symmetric(horizontal: 20.h),
         child: Column(
           children: [
             //================================> Notification section <=======================
             Expanded(
               child: ListView.builder(
-                itemCount: 10,
+                itemCount: 20,
                 itemBuilder: (context, index) {
                   return Padding(
                     padding: EdgeInsets.only(
-                        bottom: 16.h, top: index == 0 ? 20.h : 0),
+                        bottom: 12.h, top: index == 0 ? 20.h : 0),
                     child: _Notification(
                         'Your booking request has approved.', DateTime.now()),
                   );

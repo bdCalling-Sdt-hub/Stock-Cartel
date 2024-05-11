@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../../utils/app_colors.dart';
-import '../../../widgets/custom_text.dart';
+
+import '../../../../../utils/app_colors.dart';
+import '../../../../widgets/custom_text.dart';
+
 
 class CustomListTile extends StatelessWidget {
   final String title;
