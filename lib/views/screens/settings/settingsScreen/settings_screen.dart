@@ -52,7 +52,7 @@ class SettingsScreen extends StatelessWidget {
 
             GestureDetector(
               onTap: () {
-                //Get.toNamed(AppRoutes.privacyPolicyScreen);
+                Get.toNamed(AppRoutes.privacyPolicyScreen);
               },
               child: CustomListTile(
                 title: AppStrings.privacyPolicy,
@@ -71,7 +71,7 @@ class SettingsScreen extends StatelessWidget {
 
             GestureDetector(
               onTap: () {
-               // Get.toNamed(AppRoutes.termsConditionScreen);
+                Get.toNamed(AppRoutes.termsConditionScreen);
               },
               child: CustomListTile(
                 title: AppStrings.termsConditions,
