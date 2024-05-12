@@ -25,10 +25,9 @@ class PersonalInformation extends StatelessWidget {
         centerTitle: true,
       ),
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 27.w),
+        padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
         child: Column(
           children: [
-            SizedBox(height: 24.h),
             //==================================> TopContainer Section <=================================
             TopSection(
               ontap: () {

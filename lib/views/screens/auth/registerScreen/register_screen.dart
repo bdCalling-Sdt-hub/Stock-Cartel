@@ -35,12 +35,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
         ),
       ),
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 20.w),
+        padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             CustomText(
-              top: 24.h,
               text: AppStrings.whatsYour.tr,
               fontWeight: FontWeight.w500,
               fontsize: 18.sp,

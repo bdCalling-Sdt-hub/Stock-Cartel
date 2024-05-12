@@ -36,12 +36,11 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.w),
+          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CustomText(
-                top: 24.h,
                 bottom: 64.h,
                 text: AppStrings.pleaseChoose.tr,
                 fontWeight: FontWeight.w500,

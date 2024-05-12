@@ -59,7 +59,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 maxHeight: 750.h,
               ),
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 24.w),
+                padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
