@@ -8,6 +8,9 @@ import '../../../../utils/app_colors.dart';
 import '../../../../utils/app_icons.dart';
 import '../../../../utils/app_strings.dart';
 import '../../../widgets/bottom_menu..dart';
+import '../../../widgets/custom_button.dart';
+import '../../../widgets/custom_text.dart';
+import 'InnerWidget/custom_alert.dart';
 import 'InnerWidget/custom_list_tile.dart';
 import 'InnerWidget/top_profile_card.dart';
 
@@ -50,7 +53,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
                 CustomListTile(
                   onTap: () {
-                    // Get.toNamed(AppRoutes.settingScreen);
+                    showDialog(
+                        context: context,
+                        builder: (context) {
+                          return CustomAlert();
+                        });
                   },
                   title: AppStrings.logOut,
                   prefixIcon: SvgPicture.asset(AppIcons.logOut,
@@ -64,3 +71,4 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 }
+

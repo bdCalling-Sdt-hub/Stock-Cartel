@@ -35,7 +35,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
       extendBody: true,
       appBar: AppBar(
         title: CustomText(
-          text: AppStrings.changePassword,
+          text: AppStrings.changePasswords,
           fontsize: 18.h,
           fontWeight: FontWeight.w500,
         ),
@@ -127,7 +127,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                     SizedBox(height: 367.h),
                     //===============================> Change Password Button <===============================
                     CustomButton(
-                        text: AppStrings.changePassword,
+                        text: AppStrings.changePasswords,
                         onTap: () {
                           // if (_formKey.currentState!.validate()) {
                           //   _authController.handleChangePassword(

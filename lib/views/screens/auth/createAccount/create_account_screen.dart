@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -23,7 +24,7 @@ class CreateAccountScreen extends StatefulWidget {
 
 class _CreateAccountScreenState extends State<CreateAccountScreen> {
   final TextEditingController nameCTRl = TextEditingController();
-
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController setPasswordCTRl = TextEditingController();
   Uint8List? _image;
   File? selectedIMage;
@@ -104,34 +105,41 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
               ),
 
               //====================================> Name Text Field <=========================
-              SizedBox(height: 24.h),
-              CustomTextField(
-                controller: nameCTRl,
+             Form(
+               key: _formKey,
+               child: Column(
+                 children: [
+                   SizedBox(height: 24.h),
+                   CustomTextField(
+                     controller: nameCTRl,
 
-                hintText: AppStrings.name.tr,
-              ),
-              //====================================> Password Text Field <=========================
-              SizedBox(height: 16.h),
-              CustomTextField(
-                controller: setPasswordCTRl,
-                hintText: AppStrings.password.tr,
-                isPassword: true,
-              ),
-              SizedBox(height: 12.h),
-              CustomText(
-                text: AppStrings.yourPasswordMust.tr,
-                fontsize: 14.sp,
-                textAlign: TextAlign.start,
-                maxline: 3,
-              ),
-              //====================================> Create Account Button  <=========================
-              SizedBox(height: 175.h),
-              CustomButton(
-                  text: AppStrings.createAccount.tr,
-                  onTap: () {
-                    // Get.toNamed(AppRoutes.verifyNumberScreen);
-                  }),
-              SizedBox(height: 74.h)
+                     hintText: AppStrings.name.tr,
+                   ),
+                   //====================================> Password Text Field <=========================
+                   SizedBox(height: 16.h),
+                   CustomTextField(
+                     controller: setPasswordCTRl,
+                     hintText: AppStrings.password.tr,
+                     isPassword: true,
+                   ),
+                   SizedBox(height: 12.h),
+                   CustomText(
+                     text: AppStrings.yourPasswordMust.tr,
+                     fontsize: 14.sp,
+                     textAlign: TextAlign.start,
+                     maxline: 3,
+                   ),
+                   //====================================> Create Account Button  <=========================
+                   SizedBox(height: 175.h),
+                   CustomButton(
+                       text: AppStrings.createAccount.tr,
+                       onTap: () {
+                         // Get.toNamed(AppRoutes.verifyNumberScreen);
+                       }),
+                   SizedBox(height: 74.h)
+                 ],
+               ),
+             )
             ],
           ),
         ),

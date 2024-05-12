@@ -19,6 +19,7 @@ class ForgotPasswordScreen extends StatefulWidget {
 }
 
 class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController phoneNumberCodeCTRl = TextEditingController();
   final TextEditingController phoneNumberCTRl = TextEditingController();
   String _selectedCountryCode = '';
@@ -36,77 +37,91 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.w),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(height: 256.h),
-              CustomText(
-                top: 24.h,
-                bottom: 24.h,
-                text: AppStrings.enterMobile.tr,
-                fontWeight: FontWeight.w500,
-                fontsize: 18.sp,
-              ),
-              //====================================> Phone Number Text Field <=========================
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    height: 56.h,
-                    decoration: BoxDecoration(
-                        border: Border.all(
-                            width: 1.w, color: AppColors.primaryColor),
-                        borderRadius: BorderRadius.circular(8.r)),
-                    child: Row(
-                      children: [
-                        //=================================> Country Code Picker Widget <============================
-                        CountryCodePicker(
-                          showFlag: false,
-                          showFlagDialog: true,
-                          onChanged: (countryCode) {
-                            setState(() {
-                              _selectedCountryCode = countryCode.dialCode!;
-                            });
-                          },
-                          initialSelection: 'BD',
-                          favorite: ['+880', 'BD'],
-                          showCountryOnly: false,
-                          showOnlyCountryWhenClosed: false,
-                          alignLeft: false,
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(right: 5.w),
-                          child: SvgPicture.asset(
-                            AppIcons.downArrow,
-                            color: Colors.grey,
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                  SizedBox(width: 16.w),
-                  Expanded(
-                    child: SizedBox(
+          child: Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(height: 256.h),
+                CustomText(
+                  top: 24.h,
+                  bottom: 24.h,
+                  text: AppStrings.enterMobile.tr,
+                  fontWeight: FontWeight.w500,
+                  fontsize: 18.sp,
+                ),
+                //====================================> Phone Number Text Field <=========================
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
                       height: 56.h,
-                      child: CustomTextField(
-                        keyboardType: TextInputType.phone,
-                        controller: phoneNumberCTRl,
-                        hintText: AppStrings.phoneNumber.tr,
+                      decoration: BoxDecoration(
+                          border: Border.all(
+                              width: 1.w, color: AppColors.primaryColor),
+                          borderRadius: BorderRadius.circular(8.r)),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          //=================================> Country Code Picker Widget <============================
+                          CountryCodePicker(
+                            showFlag: false,
+                            showFlagDialog: true,
+                            onChanged: (countryCode) {
+                              setState(() {
+                                _selectedCountryCode = countryCode.dialCode!;
+                              });
+                            },
+                            initialSelection: 'BD',
+                            favorite: ['+880', 'BD'],
+                            showCountryOnly: false,
+                            showOnlyCountryWhenClosed: false,
+                            alignLeft: false,
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(right: 5.w),
+                            child: SvgPicture.asset(
+                              AppIcons.downArrow,
+                              color: Colors.grey,
+                            ),
+                          )
+                        ],
                       ),
                     ),
-                  )
-                ],
-              ),
-              SizedBox(height: 24.h),
-              //====================================> Get OTP Button  <=========================
-              CustomButton(
-                  text: AppStrings.getOtp.tr,
-                  onTap: () {
-                    Get.toNamed(AppRoutes.verifyNumberScreen);
-                  }),
-              SizedBox(height: 74.h)
-            ],
+                    SizedBox(width: 16.w),
+                    Expanded(
+                      child: SizedBox(
+                        height: 56.h,
+                        child: CustomTextField(
+                          keyboardType: TextInputType.phone,
+                          controller: phoneNumberCTRl,
+                          hintText: AppStrings.phoneNumber.tr,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return "Please enter your \nphone number";
+                            }
+                            return null;
+                          },
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+                SizedBox(height: 24.h),
+                //====================================> Get OTP Button  <=========================
+                CustomButton(
+                    text: AppStrings.getOtp.tr,
+                    onTap: () {
+                      Get.toNamed(AppRoutes.verifyNumberScreen);
+                      /*if (_formKey.currentState!.validate()) {
+                        _authcontroller.handleForget();
+                        // Get.toNamed(AppRoutes.verifyOtpScreen);
+                      }*/
+                    }),
+                SizedBox(height: 74.h)
+              ],
+            ),
           ),
         ),
       ),
