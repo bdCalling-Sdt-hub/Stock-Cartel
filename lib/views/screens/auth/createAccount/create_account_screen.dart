@@ -1,6 +1,4 @@
 import 'dart:io';
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -41,13 +39,12 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.w),
+          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               //============================> Please Fill Up Text Section <===================
               CustomText(
-                top: 24.h,
                 text: AppStrings.pleaseFillUp.tr,
                 fontWeight: FontWeight.w500,
                 fontsize: 18.sp,
@@ -105,41 +102,40 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
               ),
 
               //====================================> Name Text Field <=========================
-             Form(
-               key: _formKey,
-               child: Column(
-                 children: [
-                   SizedBox(height: 24.h),
-                   CustomTextField(
-                     controller: nameCTRl,
-
-                     hintText: AppStrings.name.tr,
-                   ),
-                   //====================================> Password Text Field <=========================
-                   SizedBox(height: 16.h),
-                   CustomTextField(
-                     controller: setPasswordCTRl,
-                     hintText: AppStrings.password.tr,
-                     isPassword: true,
-                   ),
-                   SizedBox(height: 12.h),
-                   CustomText(
-                     text: AppStrings.yourPasswordMust.tr,
-                     fontsize: 14.sp,
-                     textAlign: TextAlign.start,
-                     maxline: 3,
-                   ),
-                   //====================================> Create Account Button  <=========================
-                   SizedBox(height: 175.h),
-                   CustomButton(
-                       text: AppStrings.createAccount.tr,
-                       onTap: () {
-                         // Get.toNamed(AppRoutes.verifyNumberScreen);
-                       }),
-                   SizedBox(height: 74.h)
-                 ],
-               ),
-             )
+              Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    SizedBox(height: 24.h),
+                    CustomTextField(
+                      controller: nameCTRl,
+                      hintText: AppStrings.name.tr,
+                    ),
+                    //====================================> Password Text Field <=========================
+                    SizedBox(height: 16.h),
+                    CustomTextField(
+                      controller: setPasswordCTRl,
+                      hintText: AppStrings.password.tr,
+                      isPassword: true,
+                    ),
+                    SizedBox(height: 12.h),
+                    CustomText(
+                      text: AppStrings.yourPasswordMust.tr,
+                      fontsize: 14.sp,
+                      textAlign: TextAlign.start,
+                      maxline: 3,
+                    ),
+                    //====================================> Create Account Button  <=========================
+                    SizedBox(height: 175.h),
+                    CustomButton(
+                        text: AppStrings.createAccount.tr,
+                        onTap: () {
+                          // Get.toNamed(AppRoutes.verifyNumberScreen);
+                        }),
+                    SizedBox(height: 74.h)
+                  ],
+                ),
+              )
             ],
           ),
         ),

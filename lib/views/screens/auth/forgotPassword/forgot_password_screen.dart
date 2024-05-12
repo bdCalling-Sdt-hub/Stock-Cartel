@@ -36,7 +36,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.w),
+          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
           child: Form(
             key: _formKey,
             child: Column(
@@ -45,7 +45,6 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
               children: [
                 SizedBox(height: 256.h),
                 CustomText(
-                  top: 24.h,
                   bottom: 24.h,
                   text: AppStrings.enterMobile.tr,
                   fontWeight: FontWeight.w500,

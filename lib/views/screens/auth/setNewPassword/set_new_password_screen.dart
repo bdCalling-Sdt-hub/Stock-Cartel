@@ -25,14 +25,13 @@ class SetNewPasswordScreen extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.w),
+          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
           child: Form(
             key: _formKey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 CustomText(
-                  top: 24.h,
                   text: AppStrings.yourPasswordMust.tr,
                   fontWeight: FontWeight.w500,
                   fontsize: 18.sp,

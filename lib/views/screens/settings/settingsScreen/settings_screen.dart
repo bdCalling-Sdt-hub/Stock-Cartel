@@ -26,10 +26,9 @@ class SettingsScreen extends StatelessWidget {
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(
-            horizontal: 20.w),
+            horizontal: 20.w, vertical: 24.h),
         child: Column(
           children: [
-            SizedBox(height: 24.h),
             //=================================> Change Password Section <=======================
             GestureDetector(
               onTap: () {

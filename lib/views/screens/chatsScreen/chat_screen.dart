@@ -1,11 +1,14 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_bubble/chat_bubble.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import '../../../../utils/app_colors.dart';
 import '../../../../utils/app_images.dart';
 import '../../../utils/app_icons.dart';
@@ -24,6 +27,8 @@ class _ChatScreenState extends State<ChatScreen> {
   final StreamController _streamController = StreamController();
   final ScrollController _scrollController = ScrollController();
   TextEditingController messageController = TextEditingController();
+  Uint8List? _image;
+  File? selectedIMage;
 
   List messageList = [
     {"name": "Alice", "status": "sender", "message": "Hey there!"},
@@ -190,7 +195,11 @@ class _ChatScreenState extends State<ChatScreen> {
                         sufixicons: Padding(
                           padding: EdgeInsets.symmetric(
                               vertical: 11.h, horizontal: 16.w),
-                          child: SvgPicture.asset(AppIcons.photo),
+                          child: GestureDetector(
+                            onTap: (){
+                              _pickImageFromGallery();
+                            },
+                              child: SvgPicture.asset(AppIcons.photo)),
                         ),
                       )),
                   GestureDetector(
@@ -236,7 +245,7 @@ class _ChatScreenState extends State<ChatScreen> {
       children: [
         Expanded(
           child: ChatBubble(
-            clipper: ChatBubbleClipper5(type: BubbleType.receiverBubble),
+            clipper: ChatBubbleClipper8(type: BubbleType.receiverBubble),
             backGroundColor: Colors.white,
             margin: EdgeInsets.only(top: 8.h, bottom: 8.h),
             child: Container(
@@ -286,7 +295,7 @@ class _ChatScreenState extends State<ChatScreen> {
       children: [
         Expanded(
           child: ChatBubble(
-            clipper: ChatBubbleClipper5(
+            clipper: ChatBubbleClipper8(
               type: BubbleType.sendBubble,
             ),
             alignment: Alignment.topRight,
@@ -319,5 +328,16 @@ class _ChatScreenState extends State<ChatScreen> {
         ),
       ],
     );
+  }
+  //==================================> Gallery <===============================
+  Future _pickImageFromGallery() async {
+    final returnImage =
+    await ImagePicker().pickImage(source: ImageSource.gallery);
+    if (returnImage == null) return;
+    setState(() {
+      selectedIMage = File(returnImage.path);
+      _image = File(returnImage.path).readAsBytesSync();
+    });
+    Get.back();
   }
 }
