@@ -73,6 +73,7 @@ class AppStrings {
   static String changePasswords = "Change Password";
   static String oldPassword = "Old password";
   static String reEnterPassword = "Re-enter new password";
+  static String doYou = "Do you want to logout your profile?";
 
 
 

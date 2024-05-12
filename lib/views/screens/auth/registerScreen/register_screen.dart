@@ -61,6 +61,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           Border.all(width: 1.w, color: AppColors.primaryColor),
                       borderRadius: BorderRadius.circular(8.r)),
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       //=================================> Country Code Picker Widget <============================
                       CountryCodePicker(
