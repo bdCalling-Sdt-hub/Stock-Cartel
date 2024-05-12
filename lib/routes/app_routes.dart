@@ -13,6 +13,7 @@ import '../views/screens/onboardingScreen/onboarding_screen.dart';
 import '../views/screens/profile/editProfile/edit_profile_screen.dart';
 import '../views/screens/profile/presonalInformation/presonal_information.dart';
 import '../views/screens/profile/profileScreen/profile_screen.dart';
+import '../views/screens/settings/aboutUs/aboutus_screen.dart';
 import '../views/screens/settings/changePassword/change_password_screen.dart';
 import '../views/screens/settings/privacyPolicy/privacy_policy_screen.dart';
 import '../views/screens/settings/settingsScreen/settings_screen.dart';
@@ -41,6 +42,7 @@ class AppRoutes{
   static const String changePasswordScreen = "/change_password_screen.dart";
   static const String privacyPolicyScreen = "/privacy_policy_screen.dart";
   static const String termsConditionScreen = "/terms_condition_screen.dart";
+  static const String aboutusScreen = "/aboutus_screen.dart";
 
   static List<GetPage> get routes => [
   GetPage(name: splashScreen, page: () => SplashScreen()),
@@ -63,5 +65,6 @@ class AppRoutes{
   GetPage(name: changePasswordScreen , page: () => ChangePasswordScreen()),
   GetPage(name: privacyPolicyScreen , page: () => PrivacyPolicyScreen()),
   GetPage(name: termsConditionScreen , page: () => TermsConditionScreen()),
+  GetPage(name: aboutusScreen , page: () => AboutusScreen()),
   ];
 }
