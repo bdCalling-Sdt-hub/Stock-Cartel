@@ -1,3 +1,4 @@
+import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -10,11 +11,18 @@ import '../../../widgets/custom_button.dart';
 import '../../../widgets/custom_text.dart';
 import '../../../widgets/custom_text_field.dart';
 
-class LogInScreen extends StatelessWidget {
+class LogInScreen extends StatefulWidget {
   LogInScreen({super.key});
+
+  @override
+  State<LogInScreen> createState() => _LogInScreenState();
+}
+
+class _LogInScreenState extends State<LogInScreen> {
   final TextEditingController phoneNumberCodeCTRl = TextEditingController();
   final TextEditingController phoneNumberCTRl = TextEditingController();
   final TextEditingController passwordCTRl = TextEditingController();
+  String _selectedCountryCode = '';
 
   @override
   Widget build(BuildContext context) {
@@ -43,39 +51,56 @@ class LogInScreen extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  SizedBox(
-                    width: 84.w,
+                  Container(
                     height: 56.h,
-                    child: CustomTextField(
-                      onTab: (){},
-                      readOnly: true,
-                      controller: phoneNumberCodeCTRl,
-                      contenpaddingHorizontal: 12.w,
-                      contenpaddingVertical: 16.h,
-                      hintText: "+44",
-                      sufixicons: Padding(
-                        padding: EdgeInsets.only(right: 10.w),
-                        child: SvgPicture.asset(AppIcons.downArrow,color: Colors.grey),
-                      ),
+                    decoration: BoxDecoration(
+                        border: Border.all(
+                            width: 1.w, color: AppColors.primaryColor),
+                        borderRadius: BorderRadius.circular(8.r)),
+                    child: Row(
+                      children: [
+                        //=================================> Country Code Picker Widget <============================
+                        CountryCodePicker(
+                          showFlag: false,
+                          showFlagDialog: true,
+                          onChanged: (countryCode) {
+                            setState(() {
+                              _selectedCountryCode = countryCode.dialCode!;
+                            });
+                          },
+                          initialSelection: 'BD',
+                          favorite: ['+880', 'BD'],
+                          showCountryOnly: false,
+                          showOnlyCountryWhenClosed: false,
+                          alignLeft: false,
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(right: 5.w),
+                          child: SvgPicture.asset(
+                            AppIcons.downArrow,
+                            color: Colors.grey,
+                          ),
+                        )
+                      ],
                     ),
                   ),
-
                   SizedBox(width: 16.w),
-                  SizedBox(
-                    width: 250.w,
-                    height: 56.h,
-                    child: CustomTextField(
-                      keyboardType: TextInputType.phone,
-
-                      controller: phoneNumberCTRl,
-                      hintText: AppStrings.phoneNumber.tr,
+                  Expanded(
+                    child: SizedBox(
+                      height: 56.h,
+                      child: CustomTextField(
+                        keyboardType: TextInputType.phone,
+                        controller: phoneNumberCTRl,
+                        hintText: AppStrings.phoneNumber.tr,
+                      ),
                     ),
                   )
                 ],
               ),
-           //====================================> Password Text Field <=========================
+              //====================================> Password Text Field <=========================
               SizedBox(height: 16.h),
-              CustomTextField(controller: passwordCTRl,
+              CustomTextField(
+                controller: passwordCTRl,
                 hintText: AppStrings.password.tr,
                 isPassword: true,
               ),
@@ -92,9 +117,11 @@ class LogInScreen extends StatelessWidget {
               ),
               //====================================> Log In Button  <=========================
               SizedBox(height: 367.h),
-              CustomButton(text: AppStrings.logIn.tr, onTap: () {
-                Get.toNamed(AppRoutes.createAccountScreen);
-              }),
+              CustomButton(
+                  text: AppStrings.logIn.tr,
+                  onTap: () {
+                    Get.toNamed(AppRoutes.createAccountScreen);
+                  }),
               SizedBox(height: 74.h)
             ],
           ),
