@@ -10,7 +10,7 @@ class BottomMenu extends StatelessWidget {
   final int menuIndex;
   const BottomMenu(this.menuIndex, {super.key});
   Color colorByIndex(ThemeData theme, int index) {
-    return index == menuIndex ? AppColors.primaryColor : theme.disabledColor;
+    return index == menuIndex ? AppColors.white : theme.disabledColor;
   }
 
   BottomNavigationBarItem getItem(
@@ -32,8 +32,8 @@ class BottomMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     List<BottomNavigationBarItem> menuItems = [
-      getItem(AppIcons.chat, 'Chats', theme, 0),
-      getItem(AppIcons.person, 'Profile', theme, 1),
+      getItem( menuIndex==0? AppIcons.chatBg : AppIcons.chat, 'Chats', theme, 0),
+      getItem(menuIndex==1? AppIcons.personBg :AppIcons.person, 'Profile', theme, 1),
     ];
 
     return Container(
@@ -49,7 +49,8 @@ class BottomMenu extends StatelessWidget {
             topRight: Radius.circular(20.r), topLeft: Radius.circular(20.r)),
         child: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
-          selectedItemColor: Theme.of(context).primaryColor,
+          selectedItemColor: AppColors.white,
+          unselectedItemColor: AppColors.white,
           currentIndex: menuIndex,
           onTap: (value) {
             switch (value) {
