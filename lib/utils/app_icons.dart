@@ -5,7 +5,7 @@ class AppIcons{
   static const String camera = "$basePath/camera.svg";
   static const String downArrow = "$basePath/chevron-down.svg";
   static const String rightArrow = "$basePath/chevron-right.svg";
-  static const String terms = "$basePath/chevron-list.svg";
+  static const String terms = "$basePath/clipboard-list.svg";
   static const String settings = "$basePath/cog.svg";
   static const String aboutUs = "$basePath/information-circle.svg";
   static const String eye = "$basePath/eye.svg";
