@@ -33,7 +33,7 @@ class SettingsScreen extends StatelessWidget {
             //=================================> Change Password Section <=======================
             GestureDetector(
               onTap: () {
-                //Get.toNamed(AppRoutes.changePasswordScreen);
+                Get.toNamed(AppRoutes.changePasswordScreen);
               },
               child: CustomListTile(
                 title: AppStrings.changePassword,
