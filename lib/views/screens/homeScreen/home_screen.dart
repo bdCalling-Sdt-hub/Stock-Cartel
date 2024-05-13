@@ -17,7 +17,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: BottomMenu(0),
+      bottomNavigationBar: const BottomMenu(0),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 20.w),
         child: Column(
@@ -47,6 +47,7 @@ class HomeScreen extends StatelessWidget {
             Expanded(
               child: ListView.builder(
                   itemCount: 3,
+                  padding: EdgeInsets.zero,
                   itemBuilder: (context, index) {
                     return GestureDetector(
                       onTap: (){

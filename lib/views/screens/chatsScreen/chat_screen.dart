@@ -91,7 +91,7 @@ class _ChatScreenState extends State<ChatScreen> {
                       Get.back();
                     },
                     child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 8.w),
+                      padding: EdgeInsets.symmetric(horizontal: 10.w),
                       child: const Icon(
                         Icons.arrow_back_ios,
                         color: Colors.black,
@@ -245,7 +245,7 @@ class _ChatScreenState extends State<ChatScreen> {
       children: [
         Expanded(
           child: ChatBubble(
-            clipper: ChatBubbleClipper8(type: BubbleType.receiverBubble),
+            clipper: ChatBubbleClipper5(type: BubbleType.receiverBubble),
             backGroundColor: Colors.white,
             margin: EdgeInsets.only(top: 8.h, bottom: 8.h),
             child: Container(
@@ -295,7 +295,7 @@ class _ChatScreenState extends State<ChatScreen> {
       children: [
         Expanded(
           child: ChatBubble(
-            clipper: ChatBubbleClipper8(
+            clipper: ChatBubbleClipper5(
               type: BubbleType.sendBubble,
             ),
             alignment: Alignment.topRight,

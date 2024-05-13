@@ -18,6 +18,7 @@ class AppIcons{
   static const String phone = "$basePath/phone.svg";
   static const String privacyPolicy = "$basePath/shield-check.svg";
   static const String person = "$basePath/user.svg";
+  static const String person2 = "$basePath/person_icon.svg";
   static const String personBg = "$basePath/personBg.svg";
   static const String editCam = "$basePath/editCam.svg";
   static const String chat = "$basePath/chat.svg";

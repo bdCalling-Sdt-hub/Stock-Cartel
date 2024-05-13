@@ -113,7 +113,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                 CustomText(
                   text: 'Welcome Stock-Cartel',
                   fontsize: 14.h,
-                  color: Colors.black38,
+                  color: Colors.black,
                 ),
                 Align(
                   alignment: Alignment.centerLeft,
