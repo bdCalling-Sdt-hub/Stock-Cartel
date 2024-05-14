@@ -10,7 +10,7 @@ class BottomMenu extends StatelessWidget {
   final int menuIndex;
   const BottomMenu(this.menuIndex, {super.key});
   Color colorByIndex(ThemeData theme, int index) {
-    return index == menuIndex ? AppColors.white : theme.disabledColor;
+    return index == menuIndex ? AppColors.white : AppColors.white;
   }
 
   BottomNavigationBarItem getItem(
@@ -23,7 +23,7 @@ class BottomMenu extends StatelessWidget {
             image,
             height: 24.0.h,
             width: 24.0.w,
-           // color: colorByIndex(theme, index),
+            // color: colorByIndex(theme, index),
           ),
         ));
   }
@@ -32,8 +32,10 @@ class BottomMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     List<BottomNavigationBarItem> menuItems = [
-      getItem( menuIndex==0? AppIcons.chatBg : AppIcons.chat, 'Chats', theme, 0),
-      getItem(menuIndex==1? AppIcons.personBg :AppIcons.person2, 'Profile', theme, 1),
+      getItem(
+          menuIndex == 0 ? AppIcons.chatBg : AppIcons.chat, 'Chats', theme, 0),
+      getItem(menuIndex == 1 ? AppIcons.personBg : AppIcons.person2, 'Profile',
+          theme, 1),
     ];
 
     return Container(

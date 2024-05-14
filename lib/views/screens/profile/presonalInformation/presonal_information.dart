@@ -51,13 +51,13 @@ class PersonalInformation extends StatelessWidget {
 
             //=================================> Profile Name <==========================
             CustomListTile(
-                title: 'Write your name',
+                title: 'Mr Swapon',
                 prefixIcon: _prefixIcon(AppIcons.person)),
             SizedBox(height: 16.h),
 
             //=================================> Profile Email <==========================
             CustomListTile(
-                title: 'Write your email',
+                title: 'mrswapon@gmail.com',
                 prefixIcon: _prefixIcon(AppIcons.mail)),
             SizedBox(height: 16.h),
 

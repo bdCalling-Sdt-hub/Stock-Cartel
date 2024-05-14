@@ -21,7 +21,7 @@ class AppIcons{
   static const String person2 = "$basePath/person_icon.svg";
   static const String personBg = "$basePath/personBg.svg";
   static const String editCam = "$basePath/editCam.svg";
-  static const String chat = "$basePath/chat.svg";
+  static const String chat = "$basePath/chats_icon2.svg";
   static const String chatBg = "$basePath/chatBg.svg";
   static const String notifications = "$basePath/notifications.svg";
   static const String counter = "$basePath/Counter.svg";
