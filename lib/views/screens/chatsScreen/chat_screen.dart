@@ -91,9 +91,9 @@ class _ChatScreenState extends State<ChatScreen> {
                       Get.back();
                     },
                     child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 10.w),
+                      padding: EdgeInsets.only(right: 16.w),
                       child: const Icon(
-                        Icons.arrow_back_ios,
+                        Icons.arrow_back_rounded,
                         color: Colors.black,
                       ),
                     ),
