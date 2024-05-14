@@ -5,8 +5,8 @@ class Assets {
   static const String fontsPoppinsRegular = 'assets/fonts/Poppins-Regular.ttf';
   static const String iconsBell = 'assets/icons/bell.svg';
   static const String iconsCamera = 'assets/icons/camera.svg';
-  static const String iconsChat = 'assets/icons/chat.svg';
   static const String iconsChatBg = 'assets/icons/chatBg.svg';
+  static const String iconsChatsIcon2 = 'assets/icons/chats_icon2.svg';
   static const String iconsChevronDown = 'assets/icons/chevron-down.svg';
   static const String iconsChevronRight = 'assets/icons/chevron-right.svg';
   static const String iconsClipboardList = 'assets/icons/clipboard-list.svg';
@@ -25,6 +25,7 @@ class Assets {
   static const String iconsNotifications = 'assets/icons/notifications.svg';
   static const String iconsPencilAlt = 'assets/icons/pencil-alt.svg';
   static const String iconsPersonBg = 'assets/icons/personBg.svg';
+  static const String iconsPersonIcon = 'assets/icons/person_icon.svg';
   static const String iconsPhone = 'assets/icons/phone.svg';
   static const String iconsPhoto = 'assets/icons/photo.svg';
   static const String iconsSendIcon = 'assets/icons/sendIcon.svg';
