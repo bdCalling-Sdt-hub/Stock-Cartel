@@ -44,7 +44,7 @@ class MyApp extends StatelessWidget {
                     AppConstants.languages[0].countryCode),
                 transitionDuration: const Duration(milliseconds: 500),
                 getPages: AppRoutes.routes,
-                initialRoute: AppRoutes.subscriptionScreen,
+                initialRoute: AppRoutes.homeScreen,
               );
             });
       });
