@@ -21,7 +21,6 @@ void main() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key, required this.languages});
   final Map<String, Map<String, String>> languages;
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return GetBuilder<ThemeController>(builder: (themeController) {
@@ -35,7 +34,6 @@ class MyApp extends StatelessWidget {
                 title: AppConstants.APP_NAME,
                 debugShowCheckedModeBanner: false,
                 navigatorKey: Get.key,
-                // theme: themeController.darkTheme ? dark(): light(),
                 theme: light(),
                 defaultTransition: Transition.topLevel,
                 locale: localizeController.locale,
