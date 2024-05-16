@@ -46,7 +46,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     return Scaffold(
       appBar: AppBar(
         title: CustomText(
-          text: AppStrings.updateProfile,
+          text: AppStrings.updateProfile.tr,
           fontWeight: FontWeight.w500,
         ),
         centerTitle: true,
@@ -114,7 +114,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
                     //===========================> Update profile button <===================
                     CustomButton(
-                        text: AppStrings.updateProfile,
+                        text: AppStrings.updateProfile.tr,
                         onTap: () {
                           /*_profileController.editProfile(
                               _nameController.text,
@@ -174,7 +174,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                               size: 50.w,
                               color: AppColors.primaryColor,
                             ),
-                            CustomText(text: 'Gallery')
+                            CustomText(text: 'Gallery'.tr)
                           ],
                         ),
                       ),
@@ -190,7 +190,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           children: [
                             Icon(Icons.camera_alt,
                                 size: 50.w, color: AppColors.primaryColor),
-                            CustomText(text: 'Camera')
+                            CustomText(text: 'Camera'.tr)
                           ],
                         ),
                       ),

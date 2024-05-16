@@ -129,7 +129,7 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
                 }),
             Center(
               child: CustomText(
-                  top: 16.h, bottom: 24.h, text: AppStrings.recurringBilling),
+                  top: 16.h, bottom: 24.h, text: AppStrings.recurringBilling.tr, maxline: 2,),
             ),
           ],
         ),

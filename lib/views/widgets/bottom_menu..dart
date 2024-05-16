@@ -33,8 +33,8 @@ class BottomMenu extends StatelessWidget {
     final theme = Theme.of(context);
     List<BottomNavigationBarItem> menuItems = [
       getItem(
-          menuIndex == 0 ? AppIcons.chatBg : AppIcons.chat, 'Chats', theme, 0),
-      getItem(menuIndex == 1 ? AppIcons.personBg : AppIcons.person2, 'Profile',
+          menuIndex == 0 ? AppIcons.chatBg : AppIcons.chat, 'Chats'.tr, theme, 0),
+      getItem(menuIndex == 1 ? AppIcons.personBg : AppIcons.person2, 'Profile'.tr,
           theme, 1),
     ];
 
