@@ -137,7 +137,7 @@ class _LogInScreenState extends State<LogInScreen> {
                     //loading: _authcontroller.forgotLoading.value,
                     text: AppStrings.logIn.tr,
                     onTap: () {
-                      Get.toNamed(AppRoutes.createAccountScreen);
+                      Get.toNamed(AppRoutes.subscriptionScreen);
                      /* if (_formKey.currentState!.validate()) {
                         _authcontroller.handleForget();
                         // Get.toNamed(AppRoutes.verifyOtpScreen);

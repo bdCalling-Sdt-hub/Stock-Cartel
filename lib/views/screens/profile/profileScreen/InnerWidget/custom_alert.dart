@@ -51,7 +51,7 @@ class CustomAlert extends StatelessWidget {
                           // await PrefsHelper.remove(AppConstants.bearerToken);
                           await PrefsHelper.remove(AppConstants.subscription);
                           _authController.googleSignIn.signOut();*/
-                          Get.offNamed(AppRoutes.logInScreen);
+                          Get.offAllNamed(AppRoutes.logInScreen);
                         })),
               ],
             )
