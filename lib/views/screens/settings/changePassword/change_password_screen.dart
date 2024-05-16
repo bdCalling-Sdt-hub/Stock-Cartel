@@ -35,7 +35,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
       extendBody: true,
       appBar: AppBar(
         title: CustomText(
-          text: AppStrings.changePasswords,
+          text: AppStrings.changePasswords.tr,
           fontsize: 18.h,
           fontWeight: FontWeight.w500,
         ),
@@ -59,7 +59,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                       controller: oldPasswordCtrl,
                       isPassword: true,
                       prifixicon: _customIcons(AppIcons.lock),
-                      hintText: AppStrings.oldPassword,
+                      hintText: AppStrings.oldPassword.tr,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return "Please enter old password";
@@ -76,7 +76,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                       controller: newPasswordCtrl,
                       prifixicon: _customIcons(AppIcons.lock),
                       isPassword: true,
-                      hintText: AppStrings.setNewPassword,
+                      hintText: AppStrings.setNewPassword.tr,
                       validator: (value) {
                         if (value == null) {
                           return "Please set new password";
@@ -96,7 +96,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                       controller: confirmPassController,
                       prifixicon: _customIcons(AppIcons.lock),
                       isPassword: true,
-                      hintText: AppStrings.confirmNewPassword,
+                      hintText: AppStrings.confirmNewPassword.tr,
                       validator: (value) {
                         /* if (value == null) {
                           return "Please re-enter new password";
@@ -117,7 +117,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                         // Get.toNamed(AppRoutes.forgotPasswordScreen);
                       },
                       child: CustomText(
-                        text: AppStrings.forgotPassword,
+                        text: AppStrings.forgotPassword.tr,
                         fontWeight: FontWeight.w600,
                         fontsize: 16.h,
                         fontName: 'Lato',
@@ -127,7 +127,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                     SizedBox(height: 367.h),
                     //===============================> Change Password Button <===============================
                     CustomButton(
-                        text: AppStrings.changePasswords,
+                        text: AppStrings.changePasswords.tr,
                         onTap: () {
                           // if (_formKey.currentState!.validate()) {
                           //   _authController.handleChangePassword(

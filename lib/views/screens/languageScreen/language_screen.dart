@@ -11,8 +11,11 @@ import 'package:stock_cartel/views/widgets/custom_button.dart';
 import 'package:stock_cartel/views/widgets/custom_list_tile.dart';
 import 'package:stock_cartel/views/widgets/custom_text.dart';
 
+import '../../../controllers/localaization_controller.dart';
 import '../../../helpers/prefs_helpers.dart';
 import '../../../utils/app_colors.dart';
+import '../../../utils/app_constants.dart';
+import '../../../utils/app_images.dart';
 
 class LanguageScreen extends StatefulWidget {
   const LanguageScreen({super.key});
@@ -22,6 +25,7 @@ class LanguageScreen extends StatefulWidget {
 }
 
 class _LanguageScreenState extends State<LanguageScreen> {
+  LocalizationController localizationController=Get.find<LocalizationController>();
   String selectedLanguage = "";
 
   @override
@@ -48,16 +52,30 @@ class _LanguageScreenState extends State<LanguageScreen> {
               },
               child: CustomListTile(
                 title: AppStrings.english.tr,
-                prefixIcon: Radio(
+                prefixIcon: Radio<String>(
                     value: AppStrings.english,
                     activeColor: AppColors.primaryColor,
                     fillColor: MaterialStateColor.resolveWith(
                         (states) => AppColors.primaryColor),
                     groupValue: selectedLanguage,
-                    onChanged: (value) {
-                      setState(() {
+                    onChanged: (String? value) {
+                      if (value != null) {
+                        localizationController.setLanguage(
+                            Locale(
+                              AppConstants.languages[0].languageCode,
+                              AppConstants.languages[0].countryCode,
+                            )
+
+                        );
+                        localizationController.setSelectIndex(0);
+                        // localizationController.loadCurrentLanguage();
+                        setState(() {
+                          selectedLanguage = value;
+                        });
+                      }
+                      /*setState(() {
                         selectedLanguage = value!;
-                      });
+                      });*/
                     }),
               ),
             ),
@@ -78,9 +96,23 @@ class _LanguageScreenState extends State<LanguageScreen> {
                         (states) => AppColors.primaryColor),
                     groupValue: selectedLanguage,
                     onChanged: (value) {
-                      setState(() {
+                      if (value != null) {
+                        localizationController.setLanguage(
+                            Locale(
+                              AppConstants.languages[1].languageCode,
+                              AppConstants.languages[1].countryCode,
+                            )
+
+                        );
+                        localizationController.setSelectIndex(0);
+                        // localizationController.loadCurrentLanguage();
+                        setState(() {
+                          selectedLanguage = value;
+                        });
+                      }
+                     /* setState(() {
                         selectedLanguage = value!;
-                      });
+                      });*/
                     }),
               ),
             ),

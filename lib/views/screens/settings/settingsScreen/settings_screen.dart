@@ -18,15 +18,14 @@ class SettingsScreen extends StatelessWidget {
       extendBody: true,
       appBar: AppBar(
         title: CustomText(
-          text: AppStrings.settings,
+          text: AppStrings.settings.tr,
           fontsize: 18.h,
           fontWeight: FontWeight.w500,
         ),
         centerTitle: true,
       ),
       body: Padding(
-        padding: EdgeInsets.symmetric(
-            horizontal: 20.w, vertical: 24.h),
+        padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
         child: Column(
           children: [
             //=================================> Change Password Section <=======================
@@ -35,7 +34,7 @@ class SettingsScreen extends StatelessWidget {
                 Get.toNamed(AppRoutes.changePasswordScreen);
               },
               child: CustomListTile(
-                title: AppStrings.changePassword,
+                title: AppStrings.changePassword.tr,
                 prefixIcon: SvgPicture.asset(
                   AppIcons.lock,
                   color: Colors.black,
@@ -54,7 +53,7 @@ class SettingsScreen extends StatelessWidget {
                 Get.toNamed(AppRoutes.privacyPolicyScreen);
               },
               child: CustomListTile(
-                title: AppStrings.privacyPolicy,
+                title: AppStrings.privacyPolicy.tr,
                 prefixIcon: SvgPicture.asset(
                   AppIcons.privacyPolicy,
                   color: Colors.black,
@@ -73,7 +72,7 @@ class SettingsScreen extends StatelessWidget {
                 Get.toNamed(AppRoutes.termsConditionScreen);
               },
               child: CustomListTile(
-                title: AppStrings.termsConditions,
+                title: AppStrings.termsConditions.tr,
                 prefixIcon: SvgPicture.asset(
                   AppIcons.terms,
                   color: Colors.black,
@@ -91,7 +90,7 @@ class SettingsScreen extends StatelessWidget {
                 Get.toNamed(AppRoutes.aboutusScreen);
               },
               child: CustomListTile(
-                title: AppStrings.aboutUs,
+                title: AppStrings.aboutUs.tr,
                 prefixIcon: SvgPicture.asset(
                   AppIcons.aboutUs,
                   color: Colors.black,
@@ -109,7 +108,7 @@ class SettingsScreen extends StatelessWidget {
                 //Get.toNamed(AppRoutes.aboutusScreen);
               },
               child: CustomListTile(
-                title: AppStrings.website,
+                title: AppStrings.website.tr,
                 prefixIcon: SvgPicture.asset(
                   AppIcons.website,
                   color: Colors.black,

@@ -47,6 +47,8 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 CustomText(
                   bottom: 24.h,
                   text: AppStrings.enterMobile.tr,
+                  maxline: 2,
+                  textAlign: TextAlign.start,
                   fontWeight: FontWeight.w500,
                   fontsize: 18.sp,
                 ),

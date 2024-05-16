@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:timeago/timeago.dart' as TimeAgo;
 import '../../../utils/app_colors.dart';
 import '../../../utils/app_icons.dart';
@@ -46,7 +47,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
       //================================> App bar section <=======================
       appBar: AppBar(
         title: CustomText(
-          text: AppStrings.notifications,
+          text: AppStrings.notifications.tr,
           fontsize: 18.h,
           fontWeight: FontWeight.w500,
         ),
@@ -66,7 +67,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                     padding: EdgeInsets.only(
                         bottom: 12.h, top: index == 0 ? 20.h : 0),
                     child: _Notification(
-                        'Your booking request has approved.', DateTime.now()),
+                        'Your booking request has approved.'.tr, DateTime.now()),
                   );
                 },
               ),

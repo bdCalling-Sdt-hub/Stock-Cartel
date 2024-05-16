@@ -21,7 +21,7 @@ class CustomAlert extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             CustomText(
-              text: AppStrings.doYou,
+              text: AppStrings.doYou.tr,
               fontsize: 16.sp,
               maxline: 2,
             ),
@@ -33,7 +33,7 @@ class CustomAlert extends StatelessWidget {
                     width: 120.w,
                     height: 40.h,
                     child: CustomButton(
-                      text: 'No',
+                      text: 'No'.tr,
                       onTap: () {
                         Get.back();
                       },
@@ -44,7 +44,7 @@ class CustomAlert extends StatelessWidget {
                     width: 120.w,
                     height: 40.h,
                     child: CustomButton(
-                        text: 'Yes',
+                        text: 'Yes'.tr,
                         onTap: () async {
                           /*await PrefsHelper.remove(AppConstants.isLogged);
                           await PrefsHelper.remove(AppConstants.userId);

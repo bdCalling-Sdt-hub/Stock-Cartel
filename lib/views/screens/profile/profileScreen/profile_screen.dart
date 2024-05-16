@@ -28,45 +28,47 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: BottomMenu(1),
-      body: Column(
-        children: [
-          TopProfileCard(),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
-            child: Column(
-              children: [
-                CustomListTile(
-                  onTap: () {
-                    Get.toNamed(AppRoutes.personalInformation);
-                  },
-                  title: AppStrings.personalInformation,
-                  prefixIcon: SvgPicture.asset(AppIcons.person,
-                      color: AppColors.primaryColor),
-                ),
-                CustomListTile(
-                  onTap: () {
-                    Get.toNamed(AppRoutes.settingsScreen);
-                  },
-                  title: AppStrings.settings,
-                  prefixIcon: SvgPicture.asset(AppIcons.settings,
-                      color: AppColors.primaryColor),
-                ),
-                CustomListTile(
-                  onTap: () {
-                    showDialog(
-                        context: context,
-                        builder: (context) {
-                          return CustomAlert();
-                        });
-                  },
-                  title: AppStrings.logOut,
-                  prefixIcon: SvgPicture.asset(AppIcons.logOut,
-                      color: AppColors.primaryColor),
-                ),
-              ],
-            ),
-          )
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            TopProfileCard(),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
+              child: Column(
+                children: [
+                  CustomListTile(
+                    onTap: () {
+                      Get.toNamed(AppRoutes.personalInformation);
+                    },
+                    title: AppStrings.personalInformation.tr,
+                    prefixIcon: SvgPicture.asset(AppIcons.person,
+                        color: AppColors.primaryColor),
+                  ),
+                  CustomListTile(
+                    onTap: () {
+                      Get.toNamed(AppRoutes.settingsScreen);
+                    },
+                    title: AppStrings.settings.tr,
+                    prefixIcon: SvgPicture.asset(AppIcons.settings,
+                        color: AppColors.primaryColor),
+                  ),
+                  CustomListTile(
+                    onTap: () {
+                      showDialog(
+                          context: context,
+                          builder: (context) {
+                            return CustomAlert();
+                          });
+                    },
+                    title: AppStrings.logOut.tr,
+                    prefixIcon: SvgPicture.asset(AppIcons.logOut,
+                        color: AppColors.primaryColor),
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

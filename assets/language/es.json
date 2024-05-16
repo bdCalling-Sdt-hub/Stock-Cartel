@@ -50,8 +50,21 @@
   "Change Password": "Cambiar Contraseña",
   "Old password": "Contraseña anterior",
   "Set new password": "Establecer nueva contraseña",
+  "Didn’t get the code?": "¿No recibiste el código?",
   "Re-enter new password": "Volver a introducir la nueva contraseña",
   "Privacy Policy": "Política de Privacidad",
   "Terms & Condition": "Términos y Condiciones",
-  "About Us": "Sobre Nosotros"
+  "About Us": "Sobre Nosotros",
+  "Gallery": "Galería",
+  "Camera": "Cámara",
+  "Profile": "Perfil",
+  "Chats": "Charlas",
+  "Yes": "Sí",
+  "Terms & Conditions": "Términos y condiciones",
+  "No": "No",
+  "Get OTP": "Obtener OTP",
+  "Enter mobile number to reset password.": "Ingrese el número de teléfono móvil para restablecer la contraseña.",
+  "Forgot Password": "olvidó contraseña",
+  "Do you want to logout your profile?": "¿Quieres cerrar sesión en tu perfil?"
+
 }

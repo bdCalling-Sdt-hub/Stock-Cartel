@@ -19,7 +19,7 @@ class PersonalInformation extends StatelessWidget {
       extendBody: true,
       appBar: AppBar(
         title: CustomText(
-          text: "Personal Information",
+          text: "Personal Information".tr,
           fontWeight: FontWeight.w500,
         ),
         centerTitle: true,
