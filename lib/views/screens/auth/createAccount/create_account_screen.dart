@@ -6,6 +6,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:stock_cartel/utils/app_colors.dart';
 import 'package:image_picker/image_picker.dart';
+import '../../../../routes/app_routes.dart';
 import '../../../../utils/app_icons.dart';
 import '../../../../utils/app_images.dart';
 import '../../../../utils/app_strings.dart';
@@ -130,7 +131,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                     CustomButton(
                         text: AppStrings.createAccount.tr,
                         onTap: () {
-                          // Get.toNamed(AppRoutes.verifyNumberScreen);
+                           Get.toNamed(AppRoutes.logInScreen);
                         }),
                     SizedBox(height: 74.h)
                   ],

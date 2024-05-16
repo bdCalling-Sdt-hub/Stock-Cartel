@@ -5,6 +5,7 @@ import 'package:stock_cartel/routes/app_routes.dart';
 import 'package:stock_cartel/themes/dark_theme.dart';
 import 'package:stock_cartel/utils/app_constants.dart';
 import 'package:stock_cartel/utils/messages.dart';
+import 'package:stock_cartel/views/screens/splashScreen/splash_screen.dart';
 import 'controllers/localaization_controller.dart';
 import 'controllers/theme_controller.dart';
 import 'helpers/di.dart' as di;
@@ -42,7 +43,8 @@ class MyApp extends StatelessWidget {
                     AppConstants.languages[0].countryCode),
                 transitionDuration: const Duration(milliseconds: 500),
                 getPages: AppRoutes.routes,
-                initialRoute: AppRoutes.homeScreen,
+                initialRoute: AppRoutes.splashScreen,
+                home: const SplashScreen(),
               );
             });
       });

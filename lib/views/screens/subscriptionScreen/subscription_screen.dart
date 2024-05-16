@@ -125,7 +125,7 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
             CustomButton(
                 text: AppStrings.selectPlan.tr,
                 onTap: () {
-                  //Get.toNamed(AppRoutes.homeScreen);
+                  Get.toNamed(AppRoutes.homeScreen);
                 }),
             Center(
               child: CustomText(
