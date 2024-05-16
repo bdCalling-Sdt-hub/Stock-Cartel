@@ -224,6 +224,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       selectedIMage = File(returnImage.path);
       _image = File(returnImage.path).readAsBytesSync();
     });
-     Get.back();
+    Get.back();
   }
 }

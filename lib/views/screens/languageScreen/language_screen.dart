@@ -16,6 +16,7 @@ import '../../../helpers/prefs_helpers.dart';
 import '../../../utils/app_colors.dart';
 import '../../../utils/app_constants.dart';
 import '../../../utils/app_images.dart';
+import '../../../utils/style.dart';
 
 class LanguageScreen extends StatefulWidget {
   const LanguageScreen({super.key});
@@ -25,8 +26,13 @@ class LanguageScreen extends StatefulWidget {
 }
 
 class _LanguageScreenState extends State<LanguageScreen> {
-  LocalizationController localizationController=Get.find<LocalizationController>();
-  String selectedLanguage = "";
+  LocalizationController localizationController =
+      Get.find<LocalizationController>();
+  /*var data = [
+    {'name': 'English'},
+    {'name': 'Spanish'},
+  ];*/
+  var selectedOption;
 
   @override
   Widget build(BuildContext context) {
@@ -42,80 +48,50 @@ class _LanguageScreenState extends State<LanguageScreen> {
               fontsize: 18.sp,
               fontWeight: FontWeight.w500,
             ),
-            //=================================> English Tile <=============================
-            SizedBox(height: 16.h),
-            GestureDetector(
-              onTap: () {
-                setState(() {
-                  selectedLanguage = AppStrings.english;
-                });
-              },
-              child: CustomListTile(
-                title: AppStrings.english.tr,
-                prefixIcon: Radio<String>(
-                    value: AppStrings.english,
-                    activeColor: AppColors.primaryColor,
-                    fillColor: MaterialStateColor.resolveWith(
-                        (states) => AppColors.primaryColor),
-                    groupValue: selectedLanguage,
-                    onChanged: (String? value) {
-                      if (value != null) {
-                        localizationController.setLanguage(
-                            Locale(
-                              AppConstants.languages[0].languageCode,
-                              AppConstants.languages[0].countryCode,
-                            )
-
-                        );
-                        localizationController.setSelectIndex(0);
-                        // localizationController.loadCurrentLanguage();
-                        setState(() {
-                          selectedLanguage = value;
-                        });
-                      }
-                      /*setState(() {
-                        selectedLanguage = value!;
-                      });*/
-                    }),
-              ),
-            ),
-            //=================================> Spanish Tile <=============================
-            SizedBox(height: 16.h),
-            GestureDetector(
-              onTap: () {
-                setState(() {
-                  selectedLanguage = AppStrings.spanish;
-                });
-              },
-              child: CustomListTile(
-                title: AppStrings.spanish.tr,
-                prefixIcon: Radio(
-                    value: AppStrings.spanish,
-                    activeColor: AppColors.primaryColor,
-                    fillColor: MaterialStateColor.resolveWith(
-                        (states) => AppColors.primaryColor),
-                    groupValue: selectedLanguage,
-                    onChanged: (value) {
-                      if (value != null) {
-                        localizationController.setLanguage(
-                            Locale(
-                              AppConstants.languages[1].languageCode,
-                              AppConstants.languages[1].countryCode,
-                            )
-
-                        );
-                        localizationController.setSelectIndex(0);
-                        // localizationController.loadCurrentLanguage();
-                        setState(() {
-                          selectedLanguage = value;
-                        });
-                      }
-                     /* setState(() {
-                        selectedLanguage = value!;
-                      });*/
-                    }),
-              ),
-            ),
+            ListView.builder(
+                itemCount: AppConstants.languages.length,
+                shrinkWrap: true,
+                primary: false,
+                itemBuilder: (context, index) {
+                  var data = AppConstants.languages[index];
+                  return GestureDetector(
+                    onTap: () {
+                      localizationController.setLanguage(Locale(
+                        AppConstants.languages[index].languageCode,
+                        AppConstants.languages[index].countryCode,
+                      ));
+                      localizationController.setSelectIndex(index);
+                      setState(() {
+                        selectedOption = index;
+                      });
+                    },
+                    child: Container(
+                      margin: EdgeInsets.only(bottom: 10.h),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8.r),
+                          color: AppColors.fieldColor,
+                          border: Border.all(
+                              width: 1.w, color: AppColors.primaryColor)),
+                      child: ListTile(
+                        contentPadding: EdgeInsets.symmetric(horizontal: 24.w),
+                        leading: Radio<int>(
+                          value: index,
+                          groupValue: selectedOption,
+                          activeColor: Get.theme.primaryColor,
+                          fillColor:
+                              MaterialStateProperty.all(Get.theme.primaryColor),
+                          splashRadius: 25.r,
+                          onChanged: (_) {},
+                        ),
+                        title: Text(
+                          data.languageName.tr,
+                          style: AppStyles.customSize(
+                              size: 16, color: Colors.black),
+                        ),
+                      ),
+                    ),
+                  );
+                }),
             const Spacer(),
             CustomButton(
               text: AppStrings.continues.tr,
