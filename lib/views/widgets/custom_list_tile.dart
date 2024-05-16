@@ -23,7 +23,8 @@ class CustomListTile extends StatelessWidget {
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8.r),
           color: AppColors.fieldColor,
-          border: Border.all(width: 1.w, color: borderColor ?? AppColors.primaryColor)),
+          border: Border.all(
+              width: 1.w, color: borderColor ?? AppColors.primaryColor)),
       child: ListTile(
         leading: prefixIcon,
         trailing: sufixIcon,
