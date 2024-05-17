@@ -65,6 +65,6 @@
 "Get OTP": "Get OTP",
 "Enter mobile number to reset password.": "Enter mobile number to reset password.",
 "No": "No",
-"Do you want to logout your profile?": "Do you want to logout your profile?"
-
+"Do you want to logout your profile?": "Do you want to logout your profile?",
+"Read Only,Sending messages are not allowed in this chat.": "Read Only,Sending messages are not allowed in this chat."
 }
