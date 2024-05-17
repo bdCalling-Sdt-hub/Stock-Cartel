@@ -32,6 +32,8 @@ class Assets {
   static const String iconsShieldCheck = 'assets/icons/shield-check.svg';
   static const String iconsUser = 'assets/icons/user.svg';
   static const String imagesAppLogo = 'assets/images/appLogo.png';
+  static const String imagesCommunity = 'assets/images/community.png';
+  static const String imagesCrypto = 'assets/images/crypto.png';
   static const String imagesOnboardingBg = 'assets/images/onboardingBg.png';
   static const String imagesPerson = 'assets/images/person.png';
   static const String imagesStock = 'assets/images/stock.png';

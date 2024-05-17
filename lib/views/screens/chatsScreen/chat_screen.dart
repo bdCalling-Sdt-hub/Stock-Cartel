@@ -233,19 +233,22 @@ class _ChatScreenState extends State<ChatScreen> {
                 children: [
                   SizedBox(
                       width: 295.w,
-                      child: CustomTextField(
+                      child:
+
+                      CustomTextField(
                         controller: messageController,
                         hintText: "Type something…",
                         sufixicons: Padding(
                           padding: EdgeInsets.symmetric(
-                              vertical: 11.h, horizontal: 16.w),
+                              vertical: 8.h, horizontal: 16.w),
                           child: GestureDetector(
                               onTap: () {
                                 _pickImageFromGallery();
                               },
                               child: SvgPicture.asset(AppIcons.photo)),
                         ),
-                      )),
+                      ),
+                      ),
                   GestureDetector(
                     onTap: () {
                       Map<String, String> newMessage = {
@@ -409,6 +412,6 @@ class _ChatScreenState extends State<ChatScreen> {
       selectedIMage = File(returnImage.path);
       _image = File(returnImage.path).readAsBytesSync();
     });
-    Get.back();
+   // Get.back();
   }
 }
