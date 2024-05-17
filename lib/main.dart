@@ -10,6 +10,7 @@ import 'controllers/localaization_controller.dart';
 import 'controllers/theme_controller.dart';
 import 'helpers/di.dart' as di;
 import 'themes/light_theme.dart';
+import 'views/screens/chatsScreen/only_read_chat.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -43,8 +44,8 @@ class MyApp extends StatelessWidget {
                     AppConstants.languages[0].countryCode),
                 transitionDuration: const Duration(milliseconds: 500),
                 getPages: AppRoutes.routes,
-                initialRoute: AppRoutes.splashScreen,
-                home: const SplashScreen(),
+                initialRoute: AppRoutes.onlyReadChat,
+                home: OnlyReadChat(),
               );
             });
       });
