@@ -30,34 +30,78 @@ class _ChatScreenState extends State<ChatScreen> {
   Uint8List? _image;
   File? selectedIMage;
 
-  List messageList = [
-    {"name": "Alice", "status": "sender", "message": "Hey there!"},
-    {"name": "Bob", "status": "receiver", "message": "Hi, what's up?"},
-    {"name": "Charlie", "status": "sender", "message": "Just checking in."},
+  List<Map<String, String>> messageList = [
+    {
+      "name": "Alice",
+      "status": "sender",
+      "message": "Hey there!",
+      "image": AppImages.stock
+    },
+    {
+      "name": "Bob",
+      "status": "receiver",
+      "message": "Hi, what's up?",
+      "image": AppImages.stock
+    },
+    {
+      "name": "Charlie",
+      "status": "sender",
+      "message": "Just checking in.",
+      "image": AppImages.stock
+    },
     {
       "name": "David",
       "status": "receiver",
-      "message": "Everything's good here, thanks!"
+      "message": "Everything's good here, thanks!",
+      "image": AppImages.stock
     },
-    {"name": "Eve", "status": "sender", "message": "Cool."},
+    {
+      "name": "Eve",
+      "status": "sender",
+      "message": "Cool.",
+      "image": AppImages.stock
+    },
     {
       "name": "Frank",
       "status": "receiver",
-      "message": "Did you see the latest update?"
+      "message": "Did you see the latest update?",
+      "image": AppImages.stock
     },
-    {"name": "Alice", "status": "sender", "message": "Hey there!"},
-    {"name": "Bob", "status": "receiver", "message": "Hi, what's up?"},
-    {"name": "Charlie", "status": "sender", "message": "Just checking in."},
+    {
+      "name": "Alice",
+      "status": "sender",
+      "message": "Hey there!",
+      "image": AppImages.stock
+    },
+    {
+      "name": "Bob",
+      "status": "receiver",
+      "message": "Hi, what's up?",
+      "image": AppImages.stock
+    },
+    {
+      "name": "Charlie",
+      "status": "sender",
+      "message": "Just checking in.",
+      "image": AppImages.stock
+    },
     {
       "name": "David",
       "status": "receiver",
-      "message": "Everything's good here, thanks!"
+      "message": "Everything's good here, thanks!",
+      "image": AppImages.stock
     },
-    {"name": "Eve", "status": "sender", "message": "Cool."},
+    {
+      "name": "Eve",
+      "status": "sender",
+      "message": "Cool.",
+      "image": AppImages.stock
+    },
     {
       "name": "Frank",
       "status": "receiver",
-      "message": "Did you see the latest update?"
+      "message": "Did you see the latest update?",
+      "image": AppImages.stock
     },
   ];
 
@@ -196,26 +240,25 @@ class _ChatScreenState extends State<ChatScreen> {
                           padding: EdgeInsets.symmetric(
                               vertical: 11.h, horizontal: 16.w),
                           child: GestureDetector(
-                            onTap: (){
-                              _pickImageFromGallery();
-                            },
+                              onTap: () {
+                                _pickImageFromGallery();
+                              },
                               child: SvgPicture.asset(AppIcons.photo)),
                         ),
                       )),
                   GestureDetector(
                     onTap: () {
-                      Map<String, dynamic> newMessage = {
+                      Map<String, String> newMessage = {
                         "name": "John",
                         "status": "sender",
                         "message": messageController.text,
+                        "image": AppImages.stock,
                       };
                       if (messageController.text.isNotEmpty) {
                         messageList.add(newMessage);
                         _streamController.sink.add(messageList);
                         print(messageList);
                         messageController.clear();
-                      } else {
-                        null;
                       }
                       setState(() {});
                     },
@@ -238,11 +281,24 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   //=============================================> Receiver Bubble <=================================
-  receiverBubble(BuildContext context, Map message) {
+  receiverBubble(BuildContext context, Map<String, String> message) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.end,
-      crossAxisAlignment: CrossAxisAlignment.end,
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        Container(
+          height: 38.h,
+          width: 38.w,
+          clipBehavior: Clip.antiAlias,
+          decoration: const BoxDecoration(
+            shape: BoxShape.circle,
+          ),
+          child: Image.asset(
+            message['image']!,
+            fit: BoxFit.cover,
+          ),
+        ),
+        SizedBox(width: 8.w),
         Expanded(
           child: ChatBubble(
             clipper: ChatBubbleClipper5(type: BubbleType.receiverBubble),
@@ -256,13 +312,12 @@ class _ChatScreenState extends State<ChatScreen> {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Text(
-                    '${message['message']}' ?? "",
+                    message['message'] ?? "",
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 14.sp,
                     ),
                     textAlign: TextAlign.start,
-                    // textAlign: TextAlign.start,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
@@ -288,9 +343,11 @@ class _ChatScreenState extends State<ChatScreen> {
       ],
     );
   }
-//=============================================> Sender Bubble <========================================
-  senderBubble(BuildContext context, Map message) {
+
+  //=============================================> Sender Bubble <========================================
+  senderBubble(BuildContext context, Map<String, String> message) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         Expanded(
@@ -309,7 +366,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    '${message['message']}' ?? "",
+                    message['message'] ?? "",
                     style: const TextStyle(color: Colors.white),
                     textAlign: TextAlign.start,
                   ),
@@ -326,13 +383,27 @@ class _ChatScreenState extends State<ChatScreen> {
             ),
           ),
         ),
+        SizedBox(width: 8.w),
+        Container(
+          height: 38.h,
+          width: 38.w,
+          clipBehavior: Clip.antiAlias,
+          decoration: const BoxDecoration(
+            shape: BoxShape.circle,
+          ),
+          child: Image.asset(
+            message['image']!,
+            fit: BoxFit.cover,
+          ),
+        ),
       ],
     );
   }
+
   //==================================> Gallery <===============================
   Future _pickImageFromGallery() async {
     final returnImage =
-    await ImagePicker().pickImage(source: ImageSource.gallery);
+        await ImagePicker().pickImage(source: ImageSource.gallery);
     if (returnImage == null) return;
     setState(() {
       selectedIMage = File(returnImage.path);
