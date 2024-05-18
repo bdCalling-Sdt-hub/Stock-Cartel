@@ -119,10 +119,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           /*_profileController.editProfile(
                               _nameController.text,
                               _phoneNumberController.text,
-                              _nidNumberController.text,
-                              _locationController.text,
                               selectedIMage,
-                              dateCtrl.text);*/
+                              _emailController.text);*/
                         }),
                     SizedBox(height: 24.h),
                   ],

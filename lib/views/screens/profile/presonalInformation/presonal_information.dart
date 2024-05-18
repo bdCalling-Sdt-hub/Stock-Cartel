@@ -37,9 +37,6 @@ class PersonalInformation extends StatelessWidget {
                   "name": '${data.fullName}',
                   "email": '${data.email}',
                   "phone": '${data.phoneNumber}',
-                  "dateOfBirth": '${data.dataOfBirth}',
-                  "nidNo": '${data.nidNumber}',
-                  "address": '${data.address}',
                   "image": '${data.image!.url}',
                 });*/
               },
