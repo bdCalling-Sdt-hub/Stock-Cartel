@@ -201,7 +201,7 @@ class _OnlyReadChatState extends State<OnlyReadChat> {
         Expanded(
           child: ChatBubble(
             clipper: ChatBubbleClipper5(type: BubbleType.receiverBubble),
-            backGroundColor: Colors.white,
+            backGroundColor: const Color(0xffe6f2e6),
             margin: EdgeInsets.only(top: 8.h, bottom: 8.h),
             child: Container(
               constraints: BoxConstraints(
