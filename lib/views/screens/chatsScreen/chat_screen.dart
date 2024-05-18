@@ -305,7 +305,7 @@ class _ChatScreenState extends State<ChatScreen> {
         Expanded(
           child: ChatBubble(
             clipper: ChatBubbleClipper5(type: BubbleType.receiverBubble),
-            backGroundColor: Colors.white,
+            backGroundColor: const Color(0xffe6f2e6),
             margin: EdgeInsets.only(top: 8.h, bottom: 8.h),
             child: Container(
               constraints: BoxConstraints(
@@ -359,7 +359,7 @@ class _ChatScreenState extends State<ChatScreen> {
               type: BubbleType.sendBubble,
             ),
             alignment: Alignment.topRight,
-            margin: const EdgeInsets.only(top: 8, bottom: 8),
+            margin: EdgeInsets.only(top: 8.h, bottom: 8.h),
             backGroundColor: AppColors.primaryColor,
             child: Container(
               constraints: BoxConstraints(
