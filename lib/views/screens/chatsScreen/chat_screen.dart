@@ -167,7 +167,7 @@ class _ChatScreenState extends State<ChatScreen> {
                             color: Colors.red,
                             shape: BoxShape.circle,
                             border:
-                            Border.all(color: Colors.white, width: 1.5.r),
+                                Border.all(color: Colors.white, width: 1.5.r),
                             gradient: const LinearGradient(
                               colors: [
                                 Color(0xFF34DE00),
@@ -194,7 +194,7 @@ class _ChatScreenState extends State<ChatScreen> {
                       ),
                       CustomText(
                         top: 4.h,
-                        text: "Hello, are you here?",
+                        text: "Online",
                         fontsize: 12.h,
                         fontWeight: FontWeight.w400,
                       )
@@ -202,9 +202,7 @@ class _ChatScreenState extends State<ChatScreen> {
                   ),
                 ],
               ),
-              SizedBox(
-                height: 20.h,
-              ),
+              SizedBox(height: 20.h),
               Expanded(
                 child: Stack(
                   children: [
@@ -221,7 +219,6 @@ class _ChatScreenState extends State<ChatScreen> {
                                 return message['status'] == "sender"
                                     ? senderBubble(context, message)
                                     : receiverBubble(context, message);
-
                               });
                         } else {
                           return const CustomLoading();
@@ -233,41 +230,42 @@ class _ChatScreenState extends State<ChatScreen> {
                         bottom: 0.h,
                         left: 0.w,
                         child: Column(
-                      children: [
-                        if (_image != null)
-                          Stack(
-                            children: [
-                              Container(
-                                height: 120.h,
-                                width: 120.w,
-                                margin: EdgeInsets.only(bottom: 10.h),
-                                decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                    image: MemoryImage(_image!),
-                                    fit: BoxFit.cover,
+                          children: [
+                            if (_image != null)
+                              Stack(
+                                children: [
+                                  Container(
+                                    height: 120.h,
+                                    width: 120.w,
+                                    margin: EdgeInsets.only(bottom: 10.h),
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                        image: MemoryImage(_image!),
+                                        fit: BoxFit.cover,
+                                      ),
+                                      borderRadius: BorderRadius.circular(12.r),
+                                      //border: Border.all(color: AppColors.primaryColor),
+                                    ),
                                   ),
-                                  borderRadius: BorderRadius.circular(12.r),
-                                  //border: Border.all(color: AppColors.primaryColor),
-                                ),
+                                  //========================================> Cancel Icon <============================
+                                  Positioned(
+                                      top: 0.h,
+                                      left: 0.w,
+                                      child: GestureDetector(
+                                          onTap: () {
+                                            Get.back();
+                                          },
+                                          child: const Icon(
+                                              Icons.cancel_outlined)))
+                                ],
                               ),
-                              //========================================> Cancel Icon <============================
-                              Positioned(
-                                  top: 0.h,
-                                  left: 0.w,
-                                  child: GestureDetector(
-                                      onTap: (){
-                                        Get.back();
-                                      },
-                                      child: const Icon(Icons.cancel_outlined)))
-                            ],
-                          ),
-                      ],
-                    ))
+                          ],
+                        ))
                   ],
                 ),
               ),
               //===============================================> Write Sms Section <=============================
-              SizedBox(height: 65.h),
+              SizedBox(height: 80.h),
             ],
           ),
         ),
@@ -286,8 +284,8 @@ class _ChatScreenState extends State<ChatScreen> {
                   controller: messageController,
                   hintText: "Type something…",
                   sufixicons: Padding(
-                    padding: EdgeInsets.symmetric(
-                        vertical: 8.h, horizontal: 16.w),
+                    padding:
+                        EdgeInsets.symmetric(vertical: 8.h, horizontal: 16.w),
                     child: GestureDetector(
                         onTap: () {
                           openGallery();
@@ -452,7 +450,7 @@ class _ChatScreenState extends State<ChatScreen> {
   //==================================> Gallery <===============================
   Future openGallery() async {
     final pickImage =
-    await ImagePicker().pickImage(source: ImageSource.gallery);
+        await ImagePicker().pickImage(source: ImageSource.gallery);
     setState(() {
       selectedIMage = File(pickImage!.path);
       _image = File(pickImage.path).readAsBytesSync();
