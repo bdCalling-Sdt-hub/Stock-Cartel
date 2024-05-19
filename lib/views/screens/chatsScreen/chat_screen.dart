@@ -167,7 +167,7 @@ class _ChatScreenState extends State<ChatScreen> {
                             color: Colors.red,
                             shape: BoxShape.circle,
                             border:
-                                Border.all(color: Colors.white, width: 1.5.r),
+                            Border.all(color: Colors.white, width: 1.5.r),
                             gradient: const LinearGradient(
                               colors: [
                                 Color(0xFF34DE00),
@@ -206,75 +206,121 @@ class _ChatScreenState extends State<ChatScreen> {
                 height: 20.h,
               ),
               Expanded(
-                child: StreamBuilder(
-                  stream: _streamController.stream,
-                  builder: (context, snapshot) {
-                    if (true) {
-                      return ListView.builder(
-                          controller: _scrollController,
-                          dragStartBehavior: DragStartBehavior.down,
-                          itemCount: messageList.length,
-                          itemBuilder: (context, index) {
-                            var message = messageList[index];
-                            return message['status'] == "sender"
-                                ? senderBubble(context, message)
-                                : receiverBubble(context, message);
-                          });
-                    } else {
-                      return const CustomLoading();
-                    }
-                  },
+                child: Stack(
+                  children: [
+                    StreamBuilder(
+                      stream: _streamController.stream,
+                      builder: (context, snapshot) {
+                        if (true) {
+                          return ListView.builder(
+                              controller: _scrollController,
+                              dragStartBehavior: DragStartBehavior.down,
+                              itemCount: messageList.length,
+                              itemBuilder: (context, index) {
+                                var message = messageList[index];
+                                return message['status'] == "sender"
+                                    ? senderBubble(context, message)
+                                    : receiverBubble(context, message);
+
+                              });
+                        } else {
+                          return const CustomLoading();
+                        }
+                      },
+                    ),
+                    //========================================> Show Select Image <============================
+                    Positioned(
+                        bottom: 0.h,
+                        left: 0.w,
+                        child: Column(
+                      children: [
+                        if (_image != null)
+                          Stack(
+                            children: [
+                              Container(
+                                height: 120.h,
+                                width: 120.w,
+                                margin: EdgeInsets.only(bottom: 10.h),
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                    image: MemoryImage(_image!),
+                                    fit: BoxFit.cover,
+                                  ),
+                                  borderRadius: BorderRadius.circular(12.r),
+                                  //border: Border.all(color: AppColors.primaryColor),
+                                ),
+                              ),
+                              //========================================> Cancel Icon <============================
+                              Positioned(
+                                  top: 0.h,
+                                  left: 0.w,
+                                  child: GestureDetector(
+                                      onTap: (){
+                                        Get.back();
+                                      },
+                                      child: const Icon(Icons.cancel_outlined)))
+                            ],
+                          ),
+                      ],
+                    ))
+                  ],
                 ),
               ),
               //===============================================> Write Sms Section <=============================
-              SizedBox(height: 10.h),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  SizedBox(
-                      width: 295.w,
-                      child:
-
-                      CustomTextField(
-                        controller: messageController,
-                        hintText: "Type something…",
-                        sufixicons: Padding(
-                          padding: EdgeInsets.symmetric(
-                              vertical: 8.h, horizontal: 16.w),
-                          child: GestureDetector(
-                              onTap: () {
-                                _pickImageFromGallery();
-                              },
-                              child: SvgPicture.asset(AppIcons.photo)),
-                        ),
-                      ),
-                      ),
-                  GestureDetector(
-                    onTap: () {
-                      Map<String, String> newMessage = {
-                        "name": "John",
-                        "status": "sender",
-                        "message": messageController.text,
-                        "image": AppImages.stock,
-                      };
-                      if (messageController.text.isNotEmpty) {
-                        messageList.add(newMessage);
-                        _streamController.sink.add(messageList);
-                        print(messageList);
-                        messageController.clear();
-                      }
-                      setState(() {});
-                    },
-                    child: Container(
-                        decoration: BoxDecoration(
-                            border: Border.all(color: AppColors.primaryColor),
-                            borderRadius: BorderRadius.circular(8.r)),
-                        child: Padding(
-                          padding: const EdgeInsets.all(11.0),
-                          child: SvgPicture.asset(AppIcons.sendIcon),
-                        )),
-                  )
-                ],
+              SizedBox(height: 65.h),
+            ],
+          ),
+        ),
+      ),
+      bottomSheet: Container(
+        height: MediaQuery.of(context).size.height * 0.1,
+        width: MediaQuery.of(context).size.width,
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20.w),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              SizedBox(
+                width: 295.w,
+                child: CustomTextField(
+                  controller: messageController,
+                  hintText: "Type something…",
+                  sufixicons: Padding(
+                    padding: EdgeInsets.symmetric(
+                        vertical: 8.h, horizontal: 16.w),
+                    child: GestureDetector(
+                        onTap: () {
+                          openGallery();
+                        },
+                        child: SvgPicture.asset(AppIcons.photo)),
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  Map<String, String> newMessage = {
+                    "name": "John",
+                    "status": "sender",
+                    "message": messageController.text,
+                    "image": AppImages.stock,
+                  };
+                  if (messageController.text.isNotEmpty) {
+                    messageList.add(newMessage);
+                    _streamController.sink.add(messageList);
+                    print(messageList);
+                    messageController.clear();
+                    _image = null; // Clear the selected image after sending
+                  }
+                  setState(() {});
+                },
+                child: Container(
+                    decoration: BoxDecoration(
+                        border: Border.all(color: AppColors.primaryColor),
+                        borderRadius: BorderRadius.circular(8.r)),
+                    child: Padding(
+                      padding: const EdgeInsets.all(11.0),
+                      child: SvgPicture.asset(AppIcons.sendIcon),
+                    )),
               )
             ],
           ),
@@ -404,14 +450,22 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   //==================================> Gallery <===============================
-  Future _pickImageFromGallery() async {
+  Future openGallery() async {
+    final pickImage =
+    await ImagePicker().pickImage(source: ImageSource.gallery);
+    setState(() {
+      selectedIMage = File(pickImage!.path);
+      _image = File(pickImage.path).readAsBytesSync();
+    });
+  }
+/*Future _pickImageFromGallery() async {
     final returnImage =
-        await ImagePicker().pickImage(source: ImageSource.gallery);
+    await ImagePicker().pickImage(source: ImageSource.gallery);
     if (returnImage == null) return;
     setState(() {
       selectedIMage = File(returnImage.path);
       _image = File(returnImage.path).readAsBytesSync();
     });
-   // Get.back();
-  }
+    // Get.back();
+  }*/
 }
