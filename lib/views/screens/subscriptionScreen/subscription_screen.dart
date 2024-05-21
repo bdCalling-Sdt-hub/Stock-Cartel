@@ -1,10 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:stock_cartel/utils/app_colors.dart';
-
 import '../../../routes/app_routes.dart';
 import '../../../utils/app_strings.dart';
 import '../../widgets/custom_button.dart';
@@ -24,6 +21,15 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
   void setSelectedIndex(int index) {
     selectedIndex = index;
   }
+
+
+  List subscription=[
+    {'title':"1 Week","price":"9.99","duration":"Week"},
+    {'title':"1 Month","price":"29.99","duration":"Month"},
+    {'title':"1 Year","price":"249.99","duration":"Year"},
+  ];
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +65,7 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
             Expanded(
               child: ListView.builder(
                   physics: const NeverScrollableScrollPhysics(),
-                  itemCount: 3,
+                  itemCount:  subscription.length,
                   itemBuilder: (context, index) {
                     bool isSelected = selectedIndex == index;
                     return GestureDetector(
@@ -89,24 +95,25 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               CustomText(
-                                text: '1 WEEK',
+                                text: subscription[index]['title'],
                                 fontWeight: FontWeight.w500,
                                 fontsize: 14.w,
                               ),
                               Row(
                                 children: [
                                   CustomText(
-                                    text: '\$9.99',
+                                    text: '\$${subscription[index]['price']}',
                                     fontWeight: FontWeight.w500,
-                                    fontsize: 20.w,
+                                    fontsize: 18.w,
                                     color: isSelected
                                         ? AppColors.primaryColor
                                         : Colors.black,
                                   ),
                                   CustomText(
-                                    text: '\/week',
+                                    text: '\/${subscription[index]['duration']}',
+                                    fontsize: 14.w,
                                   ),
-                                  SizedBox(width: 12.w),
+                                  SizedBox(width: 8.w),
                                   CustomText(
                                     text: '(3- Days free trial)',
                                   ),

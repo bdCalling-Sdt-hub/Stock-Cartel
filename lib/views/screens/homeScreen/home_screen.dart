@@ -12,7 +12,13 @@ import '../../../utils/app_images.dart';
 import '../../widgets/bottom_menu..dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+  HomeScreen({super.key});
+
+  List chatList=[
+    {"title": "Stock", "subTitle": "Stock rate increased 30%", "image": AppImages.stock},
+    {"title": "Cryptocurrency", "subTitle": "Lorem Ipsum dummy....", "image": AppImages.crypto},
+    {"title": "Community", "subTitle": "Lorem Ipsum dummy....", "image": AppImages.community},
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +52,7 @@ class HomeScreen extends StatelessWidget {
             //====================================> Chat List Section <===============================
             Expanded(
               child: ListView.builder(
-                  itemCount: 3,
+                  itemCount: chatList.length,
                   padding: EdgeInsets.zero,
                   itemBuilder: (context, index) {
                     return GestureDetector(
@@ -71,7 +77,7 @@ class HomeScreen extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   CircleAvatar(
-                                    child: Image.asset(AppImages.stock),
+                                    child: Image.asset(chatList[index]["image"]),
                                   ),
                                   SizedBox(width: 12.w),
                                   //=======================================> Title and Subtitle Column <======================
@@ -81,12 +87,12 @@ class HomeScreen extends StatelessWidget {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       CustomText(
-                                        text: 'Stock',
+                                        text: chatList[index]["title"],
                                         fontWeight: FontWeight.w500,
                                         fontsize: 18.w,
                                       ),
                                       CustomText(
-                                        text: 'Stock rate increased 30%',
+                                        text: chatList[index]["subTitle"],
                                         fontsize: 12.w,
                                       )
                                     ],
