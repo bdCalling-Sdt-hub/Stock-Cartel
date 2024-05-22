@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:stock_cartel/routes/app_routes.dart';
-import 'package:stock_cartel/themes/dark_theme.dart';
 import 'package:stock_cartel/utils/app_constants.dart';
 import 'package:stock_cartel/utils/messages.dart';
 import 'package:stock_cartel/views/screens/splashScreen/splash_screen.dart';
@@ -10,7 +9,7 @@ import 'controllers/localaization_controller.dart';
 import 'controllers/theme_controller.dart';
 import 'helpers/di.dart' as di;
 import 'themes/light_theme.dart';
-import 'views/screens/chatsScreen/only_read_chat.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

@@ -14,10 +14,22 @@ import '../../widgets/bottom_menu..dart';
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
 
-  List chatList=[
-    {"title": "Stock", "subTitle": "Stock rate increased 30%", "image": AppImages.stock},
-    {"title": "Cryptocurrency", "subTitle": "Lorem Ipsum dummy....", "image": AppImages.crypto},
-    {"title": "Community", "subTitle": "Lorem Ipsum dummy....", "image": AppImages.community},
+  List chatList = [
+    {
+      "title": "Stock",
+      "subTitle": "Stock rate increased 30%",
+      "image": AppImages.stock
+    },
+    {
+      "title": "Cryptocurrency",
+      "subTitle": "Lorem Ipsum dummy....",
+      "image": AppImages.crypto
+    },
+    {
+      "title": "Community",
+      "subTitle": "Lorem Ipsum dummy....",
+      "image": AppImages.community
+    },
   ];
 
   @override
@@ -56,8 +68,12 @@ class HomeScreen extends StatelessWidget {
                   padding: EdgeInsets.zero,
                   itemBuilder: (context, index) {
                     return GestureDetector(
-                      onTap: (){
-                        Get.toNamed(AppRoutes.chatScreen);
+                      onTap: () {
+                        if (index == 0 || index == 1) {
+                          Get.toNamed(AppRoutes.onlyReadChat);
+                        } else {
+                          Get.toNamed(AppRoutes.chatScreen);
+                        }
                       },
                       child: Container(
                         margin: EdgeInsets.symmetric(vertical: 8.h),
@@ -77,12 +93,14 @@ class HomeScreen extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   CircleAvatar(
-                                    child: Image.asset(chatList[index]["image"]),
+                                    child:
+                                        Image.asset(chatList[index]["image"]),
                                   ),
                                   SizedBox(width: 12.w),
                                   //=======================================> Title and Subtitle Column <======================
                                   Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
@@ -101,7 +119,8 @@ class HomeScreen extends StatelessWidget {
                               ),
                               //=======================================> Time and Count Column <======================
                               Column(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   CustomText(
                                     text: '11:38 AM',
