@@ -81,7 +81,16 @@ class _LanguageScreenState extends State<LanguageScreen> {
                           fillColor:
                               MaterialStateProperty.all(Get.theme.primaryColor),
                           splashRadius: 25.r,
-                          onChanged: (_) {},
+                          onChanged: (_) {
+                            localizationController.setLanguage(Locale(
+                              AppConstants.languages[index].languageCode,
+                              AppConstants.languages[index].countryCode,
+                            ));
+                            localizationController.setSelectIndex(index);
+                            setState(() {
+                              selectedOption = index;
+                            });
+                          },
                         ),
                         title: Text(
                           data.languageName.tr,
@@ -96,7 +105,11 @@ class _LanguageScreenState extends State<LanguageScreen> {
             CustomButton(
               text: AppStrings.continues.tr,
               onTap: () {
-                Get.toNamed(AppRoutes.onboardingScreen);
+                if (selectedOption != null) {
+                  Get.toNamed(AppRoutes.onboardingScreen);
+                } else {
+                  return Get.snackbar('Error', 'Please select a language');
+                }
               },
             ),
             SizedBox(height: 54.h)
