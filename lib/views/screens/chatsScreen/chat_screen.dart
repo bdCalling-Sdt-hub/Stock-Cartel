@@ -353,11 +353,19 @@ class _ChatScreenState extends State<ChatScreen> {
             margin: EdgeInsets.only(top: 8.h, bottom: 8.h),
             child: Container(
               constraints: BoxConstraints(
-                maxWidth: MediaQuery.of(context).size.width * 0.57.w,
+                maxWidth: MediaQuery.of(context).size.width * 0.50.w,
               ),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  CustomText(
+                    text: 'User',
+                  fontsize: 12.sp,
+                    color: AppColors.primaryColor,
+                    fontWeight: FontWeight.w800,
+                    textAlign: TextAlign.start,
+                    bottom: 5.h,
+                  ),
                   Text(
                     message['message'] ?? "",
                     style: TextStyle(
@@ -366,21 +374,14 @@ class _ChatScreenState extends State<ChatScreen> {
                     ),
                     textAlign: TextAlign.start,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Flexible(
-                        child: Text(
-                          'time',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 12.sp,
-                          ),
-                          textAlign: TextAlign.end,
-                        ),
-                      ),
-                    ],
+                  SizedBox(height: 5.h),
+                  Align(
+                    alignment: Alignment.bottomRight,
+                    child: Text(
+                      'time',
+                      textAlign: TextAlign.end,
+                      style: TextStyle(color: Colors.black, fontSize: 12.sp),
+                    ),
                   ),
                 ],
               ),
@@ -407,18 +408,27 @@ class _ChatScreenState extends State<ChatScreen> {
             backGroundColor: AppColors.primaryColor,
             child: Container(
               constraints: BoxConstraints(
-                maxWidth: MediaQuery.of(context).size.width * 0.57,
+                maxWidth: MediaQuery.of(context).size.width * 0.50,
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  CustomText(
+                    text: 'Me',
+                    fontsize: 12.sp,
+                    color: AppColors.white,
+                    fontWeight: FontWeight.w800,
+                    textAlign: TextAlign.start,
+                    bottom: 5.h,
+                  ),
                   Text(
                     message['message'] ?? "",
                     style: const TextStyle(color: Colors.white),
                     textAlign: TextAlign.start,
                   ),
+                  SizedBox(height: 5.h),
                   Align(
-                    alignment: Alignment.centerRight,
+                    alignment: Alignment.bottomLeft,
                     child: Text(
                       'time',
                       textAlign: TextAlign.end,
