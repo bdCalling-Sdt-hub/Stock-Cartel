@@ -108,7 +108,7 @@ class _LanguageScreenState extends State<LanguageScreen> {
                 if (selectedOption != null) {
                   Get.toNamed(AppRoutes.onboardingScreen);
                 } else {
-                  return Get.snackbar('Error', 'Please select a language');
+                  return Get.snackbar('Error', 'Please select a language', colorText: Colors.red);
                 }
               },
             ),
