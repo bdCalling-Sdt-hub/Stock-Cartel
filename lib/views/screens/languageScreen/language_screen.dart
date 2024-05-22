@@ -1,21 +1,13 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:stock_cartel/routes/app_routes.dart';
-import 'package:stock_cartel/utils/app_icons.dart';
 import 'package:stock_cartel/utils/app_strings.dart';
 import 'package:stock_cartel/views/widgets/custom_button.dart';
-import 'package:stock_cartel/views/widgets/custom_list_tile.dart';
 import 'package:stock_cartel/views/widgets/custom_text.dart';
-
 import '../../../controllers/localaization_controller.dart';
-import '../../../helpers/prefs_helpers.dart';
 import '../../../utils/app_colors.dart';
 import '../../../utils/app_constants.dart';
-import '../../../utils/app_images.dart';
 import '../../../utils/style.dart';
 
 class LanguageScreen extends StatefulWidget {
@@ -108,7 +100,8 @@ class _LanguageScreenState extends State<LanguageScreen> {
                 if (selectedOption != null) {
                   Get.toNamed(AppRoutes.onboardingScreen);
                 } else {
-                  return Get.snackbar('Error', 'Please select a language', colorText: Colors.red);
+                  return Get.snackbar('Error', 'Please select a language',
+                      colorText: Colors.red);
                 }
               },
             ),

@@ -35,73 +35,73 @@ class _ChatScreenState extends State<ChatScreen> {
       "name": "Alice",
       "status": "sender",
       "message": "Hey there!",
-      "image": AppImages.stock
+      "image": AppImages.person
     },
     {
       "name": "Bob",
       "status": "receiver",
       "message": "Hi, what's up?",
-      "image": AppImages.stock
+      "image": AppImages.community
     },
     {
       "name": "Charlie",
       "status": "sender",
       "message": "Just checking in.",
-      "image": AppImages.stock
+      "image": AppImages.person
     },
     {
       "name": "David",
       "status": "receiver",
       "message": "Everything's good here, thanks!",
-      "image": AppImages.stock
+      "image": AppImages.community
     },
     {
       "name": "Eve",
       "status": "sender",
       "message": "Cool.",
-      "image": AppImages.stock
+      "image": AppImages.person
     },
     {
       "name": "Frank",
       "status": "receiver",
       "message": "Did you see the latest update?",
-      "image": AppImages.stock
+      "image": AppImages.community
     },
     {
       "name": "Alice",
       "status": "sender",
       "message": "Hey there!",
-      "image": AppImages.stock
+      "image": AppImages.person
     },
     {
       "name": "Bob",
       "status": "receiver",
       "message": "Hi, what's up?",
-      "image": AppImages.stock
+      "image": AppImages.community
     },
     {
       "name": "Charlie",
       "status": "sender",
       "message": "Just checking in.",
-      "image": AppImages.stock
+      "image": AppImages.person
     },
     {
       "name": "David",
       "status": "receiver",
       "message": "Everything's good here, thanks!",
-      "image": AppImages.stock
+      "image": AppImages.community
     },
     {
       "name": "Eve",
       "status": "sender",
       "message": "Cool.",
-      "image": AppImages.stock
+      "image": AppImages.person
     },
     {
       "name": "Frank",
       "status": "receiver",
       "message": "Did you see the latest update?",
-      "image": AppImages.stock
+      "image": AppImages.community
     },
   ];
 
@@ -152,7 +152,7 @@ class _ChatScreenState extends State<ChatScreen> {
                           shape: BoxShape.circle,
                         ),
                         child: Image.asset(
-                          AppImages.stock,
+                          AppImages.community,
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -187,7 +187,7 @@ class _ChatScreenState extends State<ChatScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       CustomText(
-                        text: "Stock" ?? "${Get.parameters['userName']}",
+                        text: "Community" ?? "${Get.parameters['userName']}",
                         fontsize: 16.h,
                         fontWeight: FontWeight.w500,
                         color: Colors.black,
@@ -300,7 +300,7 @@ class _ChatScreenState extends State<ChatScreen> {
                     "name": "John",
                     "status": "sender",
                     "message": messageController.text,
-                    "image": AppImages.stock,
+                    "image": AppImages.person,
                   };
                   if (messageController.text.isNotEmpty) {
                     messageList.add(newMessage);
