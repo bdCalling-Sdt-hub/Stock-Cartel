@@ -23,32 +23,47 @@ class _OnlyReadChatState extends State<OnlyReadChat> {
   TextEditingController messageController = TextEditingController();
   List<Map<String, String>> messageList = [
     {
-      "name": "Bob",
       "status": "receiver",
       "message": "Hi, what's up?",
     },
     {
-      "name": "David",
       "status": "receiver",
       "message":
           "Last week, the share price of Kotak Mahindra Bank (NS:KTKM) took a severe hit, tanking 10.2% to INR 1,608.5.",
     },
     {
-      "name": "Frank",
       "status": "receiver",
       "message":
           "BEIJING (Reuters) - Baidu (NASDAQ:BIDU), China's major internet search company, reached an agreement with Tesla (NASDAQ:TSLA) to grant the car company access to its mapping license for data.",
     },
     {
-      "name": "Bob",
       "status": "receiver",
       "message":
           "Explore our expertly curated list of the top altcoins worth investing in right now! Discover profit potential, understand risks, and hone your cryptocurrency investment strategy.",
     },
     {
-      "name": "David",
       "status": "receiver",
       "message": "Everything's good here, thanks!",
+    },
+    {
+      "status": "receiver",
+      "message":
+      "Explore our expertly curated list of the top altcoins worth investing in right now! Discover profit potential, understand risks, and hone your cryptocurrency investment strategy.",
+    },
+    {
+      "status": "receiver",
+      "message":
+      "Explore our expertly curated list of the top altcoins worth investing in right now! Discover profit potential, understand risks, and hone your cryptocurrency investment strategy.",
+    },
+    {
+      "status": "receiver",
+      "message":
+      "Explore our expertly curated list of the top altcoins worth investing in right now! Discover profit potential, understand risks, and hone your cryptocurrency investment strategy.",
+    },
+    {
+      "status": "receiver",
+      "message":
+      "Explore our expertly curated list of the top altcoins worth investing in right now! Discover profit potential, understand risks, and hone your cryptocurrency investment strategy.",
     },
   ];
 
@@ -205,7 +220,7 @@ class _OnlyReadChatState extends State<OnlyReadChat> {
             margin: EdgeInsets.only(top: 8.h, bottom: 8.h),
             child: Container(
               constraints: BoxConstraints(
-                maxWidth: MediaQuery.of(context).size.width * 0.57.w,
+                maxWidth: MediaQuery.of(context).size.width * 0.75.w,
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.end,

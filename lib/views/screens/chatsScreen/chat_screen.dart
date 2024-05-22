@@ -211,6 +211,7 @@ class _ChatScreenState extends State<ChatScreen> {
                       builder: (context, snapshot) {
                         if (true) {
                           return ListView.builder(
+                            scrollDirection: Axis.vertical,
                               controller: _scrollController,
                               dragStartBehavior: DragStartBehavior.down,
                               itemCount: messageList.length,
