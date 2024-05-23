@@ -6,9 +6,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:stock_cartel/utils/app_images.dart';
-import '../../../helpers/prefs_helpers.dart';
 import '../../../routes/app_routes.dart';
-import '../../../utils/app_constants.dart';
 import 'dart:math' as math;
 
 class SplashScreen extends StatefulWidget {

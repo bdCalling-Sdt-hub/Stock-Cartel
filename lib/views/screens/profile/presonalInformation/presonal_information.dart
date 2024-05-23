@@ -42,7 +42,7 @@ class PersonalInformation extends StatelessWidget {
               },
             ),
             SizedBox(height: 24.h),
-            //==================================> CustomContainer Section <=================================
+            //===========================> CustomContainer Section <=====================
 
             SizedBox(height: 24.h),
 
@@ -52,13 +52,13 @@ class PersonalInformation extends StatelessWidget {
                 prefixIcon: _prefixIcon(AppIcons.person)),
             SizedBox(height: 16.h),
 
-            //=================================> Profile Email <==========================
+            //=================================> Profile Email <========================
             CustomListTile(
                 title: 'mrswapon@gmail.com',
                 prefixIcon: _prefixIcon(AppIcons.mail)),
             SizedBox(height: 16.h),
 
-            //=================================> Phone Number <==========================
+            //=================================> Phone Number <========================
             CustomListTile(
                 title: '(000) 000-0000',
                 prefixIcon: _prefixIcon(
