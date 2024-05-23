@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -8,8 +7,6 @@ import '../../../../utils/app_colors.dart';
 import '../../../../utils/app_icons.dart';
 import '../../../../utils/app_strings.dart';
 import '../../../widgets/bottom_menu..dart';
-import '../../../widgets/custom_button.dart';
-import '../../../widgets/custom_text.dart';
 import 'InnerWidget/custom_alert.dart';
 import 'InnerWidget/custom_list_tile.dart';
 import 'InnerWidget/top_profile_card.dart';
@@ -73,4 +70,3 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 }
-

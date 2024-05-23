@@ -22,14 +22,11 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
     selectedIndex = index;
   }
 
-
-  List subscription=[
-    {'title':"1 Week","price":"9.99","duration":"Week"},
-    {'title':"1 Month","price":"29.99","duration":"Month"},
-    {'title':"1 Year","price":"249.99","duration":"Year"},
+  List subscription = [
+    {'title': "1 Week", "price": "9.99", "duration": "Week"},
+    {'title': "1 Month", "price": "29.99", "duration": "Month"},
+    {'title': "1 Year", "price": "249.99", "duration": "Year"},
   ];
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +51,7 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
               textAlign: TextAlign.start,
               maxline: 4,
             ),
-            //====================================> Select Plan Text <=========================
+            //==========================> Select Plan Text <====================
             Center(
               child: CustomText(
                 text: AppStrings.selectYourPlan.tr,
@@ -65,7 +62,7 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
             Expanded(
               child: ListView.builder(
                   physics: const NeverScrollableScrollPhysics(),
-                  itemCount:  subscription.length,
+                  itemCount: subscription.length,
                   itemBuilder: (context, index) {
                     bool isSelected = selectedIndex == index;
                     return GestureDetector(
@@ -110,7 +107,8 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
                                         : Colors.black,
                                   ),
                                   CustomText(
-                                    text: '\/${subscription[index]['duration']}',
+                                    text:
+                                        '\/${subscription[index]['duration']}',
                                     fontsize: 14.w,
                                   ),
                                   SizedBox(width: 8.w),
@@ -127,7 +125,7 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
                   }),
             ),
 
-            //====================================> Select Plan Button  <=========================
+            //=========================> Select Plan Button  <==================
             SizedBox(height: 8.h),
             CustomButton(
                 text: AppStrings.selectPlan.tr,
@@ -136,7 +134,11 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
                 }),
             Center(
               child: CustomText(
-                  top: 16.h, bottom: 24.h, text: AppStrings.recurringBilling.tr, maxline: 2,),
+                top: 16.h,
+                bottom: 24.h,
+                text: AppStrings.recurringBilling.tr,
+                maxline: 2,
+              ),
             ),
           ],
         ),
