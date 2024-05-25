@@ -233,6 +233,7 @@ class _OnlyReadChatState extends State<OnlyReadChat> {
                     ),
                     textAlign: TextAlign.start,
                   ),
+                  SizedBox(height: 5.h),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     mainAxisSize: MainAxisSize.min,
