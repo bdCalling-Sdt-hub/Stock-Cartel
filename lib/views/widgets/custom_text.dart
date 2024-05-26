@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../utils/app_colors.dart';
 
 class CustomText extends StatelessWidget {
-   CustomText(
+  CustomText(
       {super.key,
       this.maxline,
       this.textOverflow,

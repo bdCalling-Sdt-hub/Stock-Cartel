@@ -23,7 +23,6 @@ class BottomMenu extends StatelessWidget {
             image,
             height: 24.0.h,
             width: 24.0.w,
-            // color: colorByIndex(theme, index),
           ),
         ));
   }
