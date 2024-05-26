@@ -6,10 +6,12 @@ class CustomLoading extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  SizedBox(
+    return SizedBox(
       height: 20.h,
       width: 20.h,
-      child: const CircularProgressIndicator(color: Colors.white,),
+      child: const CircularProgressIndicator(
+        color: Colors.white,
+      ),
     );
   }
 }
