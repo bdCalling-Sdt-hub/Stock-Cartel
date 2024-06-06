@@ -12,7 +12,6 @@ class BottomMenu extends StatelessWidget {
   Color colorByIndex(ThemeData theme, int index) {
     return index == menuIndex ? AppColors.white : AppColors.white;
   }
-
   BottomNavigationBarItem getItem(
       String image, String title, ThemeData theme, int index) {
     return BottomNavigationBarItem(
