@@ -44,6 +44,7 @@ dependencies:
   connectivity_plus: ^6.0.3
   fluttertoast: ^8.2.5
   flutter_html:
+  mime_type:
   shared_preferences: ^2.2.3
   cached_network_image: ^3.3.1
   intl:

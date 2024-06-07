@@ -11,6 +11,7 @@ import 'package:stock_cartel/views/widgets/custom_button.dart';
 import 'package:stock_cartel/views/widgets/custom_text.dart';
 import 'package:stock_cartel/views/widgets/custom_text_field.dart';
 
+import '../../../../controllers/authController/auth_controller.dart';
 import '../../../../utils/app_icons.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -21,6 +22,8 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
+  final AuthController _authController = Get.put(AuthController());
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController phoneNumberCodeCTRl = TextEditingController();
   final TextEditingController phoneNumberCTRl = TextEditingController();
   String _selectedCountryCode = '';
@@ -47,6 +50,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
             CustomText(
               top: 8.h,
               text: AppStrings.weWillText.tr,
+              maxline: 2,
+              textAlign: TextAlign.start,
               bottom: 24.h,
             ),
             //====================================> Phone Number Text Field <=========================
@@ -88,13 +93,22 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                 ),
                 SizedBox(width: 16.w),
-                Expanded(
-                  child: SizedBox(
-                    height: 56.h,
-                    child: CustomTextField(
-                      keyboardType: TextInputType.phone,
-                      controller: phoneNumberCTRl,
-                      hintText: AppStrings.phoneNumber.tr,
+                Form(
+                  key: _formKey,
+                  child: Expanded(
+                    child: SizedBox(
+                      height: 56.h,
+                      child: CustomTextField(
+                        keyboardType: TextInputType.phone,
+                        controller: _authController.phoneNumberCTRl,
+                        hintText: AppStrings.phoneNumber.tr,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return "Please enter your phone number";
+                          }
+                          return null;
+                        },
+                      ),
                     ),
                   ),
                 )
@@ -105,7 +119,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
             CustomButton(
                 text: AppStrings.verifyNumber.tr,
                 onTap: () {
-                  Get.toNamed(AppRoutes.verifyNumberScreen);
+                  if (_formKey.currentState!.validate()) {
+                      _authController.handleRegister();
+                    } else {
+                    return null;
+                    }
                 }),
             SizedBox(height: 74.h)
           ],

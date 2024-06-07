@@ -1,6 +1,10 @@
 import '../models/language_model.dart';
 
 class AppConstants{
+  //=======================Prefs Helper data===============================>
+  static const String bearerToken = "BearerToken";
+  static String isLogged = "IsLogged";
+  static String id = "id";
 
   static String APP_NAME="Stock-Cartel";
   static String THEME ="theme";
@@ -20,3 +24,5 @@ class AppConstants{
   ];
 
 }
+enum Status { loading, completed, error, internetError }
+enum Role { client, admin}
