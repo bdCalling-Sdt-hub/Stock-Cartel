@@ -73,7 +73,7 @@ class PrefsHelper extends GetxController {
     return preferences.remove(key);
   }
 
-  //==============================> Get All Data Form Shared Preference <============================
+  //==============================> Remove All Data Form Shared Preference <============================
   static Future<void> removeAllPrefData() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     await preferences.clear();
