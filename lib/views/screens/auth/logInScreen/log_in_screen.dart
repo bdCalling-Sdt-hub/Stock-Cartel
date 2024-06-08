@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import '../../../../controllers/authController/auth_controller.dart';
 import '../../../../routes/app_routes.dart';
 import '../../../../utils/app_colors.dart';
 import '../../../../utils/app_icons.dart';
@@ -19,6 +20,7 @@ class LogInScreen extends StatefulWidget {
 }
 
 class _LogInScreenState extends State<LogInScreen> {
+  final authController = Get.put(AuthController());
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController phoneNumberCodeCTRl = TextEditingController();
   final TextEditingController phoneNumberCTRl = TextEditingController();
@@ -94,7 +96,7 @@ class _LogInScreenState extends State<LogInScreen> {
                         height: 56.h,
                         child: CustomTextField(
                           keyboardType: TextInputType.phone,
-                          controller: phoneNumberCTRl,
+                          controller: authController.logInPhoneNumberCtrl,
                           hintText: AppStrings.phoneNumber.tr,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
@@ -110,7 +112,7 @@ class _LogInScreenState extends State<LogInScreen> {
                 //====================================> Password Text Field <=========================
                 SizedBox(height: 16.h),
                 CustomTextField(
-                  controller: passwordCTRl,
+                  controller: authController.logInPassCtrl,
                   hintText: AppStrings.password.tr,
                   isPassword: true,
                   validator: (value) {
@@ -120,9 +122,12 @@ class _LogInScreenState extends State<LogInScreen> {
                     return null;
                   },
                 ),
+                //================================> Forgot Password Text <===========================
                 InkWell(
                   onTap: () {
-                    Get.toNamed(AppRoutes.forgotPasswordScreen);
+                    Get.toNamed(AppRoutes.forgotPasswordScreen, parameters: {
+                      'phone': authController.phoneNumberCTRl.text
+                    });
                   },
                   child: CustomText(
                     top: 12.h,
@@ -131,17 +136,17 @@ class _LogInScreenState extends State<LogInScreen> {
                     fontWeight: FontWeight.w500,
                   ),
                 ),
-                //====================================> Log In Button  <=========================
+                //====================================> Log In Button  <============================
                 SizedBox(height: 367.h),
                 CustomButton(
-                    //loading: _authcontroller.forgotLoading.value,
+                    loading: authController.logInLoading.value,
                     text: AppStrings.logIn.tr,
                     onTap: () {
                       Get.toNamed(AppRoutes.subscriptionScreen);
-                     /* if (_formKey.currentState!.validate()) {
-                        _authcontroller.handleForget();
+                      if (_formKey.currentState!.validate()) {
+                        authController.handleLogIn();
                         // Get.toNamed(AppRoutes.verifyOtpScreen);
-                      }*/
+                      }
                     }),
                 SizedBox(height: 74.h)
               ],

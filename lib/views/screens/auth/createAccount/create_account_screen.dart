@@ -6,9 +6,9 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:stock_cartel/utils/app_colors.dart';
 import 'package:image_picker/image_picker.dart';
-import '../../../../routes/app_routes.dart';
+import '../../../../controllers/profileController/profile_controller.dart';
+import '../../../../services/api_constants.dart';
 import '../../../../utils/app_icons.dart';
-import '../../../../utils/app_images.dart';
 import '../../../../utils/app_strings.dart';
 import '../../../widgets/custom_button.dart';
 import '../../../widgets/custom_text.dart';
@@ -22,11 +22,21 @@ class CreateAccountScreen extends StatefulWidget {
 }
 
 class _CreateAccountScreenState extends State<CreateAccountScreen> {
+  final _profileController = Get.put(ProfileController());
   final TextEditingController nameCTRl = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController setPasswordCTRl = TextEditingController();
+  var parameter = Get.parameters;
   Uint8List? _image;
   File? selectedIMage;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    nameCTRl.text = parameter['name']! == 'null' ? '' : parameter['name']!;
+    setPasswordCTRl.text =
+        parameter['password']! == 'null' ? '' : parameter['password']!;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,17 +69,11 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                     _image != null
                         ? CircleAvatar(
                             radius: 60.r, backgroundImage: MemoryImage(_image!))
-                        : Container(
-                            width: 96.w,
-                            height: 94.h,
-                            decoration: BoxDecoration(
-                                color: const Color(0xFFE7F2E6),
-                                border: Border.all(
-                                    width: 2.w, color: AppColors.primaryColor),
-                                shape: BoxShape.circle,
-                                image: DecorationImage(
-                                    image: AssetImage(AppImages.person),
-                                    fit: BoxFit.cover)),
+                        : CircleAvatar(
+                            radius: 60.r,
+                            backgroundImage: NetworkImage(
+                                '${ApiConstants.imageBaseUrl}${parameter['image']}'),
+
                             /*child :  profileData?.image?.publicFileUrl == null || profileData?.image?.publicFileUrl == ''
                           ?
               CachedNetworkImage(
@@ -131,7 +135,8 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                     CustomButton(
                         text: AppStrings.createAccount.tr,
                         onTap: () {
-                           Get.toNamed(AppRoutes.logInScreen);
+                          _profileController.editProfile(nameCTRl.text, "",
+                              setPasswordCTRl.text, selectedIMage);
                         }),
                     SizedBox(height: 74.h)
                   ],

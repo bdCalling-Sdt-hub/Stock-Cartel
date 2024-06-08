@@ -1,10 +1,8 @@
 import 'package:country_code_picker/country_code_picker.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:stock_cartel/routes/app_routes.dart';
 import 'package:stock_cartel/utils/app_colors.dart';
 import 'package:stock_cartel/utils/app_strings.dart';
 import 'package:stock_cartel/views/widgets/custom_button.dart';
@@ -24,7 +22,6 @@ class RegisterScreen extends StatefulWidget {
 class _RegisterScreenState extends State<RegisterScreen> {
   final AuthController _authController = Get.put(AuthController());
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  //final TextEditingController phoneNumberCodeCTRl = TextEditingController();
   final TextEditingController phoneNumberCTRl = TextEditingController();
   String _selectedCountryCode = '';
   @override
@@ -39,25 +36,25 @@ class _RegisterScreenState extends State<RegisterScreen> {
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            CustomText(
-              text: AppStrings.whatsYour.tr,
-              fontWeight: FontWeight.w500,
-              fontsize: 18.sp,
-            ),
-            CustomText(
-              top: 8.h,
-              text: AppStrings.weWillText.tr,
-              maxline: 2,
-              textAlign: TextAlign.start,
-              bottom: 24.h,
-            ),
-            //====================================> Phone Number Text Field <=========================
-            Form(
-              key: _formKey,
-              child: Row(
+        child: Form(
+          key: _formKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              CustomText(
+                text: AppStrings.whatsYour.tr,
+                fontWeight: FontWeight.w500,
+                fontsize: 18.sp,
+              ),
+              CustomText(
+                top: 8.h,
+                text: AppStrings.weWillText.tr,
+                maxline: 2,
+                textAlign: TextAlign.start,
+                bottom: 24.h,
+              ),
+              //====================================> Phone Number Text Field <=========================
+              Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
@@ -113,21 +110,21 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   )
                 ],
               ),
-            ),
-            //====================================> Verify Button  <=========================
-            const Spacer(),
-            CustomButton(
-                loading: _authController.registerLoading.value,
-                text: AppStrings.verifyNumber.tr,
-                onTap: () {
-                  if (_formKey.currentState!.validate()) {
-                    _authController.handleRegister();
-                  } else {
-                    return '==================> Something wrong';
-                  }
-                }),
-            SizedBox(height: 74.h)
-          ],
+              //====================================> Verify Button  <=========================
+              const Spacer(),
+              CustomButton(
+                  loading: _authController.registerLoading.value,
+                  text: AppStrings.verifyNumber.tr,
+                  onTap: () {
+                    if (_formKey.currentState!.validate()) {
+                      _authController.handleRegister();
+                    } else {
+                      return '==================> Something wrong';
+                    }
+                  }),
+              SizedBox(height: 74.h)
+            ],
+          ),
         ),
       ),
     );
