@@ -19,18 +19,19 @@ class AuthController extends GetxController {
     registerLoading(true);
     try {
       Map<String, dynamic> body = {
-        "phone number": phoneNumberCTRl.text.trim(),
+        "phone": phoneNumberCTRl.text.trim(),
       };
-      print("===================> ${body}");
+      print("===================> $body");
       var headers = {'Content-Type': 'application/json'};
       Response response = await ApiClient.postData(
-          ApiConstants.registerEndPoint, jsonEncode(body),
-          headers: headers);
+        ApiConstants.registerEndPoint,
+        jsonEncode(body),
+      );
       print("============> ${response.body} and ==> ${response.statusCode}");
       if (response.statusCode == 200) {
         Fluttertoast.showToast(msg: response.body['message']);
         Get.toNamed(AppRoutes.verifyNumberScreen, parameters: {
-          "phone number": phoneNumberCTRl.text.trim(),
+          "phone": phoneNumberCTRl.text.trim(),
           "screenType": "register",
         });
         phoneNumberCTRl.clear();
@@ -44,21 +45,22 @@ class AuthController extends GetxController {
     registerLoading(false);
   }
 
-  //============================================>  Sign in <==============================
+  /*//============================================>  Log in <==============================
 
- /* TextEditingController signInPassCtrl = TextEditingController();
-  TextEditingController signInEmailCtrl = TextEditingController();
-  var signInLoading = false.obs;
 
-  handleSignIn() async {
-    signInLoading(true);
+  TextEditingController logInPassCtrl = TextEditingController();
+  TextEditingController phoneNumberCtrl = TextEditingController();
+  var logInLoading = false.obs;
+
+  handleLogIn() async {
+    logInLoading(true);
     var headers = {
       //'Content-Type': 'application/x-www-form-urlencoded'
       'Content-Type': 'application/json'
     };
     Map<String, dynamic> body = {
-      'email': signInEmailCtrl.text.trim(),
-      'password': signInPassCtrl.text.trim()
+      'email': phoneNumberCtrl.text.trim(),
+      'password': logInPassCtrl.text.trim()
     };
     Response response = await ApiClient.postData(
         ApiConstants.loginEndPoint, json.encode(body),
@@ -77,10 +79,10 @@ class AuthController extends GetxController {
     } else {
       Fluttertoast.showToast(msg: response.statusText ?? "");
     }
-    signInLoading(false);
+    logInLoading(false);
   }
-
-  //======================================> Resend otp <======================================
+*/
+ /* //======================================> Resend otp <======================================
   var resendOtpLoading = false.obs;
   resendOtp(String email) async {
     resendOtpLoading(true);
@@ -99,18 +101,18 @@ class AuthController extends GetxController {
           gravity: ToastGravity.CENTER);
     }
     resendOtpLoading(false);
-  }
+  }*/
 
   //=====================================> Otp very <====================================
   TextEditingController otpCtrl = TextEditingController();
   var verifyLoading = false.obs;
 
   handleOtpVery(
-      {required String email,
+      {required String phone,
       required String otp,
       required String type}) async {
     try {
-      var body = {'oneTimeCode': otp, 'email': email};
+      var body = {'oneTimeCode': otp, 'phone': phone};
       var headers = {'Content-Type': 'application/x-www-form-urlencoded'};
       verifyLoading(true);
       Response response = await ApiClient.postData(
@@ -120,13 +122,11 @@ class AuthController extends GetxController {
       if (response.statusCode == 200) {
         await PrefsHelper.setString(
             AppConstants.isLogged, response.body["data"]['attributes']['user']);
-        var role = response.body["data"]['attributes']['user'];
-        print("===> role : $role");
         otpCtrl.clear();
 
         if (type == "forgetPasswordScreen") {
           //Get.toNamed(AppRoutes.resetPasswordScreen,
-          //parameters: {"email": email});
+          //parameters: {"phone": phone});
         } else {
           // Get.offAllNamed(AppRoutes.signInScreen);
         }
@@ -140,16 +140,14 @@ class AuthController extends GetxController {
     verifyLoading(false);
   }
 
-  //=================================> Forgot pass word <==========================================
-  TextEditingController forgetEmailTextCtrl = TextEditingController();
-  TextEditingController forgetConfirmPassTextCtrl = TextEditingController();
-  TextEditingController forgetNewPassTextCtrl = TextEditingController();
+  /*//=================================> Forgot pass word <==========================================
+  TextEditingController phoneNumberCTRl = TextEditingController();
   var forgotLoading = false.obs;
 
   handleForget() async {
     forgotLoading(true);
     var body = {
-      "email": forgetEmailTextCtrl.text.trim(),
+      "phone": phoneNumberCTRl.text.trim(),
     };
     var headers = {
       'Accept': 'application/json',
@@ -160,7 +158,7 @@ class AuthController extends GetxController {
         headers: headers);
     if (response.statusCode == 200 || response.statusCode == 201) {
       Get.toNamed(AppRoutes.verifyNumberScreen, parameters: {
-        "email": forgetEmailTextCtrl.text.trim(),
+        "phone": phoneNumberCTRl.text.trim(),
         "screenType": "forgetPasswordScreen",
       });
 
@@ -169,9 +167,9 @@ class AuthController extends GetxController {
       ApiChecker.checkApi(response);
     }
     forgotLoading(false);
-  }
+  }*/
 
-  //====================================> Handle Change password <================================
+  /*//====================================> Handle Change password <================================
   var changeLoading = false.obs;
   TextEditingController oldPasswordCtrl = TextEditingController();
   TextEditingController newPasswordCtrl = TextEditingController();
@@ -198,9 +196,9 @@ class AuthController extends GetxController {
       ApiChecker.checkApi(response);
     }
     changeLoading(false);
-  }
+  }*/
 
-  //====================================> Reset password <==================================
+ /* //====================================> Reset password <==================================
   var resetPasswordLoading = false.obs;
 
   resetPassword(String email, String password) async {

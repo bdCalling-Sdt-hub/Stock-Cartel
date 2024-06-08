@@ -24,7 +24,7 @@ class RegisterScreen extends StatefulWidget {
 class _RegisterScreenState extends State<RegisterScreen> {
   final AuthController _authController = Get.put(AuthController());
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final TextEditingController phoneNumberCodeCTRl = TextEditingController();
+  //final TextEditingController phoneNumberCodeCTRl = TextEditingController();
   final TextEditingController phoneNumberCTRl = TextEditingController();
   String _selectedCountryCode = '';
   @override
@@ -55,47 +55,47 @@ class _RegisterScreenState extends State<RegisterScreen> {
               bottom: 24.h,
             ),
             //====================================> Phone Number Text Field <=========================
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                  height: 56.h,
-                  decoration: BoxDecoration(
-                      border:
-                          Border.all(width: 1.w, color: AppColors.primaryColor),
-                      borderRadius: BorderRadius.circular(8.r)),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      //=================================> Country Code Picker Widget <============================
-                      CountryCodePicker(
-                        showFlag: false,
-                        showFlagDialog: true,
-                        onChanged: (countryCode) {
-                          setState(() {
-                            _selectedCountryCode = countryCode.dialCode!;
-                          });
-                        },
-                        initialSelection: 'BD',
-                        favorite: ['+880', 'BD'],
-                        showCountryOnly: false,
-                        showOnlyCountryWhenClosed: false,
-                        alignLeft: false,
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(right: 5.w),
-                        child: SvgPicture.asset(
-                          AppIcons.downArrow,
-                          color: Colors.grey,
+            Form(
+              key: _formKey,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    height: 56.h,
+                    decoration: BoxDecoration(
+                        border: Border.all(
+                            width: 1.w, color: AppColors.primaryColor),
+                        borderRadius: BorderRadius.circular(8.r)),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        //=================================> Country Code Picker Widget <============================
+                        CountryCodePicker(
+                          showFlag: false,
+                          showFlagDialog: true,
+                          onChanged: (countryCode) {
+                            setState(() {
+                              _selectedCountryCode = countryCode.dialCode!;
+                            });
+                          },
+                          initialSelection: 'BD',
+                          favorite: ['+880', 'BD'],
+                          showCountryOnly: false,
+                          showOnlyCountryWhenClosed: false,
+                          alignLeft: false,
                         ),
-                      )
-                    ],
+                        Padding(
+                          padding: EdgeInsets.only(right: 5.w),
+                          child: SvgPicture.asset(
+                            AppIcons.downArrow,
+                            color: Colors.grey,
+                          ),
+                        )
+                      ],
+                    ),
                   ),
-                ),
-                SizedBox(width: 16.w),
-                Form(
-                  key: _formKey,
-                  child: Expanded(
+                  SizedBox(width: 16.w),
+                  Expanded(
                     child: SizedBox(
                       height: 56.h,
                       child: CustomTextField(
@@ -104,26 +104,27 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         hintText: AppStrings.phoneNumber.tr,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return "Please enter your phone number";
+                            return "Please enter your\n phone number";
                           }
                           return null;
                         },
                       ),
                     ),
-                  ),
-                )
-              ],
+                  )
+                ],
+              ),
             ),
             //====================================> Verify Button  <=========================
             const Spacer(),
             CustomButton(
+                loading: _authController.registerLoading.value,
                 text: AppStrings.verifyNumber.tr,
                 onTap: () {
                   if (_formKey.currentState!.validate()) {
-                      _authController.handleRegister();
-                    } else {
-                    return null;
-                    }
+                    _authController.handleRegister();
+                  } else {
+                    return '==================> Something wrong';
+                  }
                 }),
             SizedBox(height: 74.h)
           ],

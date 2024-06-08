@@ -4,14 +4,14 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 import '../../../../../utils/app_colors.dart';
 
 class CustomPinCodeTextField extends StatelessWidget {
-  const CustomPinCodeTextField({super.key,this.textEditingController});
-  final TextEditingController? textEditingController;
+  TextEditingController otpCTE;
+  CustomPinCodeTextField({super.key, required this.otpCTE});
   @override
   Widget build(BuildContext context) {
     return  PinCodeTextField(
       backgroundColor: Colors.transparent,
       cursorColor: AppColors.primaryColor,
-      controller: textEditingController,
+      controller: otpCTE,
       textStyle: TextStyle(color: AppColors.primaryColor),
       autoFocus: false,
       appContext: context,
