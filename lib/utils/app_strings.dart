@@ -13,7 +13,7 @@ class AppStrings {
   //================> Register Screen <====================
   static String whatsYour = "What’s your number?";
   static String weWillText = "We will text a code to verify your number";
-  static String phoneNumber = "Phone Number";
+  static String phoneNumber = "Phone number";
 
   //================> Verify Number Screen <====================
   static String verifyNumber = "Verify Number";

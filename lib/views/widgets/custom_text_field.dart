@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import '../../utils/app_colors.dart';
+import '../../utils/app_constants.dart';
 import '../../utils/app_icons.dart';
 
 class CustomTextField extends StatefulWidget {
@@ -63,7 +64,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
       controller: widget.controller,
       keyboardType: widget.keyboardType,
       obscuringCharacter: widget.obscureCharacrter!,
-      // validator: widget.validator,
+      validator: widget.validator,
       /*validator: widget.validator ??
               (value) {
             if (widget.isEmail == null) {

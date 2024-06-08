@@ -49,8 +49,8 @@ class ApiClient extends GetxService {
     bearerToken = await PrefsHelper.getString(AppConstants.bearerToken);
 
     var mainHeaders = {
-      'Content-Type': 'application/x-www-form-urlencoded',
-      //   'Content-Type': 'application/json',
+      //'Content-Type': 'application/x-www-form-urlencoded',
+      'Content-Type': 'application/json',
       'Authorization': 'Bearer $bearerToken'
     };
     try {
@@ -79,8 +79,7 @@ class ApiClient extends GetxService {
     bearerToken = await PrefsHelper.getString(AppConstants.bearerToken);
 
     var mainHeaders = {
-      'Content-Type': 'application/x-www-form-urlencoded',
-      //   'Content-Type': 'application/json',
+      'Content-Type': 'application/json',
       'Authorization': 'Bearer $bearerToken'
     };
     try {

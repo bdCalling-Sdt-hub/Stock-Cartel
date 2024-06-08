@@ -3,16 +3,27 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:stock_cartel/routes/app_routes.dart';
 import 'package:stock_cartel/utils/app_colors.dart';
+import '../../../../controllers/authController/auth_controller.dart';
 import '../../../../utils/app_strings.dart';
 import '../../../widgets/custom_button.dart';
 import '../../../widgets/custom_text.dart';
 import 'InnerWidget/pin_code_text_field.dart';
 
-class VerifyNumberScreen extends StatelessWidget {
+class VerifyNumberScreen extends StatefulWidget {
   const VerifyNumberScreen({super.key});
 
   @override
+  State<VerifyNumberScreen> createState() => _VerifyNumberScreenState();
+}
+
+class _VerifyNumberScreenState extends State<VerifyNumberScreen> {
+  var prameters = Get.parameters;
+  final _authCtrl = Get.put(AuthController());
+
+  @override
   Widget build(BuildContext context) {
+    print(
+        "=================${prameters["phone"]} and ${prameters["screenType"]}");
     return Scaffold(
       appBar: AppBar(
         title: CustomText(
@@ -39,7 +50,7 @@ class VerifyNumberScreen extends StatelessWidget {
                 bottom: 16.h,
               ),
               //==============================> Pin Code Text Field <=====================
-              CustomPinCodeTextField(),
+              CustomPinCodeTextField(otpCTE: _authCtrl.otpCtrl),
 
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -62,9 +73,16 @@ class VerifyNumberScreen extends StatelessWidget {
               //===============================> Verify Button  <=========================
               SizedBox(height: 203.h),
               CustomButton(
+                  loading: _authCtrl.verifyLoading.value,
                   text: AppStrings.verifyNumber.tr,
                   onTap: () {
-                    Get.toNamed(AppRoutes.createAccountScreen);
+                    if (_authCtrl.otpCtrl.text.length > 5) {
+                      Get.toNamed(AppRoutes.createAccountScreen);
+                      _authCtrl.handleOtpVery(
+                          phone: "${prameters['phone']}",
+                          otp: _authCtrl.otpCtrl.text,
+                          type: "${prameters['screenType']}");
+                    }
                   }),
               SizedBox(height: 74.h)
             ],
