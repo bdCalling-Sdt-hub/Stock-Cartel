@@ -61,7 +61,10 @@ class _VerifyNumberScreenState extends State<VerifyNumberScreen> {
                   ),
                   //===============================> Resent Text <=========================
                   InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      _authCtrl.resendOtp('${prameters['phone']}');
+                      _authCtrl.otpCtrl.clear();
+                    },
                     child: CustomText(
                       text: AppStrings.resend.tr,
                       color: AppColors.primaryColor,

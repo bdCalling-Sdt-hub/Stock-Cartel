@@ -45,11 +45,9 @@ class AuthController extends GetxController {
     registerLoading(false);
   }
 
-  /*//============================================>  Log in <==============================
-
-
+  //============================================>  Log in <==============================
   TextEditingController logInPassCtrl = TextEditingController();
-  TextEditingController phoneNumberCtrl = TextEditingController();
+  TextEditingController logInPhoneNumberCtrl = TextEditingController();
   var logInLoading = false.obs;
 
   handleLogIn() async {
@@ -59,7 +57,7 @@ class AuthController extends GetxController {
       'Content-Type': 'application/json'
     };
     Map<String, dynamic> body = {
-      'email': phoneNumberCtrl.text.trim(),
+      'phone': logInPhoneNumberCtrl.text.trim(),
       'password': logInPassCtrl.text.trim()
     };
     Response response = await ApiClient.postData(
@@ -72,24 +70,24 @@ class AuthController extends GetxController {
       await PrefsHelper.setString(
           AppConstants.id, response.body['data']['attributes']['user']['id']);
       await PrefsHelper.setString(AppConstants.isLogged, true);
-      Get.offAllNamed(AppRoutes.homeScreen);
+      Get.offAllNamed(AppRoutes.subscriptionScreen);
       await PrefsHelper.setBool(AppConstants.isLogged, true);
-      signInEmailCtrl.clear();
-      signInPassCtrl.clear();
+      logInPhoneNumberCtrl.clear();
+      logInPassCtrl.clear();
     } else {
       Fluttertoast.showToast(msg: response.statusText ?? "");
     }
     logInLoading(false);
   }
-*/
- /* //======================================> Resend otp <======================================
+
+  //======================================> Resend otp <======================================
   var resendOtpLoading = false.obs;
-  resendOtp(String email) async {
+  resendOtp(String phone) async {
     resendOtpLoading(true);
-    var body = {"email": email};
+    var body = {"phone": phone};
     Map<String, String> header = {'Content-Type': 'application/json'};
     var response = await ApiClient.postData(
-        ApiConstants.forgot, json.encode(body),
+        ApiConstants.otpVerifyEndPoint, json.encode(body),
         headers: header);
     print("===> ${response.body}");
     if (response.statusCode == 200) {
@@ -101,7 +99,7 @@ class AuthController extends GetxController {
           gravity: ToastGravity.CENTER);
     }
     resendOtpLoading(false);
-  }*/
+  }
 
   //=====================================> Otp very <====================================
   TextEditingController otpCtrl = TextEditingController();
@@ -198,7 +196,7 @@ class AuthController extends GetxController {
     changeLoading(false);
   }*/
 
- /* //====================================> Reset password <==================================
+  /* //====================================> Reset password <==================================
   var resetPasswordLoading = false.obs;
 
   resetPassword(String email, String password) async {
