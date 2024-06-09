@@ -54,6 +54,7 @@ class _LogInScreenState extends State<LogInScreen> {
                 ),
                 //====================================> Phone Number Text Field <=========================
                 Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Container(
@@ -92,19 +93,16 @@ class _LogInScreenState extends State<LogInScreen> {
                     ),
                     SizedBox(width: 16.w),
                     Expanded(
-                      child: SizedBox(
-                        height: 56.h,
-                        child: CustomTextField(
-                          keyboardType: TextInputType.phone,
-                          controller: authController.logInPhoneNumberCtrl,
-                          hintText: AppStrings.phoneNumber.tr,
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return "Please enter your \nphone number";
-                            }
-                            return null;
-                          },
-                        ),
+                      child: CustomTextField(
+                        keyboardType: TextInputType.phone,
+                        controller: authController.logInPhoneNumberCtrl,
+                        hintText: AppStrings.phoneNumber.tr,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return "Please enter your phone \nnumber";
+                          }
+                          return null;
+                        },
                       ),
                     )
                   ],

@@ -55,10 +55,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ),
               //====================================> Phone Number Text Field <=========================
               Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
-                    height: 56.h,
+                    //height: 56.h,
                     decoration: BoxDecoration(
                         border: Border.all(
                             width: 1.w, color: AppColors.primaryColor),
@@ -93,19 +94,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                   SizedBox(width: 16.w),
                   Expanded(
-                    child: SizedBox(
-                      height: 56.h,
-                      child: CustomTextField(
-                        keyboardType: TextInputType.phone,
-                        controller: _authController.phoneNumberCTRl,
-                        hintText: AppStrings.phoneNumber.tr,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return "Please enter your\n phone number";
-                          }
-                          return null;
-                        },
-                      ),
+                    child: CustomTextField(
+                      keyboardType: TextInputType.phone,
+                      controller: _authController.phoneNumberCTRl,
+                      hintText: AppStrings.phoneNumber.tr,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return "Please enter your phone \nnumber";
+                        }
+                        return null;
+                      },
                     ),
                   )
                 ],
