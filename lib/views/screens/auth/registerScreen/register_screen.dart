@@ -59,7 +59,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
-                    //height: 56.h,
                     decoration: BoxDecoration(
                         border: Border.all(
                             width: 1.w, color: AppColors.primaryColor),
@@ -116,6 +115,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   onTap: () {
                     if (_formKey.currentState!.validate()) {
                       _authController.handleRegister();
+                      print('===========================> This call api <==================');
                     } else {
                       return '==================> Something wrong';
                     }

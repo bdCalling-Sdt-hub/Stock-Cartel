@@ -58,7 +58,6 @@ class _LogInScreenState extends State<LogInScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Container(
-                      height: 56.h,
                       decoration: BoxDecoration(
                           border: Border.all(
                               width: 1.w, color: AppColors.primaryColor),

@@ -21,6 +21,13 @@ class _VerifyNumberScreenState extends State<VerifyNumberScreen> {
   final _authCtrl = Get.put(AuthController());
 
   @override
+  void dispose() {
+    _authCtrl.otpCtrl.dispose();
+    super.dispose();
+  }
+
+
+  @override
   Widget build(BuildContext context) {
     print(
         "=================${prameters["phone"]} and ${prameters["screenType"]}");

@@ -24,7 +24,7 @@ class AppStrings {
   //================> Create Account Screen <====================
   static String createAccount = "Create Account";
   static String pleaseFillUp = "Please fill up this Information to create your account";
-  static String uploadProfilePhoto = "Upload settingsScreen photo";
+  static String uploadProfilePhoto = "Upload profile photo";
   static String name = "Name";
   static String password = "Password";
   static String yourPasswordMust = "Your password must be 8-10 character long";

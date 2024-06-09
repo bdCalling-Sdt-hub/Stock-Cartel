@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../helpers/prefs_helpers.dart';
 import '../../models/profile_model.dart';
@@ -47,6 +48,8 @@ class ProfileController extends GetxController {
 
   //===============================> Update profile <============================
   var loading = false.obs;
+  final nameController = TextEditingController();
+  final passController = TextEditingController();
 
   editProfile(String name, phoneNumber, password, File? image) async {
     List<MultipartBody> multipartBody =

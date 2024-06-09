@@ -107,7 +107,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
             : widget.sufixicons,
         prefixIconConstraints: BoxConstraints(minHeight: 24.h, minWidth: 24.w),
         suffixIconConstraints: BoxConstraints(minHeight: 24.h, minWidth: 24.w),
-        errorStyle: TextStyle(color: AppColors.primaryColor),
+        errorStyle: TextStyle(color: Colors.red),
         suffixIconColor: AppColors.primaryColor,
         prefixIconColor: AppColors.primaryColor,
         labelText: widget.labelText,
@@ -120,7 +120,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
             color: AppColors.primaryColor,
           ),
         ),
-        errorBorder: _buildOutlineInputBorder(),
+        errorBorder: _errorBuildOutlineInputBorder(),
         focusedBorder: _buildOutlineInputBorder(),
         enabledBorder: _buildOutlineInputBorder(),
         disabledBorder: _buildOutlineInputBorder(),
@@ -143,6 +143,15 @@ class _CustomTextFieldState extends State<CustomTextField> {
       borderSide: BorderSide(
         width: 1.w,
         color: AppColors.primaryColor,
+      ),
+    );
+  }
+
+  _errorBuildOutlineInputBorder() {
+    return OutlineInputBorder(
+      borderSide: BorderSide(
+        width: 1.w,
+        color: Colors.red,
       ),
     );
   }
