@@ -45,16 +45,16 @@ class ApiClient extends GetxService {
 //==========================================> Post Data <======================================
   static Future<Response> postData(String uri, dynamic body,
       {Map<String, String>? headers}) async {
-    bearerToken = await PrefsHelper.getString(AppConstants.bearerToken);
+    String bearerToken = await PrefsHelper.getString(AppConstants.bearerToken);
 
     var mainHeaders = {
-      //'Content-Type': 'application/x-www-form-urlencoded',
-      'Content-Type': 'application/json',
+      'Accept-Language': 'en',
       'Authorization': 'Bearer $bearerToken'
     };
+
     try {
-      debugPrint('====> API Call: $uri\nHeader: ${headers ?? mainHeaders}');
-      debugPrint('====> API Body: $body');
+      print('====> API Call: $uri\nHeader: $mainHeaders');
+      print('====> API Body: $body');
 
       http.Response response = await client
           .post(
@@ -63,11 +63,11 @@ class ApiClient extends GetxService {
             headers: headers ?? mainHeaders,
           )
           .timeout(const Duration(seconds: timeoutInSeconds));
-      debugPrint(
-          "==========> Response Post Method :------ : ${response.statusCode}");
+
+      print("==========> Response Post Method : ${response.statusCode}");
       return handleResponse(response, uri);
     } catch (e) {
-      print("===> $e");
+      print("===> Error in postData: $e");
       return const Response(statusCode: 1, statusText: noInternetMessage);
     }
   }

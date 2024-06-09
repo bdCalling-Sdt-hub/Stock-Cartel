@@ -33,9 +33,8 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
   @override
   void initState() {
     // TODO: implement initState
-    nameCTRl.text = parameter['name']! == 'null' ? '' : parameter['name']!;
-    setPasswordCTRl.text =
-        parameter['password']! == 'null' ? '' : parameter['password']!;
+    nameCTRl.text = parameter['name'] ?? '';
+    setPasswordCTRl.text = parameter['password'] ?? '';
   }
 
   @override
@@ -68,7 +67,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                   children: [
                     _image != null
                         ? CircleAvatar(
-                            radius: 60.r, backgroundImage: MemoryImage(_image!))
+                            radius: 60.r, backgroundImage: _image != null ? MemoryImage(_image!) : null,)
                         : CircleAvatar(
                             radius: 60.r,
                             backgroundImage: NetworkImage(
@@ -113,13 +112,13 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                   children: [
                     SizedBox(height: 24.h),
                     CustomTextField(
-                      controller: nameCTRl,
+                      controller: _profileController.nameController,
                       hintText: AppStrings.name.tr,
                     ),
                     //====================================> Password Text Field <=========================
                     SizedBox(height: 16.h),
                     CustomTextField(
-                      controller: setPasswordCTRl,
+                      controller: _profileController.passController,
                       hintText: AppStrings.password.tr,
                       isPassword: true,
                     ),

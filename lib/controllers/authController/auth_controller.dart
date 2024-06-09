@@ -15,35 +15,43 @@ class AuthController extends GetxController {
   var token = "";
 
   //=================================> Register  <=============================
-  handleRegister() async {
+  Future<void> handleRegister() async {
     registerLoading(true);
     try {
+      String phoneNumber = phoneNumberCTRl.text.trim();
+      String countryCode = "";
       Map<String, dynamic> body = {
-        "phone": phoneNumberCTRl.text.trim(),
+        "phone": countryCode + phoneNumber,
       };
-      print("===================> $body");
+      print("===================> Request Body: $body");
+
       var headers = {'Content-Type': 'application/json'};
       Response response = await ApiClient.postData(
         ApiConstants.registerEndPoint,
         jsonEncode(body),
+        headers: headers,
       );
-      print("============> ${response.body} and ==> ${response.statusCode}");
+
+      print("============> Response: ${response.body} and Status Code: ${response.statusCode}");
+
       if (response.statusCode == 200) {
         Fluttertoast.showToast(msg: response.body['message']);
         Get.toNamed(AppRoutes.verifyNumberScreen, parameters: {
-          "phone": phoneNumberCTRl.text.trim(),
-          "screenType": "register",
+          "phone": phoneNumber,
+          "screenType": "registerScreen",
         });
         phoneNumberCTRl.clear();
       } else {
         ApiChecker.checkApi(response);
       }
     } catch (e, s) {
-      print("===> error : $e");
-      print("===> error : $s");
+      print("===> Error: $e");
+      print("===> Stack Trace: $s");
+    } finally {
+      registerLoading(false);
     }
-    registerLoading(false);
   }
+
 
   //============================================>  Log in <==============================
   TextEditingController logInPassCtrl = TextEditingController();
@@ -122,11 +130,11 @@ class AuthController extends GetxController {
             AppConstants.isLogged, response.body["data"]['attributes']['user']);
         otpCtrl.clear();
 
-        if (type == "forgetPasswordScreen") {
-          //Get.toNamed(AppRoutes.resetPasswordScreen,
-          //parameters: {"phone": phone});
+        if (type == "forgotPasswordScreen") {
+          Get.toNamed(AppRoutes.setNewPasswordScreen,
+          parameters: {"phone": phone});
         } else {
-          // Get.offAllNamed(AppRoutes.signInScreen);
+           Get.offAllNamed(AppRoutes.createAccountScreen);
         }
       } else {
         ApiChecker.checkApi(response);
