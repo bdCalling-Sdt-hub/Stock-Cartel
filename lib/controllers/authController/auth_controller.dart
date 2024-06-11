@@ -93,7 +93,7 @@ class AuthController extends GetxController {
   resendOtp(String phone) async {
     resendOtpLoading(true);
     var body = {"phone": phone};
-    Map<String, String> header = {'Content-Type': 'application/json'};
+    Map<String, String> header = {'Accept-Language': 'en',};
     var response = await ApiClient.postData(
         ApiConstants.otpVerifyEndPoint, json.encode(body),
         headers: header);
@@ -130,11 +130,13 @@ class AuthController extends GetxController {
             AppConstants.isLogged, response.body["data"]['attributes']['user']);
         otpCtrl.clear();
 
-        if (type == "forgotPasswordScreen") {
-          Get.toNamed(AppRoutes.setNewPasswordScreen,
-          parameters: {"phone": phone});
-        } else {
-           Get.offAllNamed(AppRoutes.createAccountScreen);
+        if(response.statusCode == 200) {
+          if (type == "forgotPasswordScreen") {
+            Get.toNamed(AppRoutes.setNewPasswordScreen,
+                parameters: {"phone": phone});
+          } else {
+            Get.offAllNamed(AppRoutes.createAccountScreen);
+          }
         }
       } else {
         ApiChecker.checkApi(response);

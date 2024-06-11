@@ -22,7 +22,7 @@ class RegisterScreen extends StatefulWidget {
 class _RegisterScreenState extends State<RegisterScreen> {
   final AuthController _authController = Get.put(AuthController());
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final TextEditingController phoneNumberCTRl = TextEditingController();
+ // final TextEditingController phoneNumberCTRl = TextEditingController();
   String _selectedCountryCode = '';
   @override
   Widget build(BuildContext context) {
