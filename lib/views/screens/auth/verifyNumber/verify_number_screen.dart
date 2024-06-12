@@ -20,12 +20,6 @@ class _VerifyNumberScreenState extends State<VerifyNumberScreen> {
   var prameters = Get.parameters;
   final _authCtrl = Get.put(AuthController());
 
-  @override
-  void dispose() {
-    _authCtrl.otpCtrl.dispose();
-    super.dispose();
-  }
-
 
   @override
   Widget build(BuildContext context) {
@@ -87,9 +81,9 @@ class _VerifyNumberScreenState extends State<VerifyNumberScreen> {
                   text: AppStrings.verifyNumber.tr,
                   onTap: () {
                     if (_authCtrl.otpCtrl.text.length > 5) {
-                      Get.toNamed(AppRoutes.createAccountScreen);
                       _authCtrl.handleOtpVery(
-                          phone: "${prameters['phone']}",
+
+                          phone: "${_authCtrl.selectedCountryCode}${prameters['phone']}",
                           otp: _authCtrl.otpCtrl.text,
                           type: "${prameters['screenType']}");
                     }

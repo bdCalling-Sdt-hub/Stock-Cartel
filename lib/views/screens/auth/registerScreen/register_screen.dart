@@ -22,8 +22,7 @@ class RegisterScreen extends StatefulWidget {
 class _RegisterScreenState extends State<RegisterScreen> {
   final AuthController _authController = Get.put(AuthController());
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
- // final TextEditingController phoneNumberCTRl = TextEditingController();
-  String _selectedCountryCode = '';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,7 +71,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           showFlagDialog: true,
                           onChanged: (countryCode) {
                             setState(() {
-                              _selectedCountryCode = countryCode.dialCode!;
+                              _authController.selectedCountryCode = countryCode.dialCode!;
+                              print(_authController.selectedCountryCode);
                             });
                           },
                           initialSelection: 'BD',
@@ -95,7 +95,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   Expanded(
                     child: CustomTextField(
                       keyboardType: TextInputType.phone,
-                      controller: _authController.phoneNumberCTRl,
+                      controller: AuthController.phoneNumberCTRl,
                       hintText: AppStrings.phoneNumber.tr,
                       validator: (value) {
                         if (value == null || value.isEmpty) {

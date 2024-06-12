@@ -1,136 +1,44 @@
-/*
+import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../helpers/prefs_helpers.dart';
+import 'package:http/http.dart' as http;
 import '../../models/profile_model.dart';
 import '../../routes/app_routes.dart';
 import '../../services/api_checker.dart';
 import '../../services/api_client.dart';
 import '../../services/api_constants.dart';
-import '../../utils/app_constants.dart';
+import '../authController/auth_controller.dart';
 
 class ProfileController extends GetxController {
-  @override
-  void onInit() {
-    // TODO: implement onInit
-    super.onInit();
-    getProfileData();
-  }
-
-  final rxRequestStatus = Status.loading.obs;
-  void setRxRequestStatus(Status _value) => rxRequestStatus.value = _value;
-
-  Rx<ProfileModel> profileModel = ProfileModel().obs;
-  RxBool isProfileLoading = false.obs;
-
-  getProfileData() async {
-    setRxRequestStatus(Status.loading);
-    String id = await PrefsHelper.getString(AppConstants.id);
-    var response = await ApiClient.getData(
-      ApiConstants.updateProfileEndPoint,
-    );
-    print("=============response : ${response.body}");
-    if (response.statusCode == 200) {
-      profileModel.value =
-          ProfileModel.fromJson(response.body['data']['attributes']);
-      profileModel.refresh();
-      setRxRequestStatus(Status.completed);
-    } else {
-      if (response.statusText == ApiClient.noInternetMessage) {
-        setRxRequestStatus(Status.internetError);
-      } else {
-        setRxRequestStatus(Status.error);
-      }
-      ApiChecker.checkApi(response);
-    }
-    update();
-  }
-
-  //===============================> Update profile <============================
   var loading = false.obs;
-  createProfile(String name, password, File? image) async {
+  Rx<ProfileModel> profileModel = ProfileModel().obs;
+  ///======================update profile============================>
+
+  createProfile(String name, password, phoneNumber, File? image) async {
+
     List<MultipartBody> multipartBody =
-        image == null ? [] : [MultipartBody("image", image)];
+    image == null ? [] : [MultipartBody("image", image)];
     Map<String, String> body = {
-      "fullName": name,
+      "name": name,
       "password": password,
-     // "phone": phoneNumber,
+      "phone":  '+8801610663268',
     };
 
-    var response = await ApiClient.patchMultipartData(
+    debugPrint("================$name, $password, $phoneNumber, ${image!.path}");
+
+    var response = await ApiClient.postMultipartData(
       ApiConstants.updateProfileEndPoint,
       body,
       multipartBody: multipartBody,
     );
-    print("===========> Response body : ${response.body} \nand status code : ${response.statusCode}");
+    print("===========response body : ${response.body} \nand status code : ${response.statusCode}");
     if (response.statusCode == 200 || response.statusCode == 201) {
       profileModel.value = ProfileModel.fromJson(response.body['data']['attributes']);
       profileModel.refresh();
       Get.offAllNamed(AppRoutes.logInScreen);
     } else {
       ApiChecker.checkApi(response);
-    }
-  }
-}
-*/
-import 'dart:convert';
-import 'dart:io';
-import 'package:get/get.dart';
-import 'package:http/http.dart' as http;
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:stock_cartel/routes/app_routes.dart';
-
-import '../../services/api_constants.dart';
-
-class ProfileController extends GetxController {
-  var loading = false.obs;
-  final storage = FlutterSecureStorage();
-  void createProfile(
-      String name, String phone, String password, File? image) async {
-    loading.value = true;
-
-    try {
-      var uri = Uri.parse('${ApiConstants.baseUrl}${ApiConstants.updateProfileEndPoint}');
-      var request = http.MultipartRequest('POST', uri);
-      String? token = await storage.read(key: 'authToken');
-      if (token != null) {
-        request.headers['Authorization'] = 'Bearer $token';
-      }
-
-      request.fields['name'] = name;
-      request.fields['phone'] = phone;
-      request.fields['password'] = password;
-
-      if (image != null) {
-        request.files
-            .add(await http.MultipartFile.fromPath('image', image.path));
-      }
-
-      print('Request URL: $uri');
-      print('Request Fields: ${request.fields}');
-      print('Request Headers: ${request.headers}');
-
-      var response = await request.send();
-
-      print('Response Status Code: ${response.statusCode}');
-
-      if (response.statusCode == 200) {
-        var responseData = await response.stream.bytesToString();
-        var result = json.decode(responseData);
-        if (result['status'] == 'success') {
-          Get.snackbar('Success', 'Profile updated successfully');
-          Get.offAllNamed(AppRoutes.logInScreen);
-        } else {
-          Get.snackbar('Error', result['message']);
-        }
-      } else {
-        var responseData = await response.stream.bytesToString();
-        var result = json.decode(responseData);
-        Get.snackbar('Error', result['message']);
-      }
-    } catch (e) {
-      Get.snackbar('Error', 'Failed to update profile');
     }
   }
 }

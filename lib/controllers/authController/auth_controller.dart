@@ -8,18 +8,21 @@ import '../../services/api_checker.dart';
 import '../../services/api_client.dart';
 import '../../services/api_constants.dart';
 import '../../utils/app_constants.dart';
+import 'package:http/http.dart' as http;
 
 class AuthController extends GetxController {
-  final phoneNumberCTRl = TextEditingController();
+  static final phoneNumberCTRl = TextEditingController();
   var registerLoading = false.obs;
   var token = "";
+  String selectedCountryCode = '+880';
 
   //=================================> Register  <=============================
+
   Future<void> handleRegister() async {
     registerLoading(true);
     try {
       String phoneNumber = phoneNumberCTRl.text.trim();
-      String countryCode = "";
+      String countryCode = selectedCountryCode;
       Map<String, dynamic> body = {
         "phone": countryCode + phoneNumber,
       };
@@ -60,25 +63,27 @@ class AuthController extends GetxController {
 
   handleLogIn() async {
     logInLoading(true);
+    String countryCode = selectedCountryCode;
     var headers = {
       //'Content-Type': 'application/x-www-form-urlencoded'
       'Content-Type': 'application/json'
     };
+    String phoneNumber = logInPhoneNumberCtrl.text.trim();
+    String password = logInPassCtrl.text.trim();
+
     Map<String, dynamic> body = {
-      'phone': logInPhoneNumberCtrl.text.trim(),
-      'password': logInPassCtrl.text.trim()
+      'phone': countryCode + phoneNumber,
+      'password': password
     };
     Response response = await ApiClient.postData(
         ApiConstants.loginEndPoint, json.encode(body),
         headers: headers);
     print("====> ${response.body}");
     if (response.statusCode == 200) {
-      await PrefsHelper.setString(AppConstants.bearerToken,
-          response.body['data']['attributes']['tokens']['access']['token']);
       await PrefsHelper.setString(
-          AppConstants.id, response.body['data']['attributes']['user']['id']);
+          AppConstants.id, response.body['data']['attributes']['id']);
       await PrefsHelper.setString(AppConstants.isLogged, true);
-      Get.offAllNamed(AppRoutes.subscriptionScreen);
+      Get.offAllNamed(AppRoutes.homeScreen);
       await PrefsHelper.setBool(AppConstants.isLogged, true);
       logInPhoneNumberCtrl.clear();
       logInPassCtrl.clear();
@@ -117,27 +122,33 @@ class AuthController extends GetxController {
       {required String phone,
       required String otp,
       required String type}) async {
+    var headers = {
+      'Accept-Language': 'en',
+      'Content-Type': 'application/json',
+      'Cookie': 'i18next=en'
+    };
+
     try {
-      var body = {'oneTimeCode': otp, 'phone': phone};
-      var headers = {'Content-Type': 'application/x-www-form-urlencoded'};
+      var body = {'phone': phone, 'otpCode': otp};
       verifyLoading(true);
-      Response response = await ApiClient.postData(
-          ApiConstants.otpVerifyEndPoint, body,
-          headers: headers);
+      Response response = await ApiClient.postData(ApiConstants.otpVerifyEndPoint, jsonEncode(body), headers: headers);
+
+      print("===========.> $response");
       print("============${response.body} and ${response.statusCode}");
       if (response.statusCode == 200) {
-        await PrefsHelper.setString(
-            AppConstants.isLogged, response.body["data"]['attributes']['user']);
-        otpCtrl.clear();
+        await PrefsHelper.setString(AppConstants.bearerToken, response.body["data"]['token']);
+        // PrefsHelper.token = response.body["data"]['token'];
+        print('================token ${response.body["data"]['token']}');
+        // otpCtrl.clear();
 
-        if(response.statusCode == 200) {
+
           if (type == "forgotPasswordScreen") {
             Get.toNamed(AppRoutes.setNewPasswordScreen,
                 parameters: {"phone": phone});
           } else {
             Get.offAllNamed(AppRoutes.createAccountScreen);
           }
-        }
+
       } else {
         ApiChecker.checkApi(response);
       }

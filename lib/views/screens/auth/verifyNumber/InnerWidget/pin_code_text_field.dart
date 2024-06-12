@@ -9,6 +9,7 @@ class CustomPinCodeTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  PinCodeTextField(
+      autoDisposeControllers: false,
       backgroundColor: Colors.transparent,
       cursorColor: AppColors.primaryColor,
       controller: otpCTE,
