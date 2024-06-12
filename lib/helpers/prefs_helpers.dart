@@ -19,7 +19,7 @@ class PrefsHelper extends GetxController {
 
   static Future<void> getAllPrefData() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    //token = preferences.getString(AppConstants.bearerToken) ?? "";
+    // token = preferences.getString(AppConstants.bearerToken) ?? "";
     clientId = preferences.getString("") ?? "";
     myImage = preferences.getString("") ?? "";
     myName = preferences.getString("") ?? "";

@@ -15,6 +15,7 @@ import '../../../widgets/custom_text_field.dart';
 class LogInScreen extends StatefulWidget {
   LogInScreen({super.key});
 
+
   @override
   State<LogInScreen> createState() => _LogInScreenState();
 }
@@ -71,7 +72,7 @@ class _LogInScreenState extends State<LogInScreen> {
                             showFlagDialog: true,
                             onChanged: (countryCode) {
                               setState(() {
-                                _selectedCountryCode = countryCode.dialCode!;
+                                authController.selectedCountryCode = countryCode.dialCode!;
                               });
                             },
                             initialSelection: 'BD',
@@ -123,7 +124,7 @@ class _LogInScreenState extends State<LogInScreen> {
                 InkWell(
                   onTap: () {
                     Get.toNamed(AppRoutes.forgotPasswordScreen, parameters: {
-                      'phone': authController.phoneNumberCTRl.text
+                      'phone': AuthController.phoneNumberCTRl.text
                     });
                   },
                   child: CustomText(

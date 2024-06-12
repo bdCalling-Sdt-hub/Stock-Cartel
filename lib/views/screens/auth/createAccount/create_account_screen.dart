@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:stock_cartel/controllers/authController/auth_controller.dart';
 import 'package:stock_cartel/utils/app_colors.dart';
 import 'package:stock_cartel/utils/app_images.dart';
 import '../../../../controllers/profileController/profile_controller.dart';
@@ -132,8 +133,8 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                           _profileController.createProfile(
                             nameCTRl.text,
                             passwordCTRl.text,
-                            "",
-                            selectedIMage,
+                            AuthController.phoneNumberCTRl.text,
+                            selectedIMage
                           );
                         }
                       },
