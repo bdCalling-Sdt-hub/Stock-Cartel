@@ -4,7 +4,9 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:stock_cartel/controllers/groupListController/group_list_controller.dart';
 import 'package:stock_cartel/views/widgets/custom_text.dart';
+import '../../../models/group_list_model.dart';
 import '../../../routes/app_routes.dart';
 import '../../../utils/app_colors.dart';
 import '../../../utils/app_icons.dart';
@@ -13,6 +15,7 @@ import '../../widgets/bottom_menu..dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
+  final GroupListController _groupListController = Get.put(GroupListController());
 
   List chatList = [
     {
@@ -64,9 +67,10 @@ class HomeScreen extends StatelessWidget {
             //====================================> Chat List Section <===============================
             Expanded(
               child: ListView.builder(
-                  itemCount: chatList.length,
+                  itemCount: _groupListController.groupList.length,
                   padding: EdgeInsets.zero,
                   itemBuilder: (context, index) {
+                    GroupListModel groupData = _groupListController.groupList[index];
                     return GestureDetector(
                       onTap: () {
                         if (index == 0 || index == 1) {
@@ -93,8 +97,7 @@ class HomeScreen extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   CircleAvatar(
-                                    child:
-                                        Image.asset(chatList[index]["image"]),
+                                    child: Image.network('${groupData.avatar}'),
                                   ),
                                   SizedBox(width: 12.w),
                                   //=======================================> Title and Subtitle Column <======================
@@ -105,12 +108,12 @@ class HomeScreen extends StatelessWidget {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       CustomText(
-                                        text: chatList[index]["title"],
+                                        text:  '${groupData.name}',
                                         fontWeight: FontWeight.w500,
                                         fontsize: 18.w,
                                       ),
                                       CustomText(
-                                        text: chatList[index]["subTitle"],
+                                        text: '${groupData.lastMessage}',
                                         fontsize: 12.w,
                                       )
                                     ],
@@ -123,7 +126,7 @@ class HomeScreen extends StatelessWidget {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   CustomText(
-                                    text: '11:38 AM',
+                                    text: '${groupData.createdAt}',
                                     fontsize: 12.w,
                                     color: Colors.grey,
                                   ),
