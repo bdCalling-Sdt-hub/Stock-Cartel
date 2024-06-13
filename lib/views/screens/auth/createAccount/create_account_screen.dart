@@ -6,9 +6,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:stock_cartel/controllers/authController/auth_controller.dart';
+import 'package:stock_cartel/controllers/createAccountController/create_account_controller.dart';
 import 'package:stock_cartel/utils/app_colors.dart';
 import 'package:stock_cartel/utils/app_images.dart';
-import '../../../../controllers/profileController/profile_controller.dart';
 import '../../../../services/api_constants.dart';
 import '../../../../utils/app_icons.dart';
 import '../../../../utils/app_strings.dart';
@@ -24,7 +24,8 @@ class CreateAccountScreen extends StatefulWidget {
 }
 
 class _CreateAccountScreenState extends State<CreateAccountScreen> {
-  final _profileController = Get.put(ProfileController());
+  final _createAccountController = Get.put(CreateAccountController());
+  final _authController = Get.put(AuthController());
   final TextEditingController nameCTRl = TextEditingController();
   final TextEditingController passwordCTRl = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -126,14 +127,14 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                     SizedBox(height: 175.h),
                     //=================================> Create Account Button <==================================
                     CustomButton(
-                      loading: _profileController.loading.value,
+                      loading: _createAccountController.loading.value,
                       text: AppStrings.createAccount.tr,
                       onTap: () {
                         if (_formKey.currentState!.validate()) {
-                          _profileController.createProfile(
+                          _createAccountController.createProfile(
                             nameCTRl.text,
                             passwordCTRl.text,
-                            AuthController.phoneNumberCTRl.text,
+                            _authController.phoneNumberCTRl.text,
                             selectedIMage
                           );
                         }

@@ -11,12 +11,10 @@ import '../../utils/app_constants.dart';
 import 'package:http/http.dart' as http;
 
 class AuthController extends GetxController {
-  static final phoneNumberCTRl = TextEditingController();
+  final phoneNumberCTRl = TextEditingController();
   var registerLoading = false.obs;
   var token = "";
   String selectedCountryCode = '+880';
-
-  //=================================> Register  <=============================
 
   Future<void> handleRegister() async {
     registerLoading(true);
@@ -34,15 +32,15 @@ class AuthController extends GetxController {
         jsonEncode(body),
         headers: headers,
       );
-
       print("============> Response: ${response.body} and Status Code: ${response.statusCode}");
 
       if (response.statusCode == 200) {
-        Fluttertoast.showToast(msg: response.body['message']);
         Get.toNamed(AppRoutes.verifyNumberScreen, parameters: {
           "phone": phoneNumber,
           "screenType": "registerScreen",
         });
+        var responseBody = json.decode(response.body);
+        Fluttertoast.showToast(msg: responseBody['message']);
         phoneNumberCTRl.clear();
       } else {
         ApiChecker.checkApi(response);
@@ -59,18 +57,17 @@ class AuthController extends GetxController {
   //============================================>  Log in <==============================
   TextEditingController logInPassCtrl = TextEditingController();
   TextEditingController logInPhoneNumberCtrl = TextEditingController();
+  String selectedCountryCodes = '+880';
   var logInLoading = false.obs;
 
-  handleLogIn() async {
+  Future<void> handleLogIn() async {
     logInLoading(true);
-    String countryCode = selectedCountryCode;
     var headers = {
-      //'Content-Type': 'application/x-www-form-urlencoded'
       'Content-Type': 'application/json'
     };
     String phoneNumber = logInPhoneNumberCtrl.text.trim();
     String password = logInPassCtrl.text.trim();
-
+    String countryCode = selectedCountryCodes;
     Map<String, dynamic> body = {
       'phone': countryCode + phoneNumber,
       'password': password
@@ -79,22 +76,26 @@ class AuthController extends GetxController {
         ApiConstants.loginEndPoint, json.encode(body),
         headers: headers);
     print("====> ${response.body}");
+    print("============> Response: ${response.body} and Status Code: ${response.statusCode}");
+
     if (response.statusCode == 200) {
-      await PrefsHelper.setString(
-          AppConstants.id, response.body['data']['attributes']['id']);
-      await PrefsHelper.setString(AppConstants.isLogged, true);
       Get.offAllNamed(AppRoutes.homeScreen);
-      await PrefsHelper.setBool(AppConstants.isLogged, true);
+      var responseBody = json.decode(response.body);
+      await PrefsHelper.setString(
+          AppConstants.bearerToken, responseBody['data']['token']);
+      await PrefsHelper.setString(AppConstants.isLogged, true);
       logInPhoneNumberCtrl.clear();
       logInPassCtrl.clear();
     } else {
-      Fluttertoast.showToast(msg: response.statusText ?? "");
+      Fluttertoast.showToast(msg: response.statusText ?? "Login failed");
     }
     logInLoading(false);
   }
 
+
   //======================================> Resend otp <======================================
   var resendOtpLoading = false.obs;
+
   resendOtp(String phone) async {
     resendOtpLoading(true);
     var body = {"phone": phone};
@@ -104,6 +105,7 @@ class AuthController extends GetxController {
         headers: header);
     print("===> ${response.body}");
     if (response.statusCode == 200) {
+
     } else {
       Fluttertoast.showToast(
           msg: response.statusText ?? "",
@@ -114,14 +116,16 @@ class AuthController extends GetxController {
     resendOtpLoading(false);
   }
 
+
   //=====================================> Otp very <====================================
   TextEditingController otpCtrl = TextEditingController();
   var verifyLoading = false.obs;
 
-  handleOtpVery(
-      {required String phone,
-      required String otp,
-      required String type}) async {
+  Future<void> handleOtpVery({
+    required String phone,
+    required String otp,
+    required String type,
+  }) async {
     var headers = {
       'Accept-Language': 'en',
       'Content-Type': 'application/json',
@@ -131,35 +135,40 @@ class AuthController extends GetxController {
     try {
       var body = {'phone': phone, 'otpCode': otp};
       verifyLoading(true);
-      Response response = await ApiClient.postData(ApiConstants.otpVerifyEndPoint, jsonEncode(body), headers: headers);
+      Response response = await ApiClient.postData(
+        ApiConstants.otpVerifyEndPoint,
+        jsonEncode(body),
+        headers: headers,
+      );
 
       print("===========.> $response");
       print("============${response.body} and ${response.statusCode}");
-      if (response.statusCode == 200) {
-        await PrefsHelper.setString(AppConstants.bearerToken, response.body["data"]['token']);
-        // PrefsHelper.token = response.body["data"]['token'];
-        print('================token ${response.body["data"]['token']}');
-        // otpCtrl.clear();
 
-
-          if (type == "forgotPasswordScreen") {
-            Get.toNamed(AppRoutes.setNewPasswordScreen,
-                parameters: {"phone": phone});
-          } else {
-            Get.offAllNamed(AppRoutes.createAccountScreen);
-          }
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        if (type == "forgotPasswordScreen") {
+          Get.toNamed(
+              AppRoutes.setNewPasswordScreen, parameters: {"phone": phone});
+        } else {
+          Get.offAllNamed(AppRoutes.createAccountScreen);
+        }
+        var responseBody = json.decode(response.body);
+        await PrefsHelper.setString(
+            AppConstants.bearerToken, responseBody["data"]['token']);
+        print('================token ${responseBody["data"]['token']}');
 
       } else {
         ApiChecker.checkApi(response);
       }
+      otpCtrl.clear();
     } catch (e, s) {
       print("===> e : $e");
       print("===> s : $s");
+    } finally {
+      verifyLoading(false);
     }
-    verifyLoading(false);
   }
 
-  /*//=================================> Forgot pass word <==========================================
+/*//=================================> Forgot pass word <==========================================
   TextEditingController phoneNumberCTRl = TextEditingController();
   var forgotLoading = false.obs;
 
@@ -188,7 +197,7 @@ class AuthController extends GetxController {
     forgotLoading(false);
   }*/
 
-  /*//====================================> Handle Change password <================================
+/*//====================================> Handle Change password <================================
   var changeLoading = false.obs;
   TextEditingController oldPasswordCtrl = TextEditingController();
   TextEditingController newPasswordCtrl = TextEditingController();
@@ -217,7 +226,7 @@ class AuthController extends GetxController {
     changeLoading(false);
   }*/
 
-  /* //====================================> Reset password <==================================
+/* //====================================> Reset password <==================================
   var resetPasswordLoading = false.obs;
 
   resetPassword(String email, String password) async {
