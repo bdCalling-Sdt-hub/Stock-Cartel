@@ -6,4 +6,5 @@ class ApiConstants {
   static const String updateProfileEndPoint = "/user/update-profile";
   static const String loginEndPoint = "/user/login";
   static const String setPasswordEndPoint = "/user/set-password";
+  static const String groupListEndPoint = "/groups/group-list";
 }
