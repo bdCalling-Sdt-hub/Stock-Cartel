@@ -26,7 +26,7 @@ class _LogInScreenState extends State<LogInScreen> {
   final TextEditingController phoneNumberCodeCTRl = TextEditingController();
   final TextEditingController phoneNumberCTRl = TextEditingController();
   final TextEditingController passwordCTRl = TextEditingController();
-  String _selectedCountryCode = '';
+
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +72,7 @@ class _LogInScreenState extends State<LogInScreen> {
                             showFlagDialog: true,
                             onChanged: (countryCode) {
                               setState(() {
-                                authController.selectedCountryCode = countryCode.dialCode!;
+                                authController.selectedCountryCodes = countryCode.dialCode!;
                               });
                             },
                             initialSelection: 'BD',
@@ -124,7 +124,7 @@ class _LogInScreenState extends State<LogInScreen> {
                 InkWell(
                   onTap: () {
                     Get.toNamed(AppRoutes.forgotPasswordScreen, parameters: {
-                      'phone': AuthController.phoneNumberCTRl.text
+                      'phone': authController.phoneNumberCTRl.text
                     });
                   },
                   child: CustomText(
@@ -140,10 +140,8 @@ class _LogInScreenState extends State<LogInScreen> {
                     loading: authController.logInLoading.value,
                     text: AppStrings.logIn.tr,
                     onTap: () {
-                      Get.toNamed(AppRoutes.subscriptionScreen);
                       if (_formKey.currentState!.validate()) {
                         authController.handleLogIn();
-                        // Get.toNamed(AppRoutes.verifyOtpScreen);
                       }
                     }),
                 SizedBox(height: 74.h)

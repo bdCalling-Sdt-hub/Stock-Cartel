@@ -95,7 +95,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   Expanded(
                     child: CustomTextField(
                       keyboardType: TextInputType.phone,
-                      controller: AuthController.phoneNumberCTRl,
+                      controller: _authController.phoneNumberCTRl,
                       hintText: AppStrings.phoneNumber.tr,
                       validator: (value) {
                         if (value == null || value.isEmpty) {

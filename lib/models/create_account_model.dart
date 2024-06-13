@@ -1,4 +1,4 @@
-class ProfileModel {
+class CreateAccountModel {
   final String? id;
   final String? name;
   final bool? privacyPolicyAccepted;
@@ -19,7 +19,7 @@ class ProfileModel {
   final DateTime? updatedAt;
   final int? v;
 
-  ProfileModel({
+  CreateAccountModel({
     this.id,
     this.name,
     this.privacyPolicyAccepted,
@@ -41,7 +41,7 @@ class ProfileModel {
     this.v,
   });
 
-  factory ProfileModel.fromJson(Map<String, dynamic> json) => ProfileModel(
+  factory CreateAccountModel.fromJson(Map<String, dynamic> json) => CreateAccountModel(
         id: json["_id"],
         name: json["name"],
         privacyPolicyAccepted: json["privacyPolicyAccepted"],
