@@ -5,6 +5,10 @@ class AppConstants{
   static const String bearerToken = "BearerToken";
   static String isLogged = "IsLogged";
   static String id = "id";
+  static String isOnboard="IsOnboard";
+  static String subscription="Subscription";
+  static String signInType ="SignInType";
+  static String isFutureDate ="isFutureDate";
 
   static String APP_NAME="Stock-Cartel";
   static String THEME ="theme";

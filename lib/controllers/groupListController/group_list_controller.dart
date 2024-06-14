@@ -31,8 +31,7 @@ class GroupListController extends GetxController {
 
       if (response.statusCode == 200) {
         List<dynamic> jsonResponse = json.decode(response.body);
-        groupList.value =
-            jsonResponse.map((data) => GroupListModel.fromJson(data)).toList();
+        groupList.value = jsonResponse.map((data) => GroupListModel.fromJson(data)).toList();
       } else {
         Get.snackbar('Error', 'Failed to load group list');
       }

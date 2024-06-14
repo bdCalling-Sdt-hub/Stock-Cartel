@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:stock_cartel/helpers/prefs_helpers.dart';
 import 'package:stock_cartel/routes/app_routes.dart';
 import 'package:stock_cartel/utils/app_colors.dart';
+import 'package:stock_cartel/utils/app_constants.dart';
 import 'package:stock_cartel/views/widgets/custom_button.dart';
 import 'package:stock_cartel/views/widgets/custom_text.dart';
 import '../../../utils/app_images.dart';
@@ -56,15 +58,17 @@ class OnboardingScreen extends StatelessWidget {
                   //========================> Register Button <===================
                   SizedBox(height: 24.h),
                   CustomButton(
-                      onTap: () {
+                      onTap: () async{
                         Get.toNamed(AppRoutes.registerScreen);
+                        await PrefsHelper.setBool(AppConstants.isOnboard, true);
                       },
                       text: AppStrings.register.tr),
                   //========================> Log In Button <===================
                   SizedBox(height: 16.h),
                   CustomButton(
-                    onTap: () {
+                    onTap: () async{
                       Get.toNamed(AppRoutes.logInScreen);
+                      await PrefsHelper.setBool(AppConstants.isOnboard, true);
                     },
                     text: AppStrings.logIn.tr,
                     color: Colors.white,

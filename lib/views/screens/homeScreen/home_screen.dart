@@ -97,7 +97,7 @@ class HomeScreen extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   CircleAvatar(
-                                    child: Image.network('${groupData.avatar}'),
+                                    child: Image.network('${groupData.avatar!.publicFileUrl}'),
                                   ),
                                   SizedBox(width: 12.w),
                                   //=======================================> Title and Subtitle Column <======================
@@ -113,7 +113,7 @@ class HomeScreen extends StatelessWidget {
                                         fontsize: 18.w,
                                       ),
                                       CustomText(
-                                        text: '${groupData.lastMessage}',
+                                        text: '${groupData.lastMessage!.message}',
                                         fontsize: 12.w,
                                       )
                                     ],
