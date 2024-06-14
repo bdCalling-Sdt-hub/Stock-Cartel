@@ -28,46 +28,34 @@ class GroupListModel {
   });
 
   factory GroupListModel.fromJson(Map<String, dynamic> json) => GroupListModel(
-        lastMessage: json["lastMessage"] == null
-            ? null
-            : LastMessage.fromJson(json["lastMessage"]),
-        id: json["_id"],
-        roomId: json["roomId"],
-        adminId: json["adminId"] == null ? null : Id.fromJson(json["adminId"]),
-        participantsId: json["participantsId"] == null
-            ? []
-            : List<Id>.from(json["participantsId"].map((x) => Id.fromJson(x))),
-        name: json["name"],
-        avatar: json["avatar"] == null ? null : Avatar.fromJson(json["avatar"]),
-        groupType: json["groupType"],
-        unreadMessages: json["unreadMessages"] == null
-            ? null
-            : UnreadMessages.fromJson(json["unreadMessages"]),
-        createdAt: json["createdAt"] == null
-            ? null
-            : DateTime.parse(json["createdAt"]),
-        updatedAt: json["updatedAt"] == null
-            ? null
-            : DateTime.parse(json["updatedAt"]),
-        v: json["__v"],
-      );
+    lastMessage: json["lastMessage"] == null ? null : LastMessage.fromJson(json["lastMessage"]),
+    id: json["_id"],
+    roomId: json["roomId"],
+    adminId: json["adminId"] == null ? null : Id.fromJson(json["adminId"]),
+    participantsId: json["participantsId"] == null ? [] : List<Id>.from(json["participantsId"]!.map((x) => Id.fromJson(x))),
+    name: json["name"],
+    avatar: json["avatar"] == null ? null : Avatar.fromJson(json["avatar"]),
+    groupType: json["groupType"],
+    unreadMessages: json["unreadMessages"] == null ? null : UnreadMessages.fromJson(json["unreadMessages"]),
+    createdAt: json["createdAt"] == null ? null : DateTime.parse(json["createdAt"]),
+    updatedAt: json["updatedAt"] == null ? null : DateTime.parse(json["updatedAt"]),
+    v: json["__v"],
+  );
 
   Map<String, dynamic> toJson() => {
-        "lastMessage": lastMessage?.toJson(),
-        "_id": id,
-        "roomId": roomId,
-        "adminId": adminId?.toJson(),
-        "participantsId": participantsId == null
-            ? []
-            : List<dynamic>.from(participantsId!.map((x) => x.toJson())),
-        "name": name,
-        "avatar": avatar?.toJson(),
-        "groupType": groupType,
-        "unreadMessages": unreadMessages?.toJson(),
-        "createdAt": createdAt?.toIso8601String(),
-        "updatedAt": updatedAt?.toIso8601String(),
-        "__v": v,
-      };
+    "lastMessage": lastMessage?.toJson(),
+    "_id": id,
+    "roomId": roomId,
+    "adminId": adminId?.toJson(),
+    "participantsId": participantsId == null ? [] : List<dynamic>.from(participantsId!.map((x) => x.toJson())),
+    "name": name,
+    "avatar": avatar?.toJson(),
+    "groupType": groupType,
+    "unreadMessages": unreadMessages?.toJson(),
+    "createdAt": createdAt?.toIso8601String(),
+    "updatedAt": updatedAt?.toIso8601String(),
+    "__v": v,
+  };
 }
 
 class Id {
@@ -114,56 +102,48 @@ class Id {
   });
 
   factory Id.fromJson(Map<String, dynamic> json) => Id(
-        id: json["_id"],
-        name: json["name"],
-        privacyPolicyAccepted: json["privacyPolicyAccepted"],
-        isAdmin: json["isAdmin"],
-        isVerified: json["isVerified"],
-        isDeleted: json["isDeleted"],
-        isBlocked: json["isBlocked"],
-        isPassword: json["isPassword"],
-        image: json["image"] == null ? null : Avatar.fromJson(json["image"]),
-        subscription: json["subscription"],
-        oneTimeCode: json["oneTimeCode"],
-        phone: json["phone"],
-        subscriptionStartDate: json["subscriptionStartDate"] == null
-            ? null
-            : DateTime.parse(json["subscriptionStartDate"]),
-        subscriptionEndDate: json["subscriptionEndDate"] == null
-            ? null
-            : DateTime.parse(json["subscriptionEndDate"]),
-        paymentStatus: json["paymentStatus"],
-        online: json["online"],
-        createdAt: json["createdAt"] == null
-            ? null
-            : DateTime.parse(json["createdAt"]),
-        updatedAt: json["updatedAt"] == null
-            ? null
-            : DateTime.parse(json["updatedAt"]),
-        v: json["__v"],
-      );
+    id: json["_id"],
+    name: json["name"],
+    privacyPolicyAccepted: json["privacyPolicyAccepted"],
+    isAdmin: json["isAdmin"],
+    isVerified: json["isVerified"],
+    isDeleted: json["isDeleted"],
+    isBlocked: json["isBlocked"],
+    isPassword: json["isPassword"],
+    image: json["image"] == null ? null : Avatar.fromJson(json["image"]),
+    subscription: json["subscription"],
+    oneTimeCode: json["oneTimeCode"],
+    phone: json["phone"],
+    subscriptionStartDate: json["subscriptionStartDate"] == null ? null : DateTime.parse(json["subscriptionStartDate"]),
+    subscriptionEndDate: json["subscriptionEndDate"] == null ? null : DateTime.parse(json["subscriptionEndDate"]),
+    paymentStatus: json["paymentStatus"],
+    online: json["online"],
+    createdAt: json["createdAt"] == null ? null : DateTime.parse(json["createdAt"]),
+    updatedAt: json["updatedAt"] == null ? null : DateTime.parse(json["updatedAt"]),
+    v: json["__v"],
+  );
 
   Map<String, dynamic> toJson() => {
-        "_id": id,
-        "name": name,
-        "privacyPolicyAccepted": privacyPolicyAccepted,
-        "isAdmin": isAdmin,
-        "isVerified": isVerified,
-        "isDeleted": isDeleted,
-        "isBlocked": isBlocked,
-        "isPassword": isPassword,
-        "image": image?.toJson(),
-        "subscription": subscription,
-        "oneTimeCode": oneTimeCode,
-        "phone": phone,
-        "subscriptionStartDate": subscriptionStartDate?.toIso8601String(),
-        "subscriptionEndDate": subscriptionEndDate?.toIso8601String(),
-        "paymentStatus": paymentStatus,
-        "online": online,
-        "createdAt": createdAt?.toIso8601String(),
-        "updatedAt": updatedAt?.toIso8601String(),
-        "__v": v,
-      };
+    "_id": id,
+    "name": name,
+    "privacyPolicyAccepted": privacyPolicyAccepted,
+    "isAdmin": isAdmin,
+    "isVerified": isVerified,
+    "isDeleted": isDeleted,
+    "isBlocked": isBlocked,
+    "isPassword": isPassword,
+    "image": image?.toJson(),
+    "subscription": subscription,
+    "oneTimeCode": oneTimeCode,
+    "phone": phone,
+    "subscriptionStartDate": subscriptionStartDate?.toIso8601String(),
+    "subscriptionEndDate": subscriptionEndDate?.toIso8601String(),
+    "paymentStatus": paymentStatus,
+    "online": online,
+    "createdAt": createdAt?.toIso8601String(),
+    "updatedAt": updatedAt?.toIso8601String(),
+    "__v": v,
+  };
 }
 
 class Avatar {
@@ -176,14 +156,14 @@ class Avatar {
   });
 
   factory Avatar.fromJson(Map<String, dynamic> json) => Avatar(
-        path: json["path"],
-        publicFileUrl: json["publicFileURL"],
-      );
+    path: json["path"],
+    publicFileUrl: json["publicFileURL"],
+  );
 
   Map<String, dynamic> toJson() => {
-        "path": path,
-        "publicFileURL": publicFileUrl,
-      };
+    "path": path,
+    "publicFileURL": publicFileUrl,
+  };
 }
 
 class LastMessage {
@@ -202,22 +182,20 @@ class LastMessage {
   });
 
   factory LastMessage.fromJson(Map<String, dynamic> json) => LastMessage(
-        file: json["file"] == null ? null : Avatar.fromJson(json["file"]),
-        message: json["message"],
-        messageType: json["messageType"],
-        owner: json["owner"],
-        createdAt: json["createdAt"] == null
-            ? null
-            : DateTime.parse(json["createdAt"]),
-      );
+    file: json["file"] == null ? null : Avatar.fromJson(json["file"]),
+    message: json["message"],
+    messageType: json["messageType"],
+    owner: json["owner"],
+    createdAt: json["createdAt"] == null ? null : DateTime.parse(json["createdAt"]),
+  );
 
   Map<String, dynamic> toJson() => {
-        "file": file?.toJson(),
-        "message": message,
-        "messageType": messageType,
-        "owner": owner,
-        "createdAt": createdAt?.toIso8601String(),
-      };
+    "file": file?.toJson(),
+    "message": message,
+    "messageType": messageType,
+    "owner": owner,
+    "createdAt": createdAt?.toIso8601String(),
+  };
 }
 
 class UnreadMessages {
@@ -228,10 +206,10 @@ class UnreadMessages {
   });
 
   factory UnreadMessages.fromJson(Map<String, dynamic> json) => UnreadMessages(
-        the66629F5E2D237F4255F46219: json["66629f5e2d237f4255f46219"],
-      );
+    the66629F5E2D237F4255F46219: json["66629f5e2d237f4255f46219"],
+  );
 
   Map<String, dynamic> toJson() => {
-        "66629f5e2d237f4255f46219": the66629F5E2D237F4255F46219,
-      };
+    "66629f5e2d237f4255f46219": the66629F5E2D237F4255F46219,
+  };
 }
