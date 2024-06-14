@@ -80,7 +80,7 @@ class AuthController extends GetxController {
 
     if (response.statusCode == 200) {
       Get.offAllNamed(AppRoutes.homeScreen);
-      var responseBody = json.decode(response.body);
+      var responseBody = json.decode("${response.body}");
       await PrefsHelper.setString(AppConstants.bearerToken, responseBody['data']['token']);
       await PrefsHelper.setString(AppConstants.isLogged, true);
       logInPhoneNumberCtrl.clear();
@@ -88,7 +88,7 @@ class AuthController extends GetxController {
     } else {
       Fluttertoast.showToast(msg: response.statusText ?? "Login failed");
     }
-    logInLoading(false);
+    logInLoading.value = false;
   }
 
 
