@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:stock_cartel/services/api_checker.dart';
 import 'package:stock_cartel/services/api_constants.dart';
 import '../../helpers/prefs_helpers.dart';
 import '../../models/group_list_model.dart';
@@ -12,14 +13,15 @@ class GroupListController extends GetxController {
   var groupList = <GroupListModel>[].obs;
   var isLoading = true.obs;
 
+
+
   @override
   void onInit() {
     super.onInit();
-    getGroupList();
+
   }
 
   getGroupList() async {
-    try {
       isLoading(true);
       String bearerToken = await PrefsHelper.getString(AppConstants.bearerToken);
       var headers = {
@@ -32,14 +34,11 @@ class GroupListController extends GetxController {
       if (response.statusCode == 200) {
         List<dynamic> jsonResponse = response.body['data']['attributes'];
         groupList.value = jsonResponse.map((data) => GroupListModel.fromJson(data)).toList();
+        isLoading(false);
       } else {
         Get.snackbar('Error', 'Failed to load group list');
+        ApiChecker.checkApi(response);
       }
-    } catch (e) {
-      print(e);
-      debugPrint("Error $e");
-      Get.snackbar('Error', 'Error to load group list');
-    }
-    isLoading(false);
+
   }
 }
