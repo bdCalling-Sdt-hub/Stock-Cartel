@@ -30,7 +30,7 @@ class GroupListController extends GetxController {
       final response = await ApiClient.getData(ApiConstants.groupListEndPoint, headers: headers);
 
       if (response.statusCode == 200) {
-        List<dynamic> jsonResponse = json.decode(response.body);
+        List<dynamic> jsonResponse = response.body['data']['attributes'];
         groupList.value = jsonResponse.map((data) => GroupListModel.fromJson(data)).toList();
       } else {
         Get.snackbar('Error', 'Failed to load group list');
