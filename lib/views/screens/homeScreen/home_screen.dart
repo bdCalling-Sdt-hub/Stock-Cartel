@@ -28,24 +28,6 @@ class _HomeScreenState extends State<HomeScreen> {
   final GroupListController _groupListController =
       Get.put(GroupListController());
 
-  List chatList = [
-    {
-      "title": "Stock",
-      "subTitle": "Stock rate increased 30%",
-      "image": AppImages.stock
-    },
-    {
-      "title": "Cryptocurrency",
-      "subTitle": "Lorem Ipsum dummy....",
-      "image": AppImages.crypto
-    },
-    {
-      "title": "Community",
-      "subTitle": "Lorem Ipsum dummy....",
-      "image": AppImages.community
-    },
-  ];
-
   @override
   void initState() {
     _groupListController.getGroupList();
@@ -85,7 +67,7 @@ class _HomeScreenState extends State<HomeScreen> {
             //====================================> Chat List Section <===============================
             Obx(
               () => _groupListController.isLoading.value
-                  ? const CustomPageLoading()
+                  ? const Center(child: CustomPageLoading())
                   : _groupListController.groupList.isEmpty
                       ? Center(child: CustomText(text: "No data available"))
                       : Expanded(
