@@ -5,6 +5,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:stock_cartel/controllers/groupListController/group_list_controller.dart';
+import 'package:stock_cartel/services/api_client.dart';
+import 'package:stock_cartel/services/api_constants.dart';
 import 'package:stock_cartel/views/widgets/custom_text.dart';
 import '../../../models/group_list_model.dart';
 import '../../../routes/app_routes.dart';
@@ -85,7 +87,7 @@ class HomeScreen extends StatelessWidget {
                         height: 75.h,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(8.w),
-                          color: Color(0xffe6f2e6),
+                          color: const Color(0xffe6f2e6),
                         ),
                         child: Padding(
                           padding: EdgeInsets.symmetric(
@@ -97,7 +99,7 @@ class HomeScreen extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   CircleAvatar(
-                                    child: Image.network('${groupData.avatar!.publicFileUrl}'),
+                                    child: Image.network('${ApiConstants.imageBaseUrl}${groupData.avatar!.publicFileUrl}'),
                                   ),
                                   SizedBox(width: 12.w),
                                   //=======================================> Title and Subtitle Column <======================
@@ -126,7 +128,7 @@ class HomeScreen extends StatelessWidget {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   CustomText(
-                                    text: '${groupData.createdAt}',
+                                    text: '${groupData.lastMessage!.createdAt}',
                                     fontsize: 12.w,
                                     color: Colors.grey,
                                   ),
