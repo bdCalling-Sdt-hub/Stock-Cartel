@@ -15,16 +15,16 @@ import 'helpers/di.dart' as di;
 import 'helpers/notification_helper.dart';
 import 'themes/light_theme.dart';
 
-final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin=FlutterLocalNotificationsPlugin();
+final FlutterLocalNotificationsPlugin fln=FlutterLocalNotificationsPlugin();
 
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   Map<String, Map<String, String>> _languages = await di.init();
-  await NotificationHelper.initLocalNotification(flutterLocalNotificationsPlugin);
+  await NotificationHelper.initLocalNotification(fln);
   Get.put(AuthController());
-  SocketService.init();
+ // SocketService.init();
   runApp(MyApp(
     languages: _languages,
   ));

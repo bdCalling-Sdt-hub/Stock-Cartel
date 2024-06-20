@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:stock_cartel/helpers/notification_helper.dart';
 import '../../../../controllers/authController/auth_controller.dart';
+import '../../../../main.dart';
 import '../../../../routes/app_routes.dart';
 import '../../../../utils/app_colors.dart';
 import '../../../../utils/app_icons.dart';
@@ -140,9 +142,10 @@ class _LogInScreenState extends State<LogInScreen> {
                     loading: authController.logInLoading.value,
                     text: AppStrings.logIn.tr,
                     onTap: () {
-                      if (_formKey.currentState!.validate()) {
-                        authController.handleLogIn();
-                      }
+                      NotificationHelper.showNotification(body: {"message":"Test Notificaton","image":"https://images.ctfassets.net/hrltx12pl8hq/28ECAQiPJZ78hxatLTa7Ts/2f695d869736ae3b0de3e56ceaca3958/free-nature-images.jpg?fit=fill&w=1200&h=630"}, fln: fln);
+                      // if (_formKey.currentState!.validate()) {
+                      //   authController.handleLogIn();
+                      // }
                     }),
                 SizedBox(height: 74.h)
               ],

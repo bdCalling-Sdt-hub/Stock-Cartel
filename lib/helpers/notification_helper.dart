@@ -43,10 +43,10 @@ class NotificationHelper {
       {required Map<String, dynamic> body,
         required FlutterLocalNotificationsPlugin fln}) async {
     debugPrint("==========> Notification Socket Response $body");
-    if (body['imageLink'] != null) {
+    if (body['image'] != null) {
       try {
         await showBigPictureNotificationHiddenLargeIcon(
-            body['message'], "", {}, "", fln);
+            body['message'], "", {}, body['image'], fln);
       } on Exception catch (e) {
         await showTextNotification(body['message'], "", {}, fln);
       }
