@@ -56,6 +56,9 @@ dependencies:
   socket_io_client:
   flutter_local_notifications:
   path_provider:
+  shimmer:
+  photo_view:
+
 
 
 dev_dependencies:
