@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:stock_cartel/routes/app_routes.dart';
+import 'package:stock_cartel/services/socket_service.dart';
 import 'package:stock_cartel/utils/app_constants.dart';
 import 'package:stock_cartel/utils/messages.dart';
 import 'package:stock_cartel/views/screens/splashScreen/splash_screen.dart';
@@ -10,14 +12,19 @@ import 'controllers/authController/auth_controller.dart';
 import 'controllers/localaization_controller.dart';
 import 'controllers/theme_controller.dart';
 import 'helpers/di.dart' as di;
+import 'helpers/notification_helper.dart';
 import 'themes/light_theme.dart';
+
+final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin=FlutterLocalNotificationsPlugin();
 
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   Map<String, Map<String, String>> _languages = await di.init();
+  await NotificationHelper.initLocalNotification(flutterLocalNotificationsPlugin);
   Get.put(AuthController());
+  SocketService.init();
   runApp(MyApp(
     languages: _languages,
   ));
@@ -48,7 +55,7 @@ class MyApp extends StatelessWidget {
                 transitionDuration: const Duration(milliseconds: 500),
                 getPages: AppRoutes.routes,
                 initialRoute: AppRoutes.splashScreen,
-                home: SplashScreen(),
+                home: const SplashScreen(),
               );
             });
       });

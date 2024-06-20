@@ -53,6 +53,9 @@ dependencies:
   flutter_chat_bubble: ^2.0.2
   country_code_picker: ^3.0.0
   flutter_secure_storage: ^9.2.2
+  socket_io_client:
+  flutter_local_notifications:
+  path_provider:
 
 
 dev_dependencies:
