@@ -142,10 +142,10 @@ class _LogInScreenState extends State<LogInScreen> {
                     loading: authController.logInLoading.value,
                     text: AppStrings.logIn.tr,
                     onTap: () {
-                      NotificationHelper.showNotification(body: {"message":"Test Notificaton","image":"https://images.ctfassets.net/hrltx12pl8hq/28ECAQiPJZ78hxatLTa7Ts/2f695d869736ae3b0de3e56ceaca3958/free-nature-images.jpg?fit=fill&w=1200&h=630"}, fln: fln);
-                      // if (_formKey.currentState!.validate()) {
-                      //   authController.handleLogIn();
-                      // }
+                      //NotificationHelper.showNotification(body: {"message":"Test Notification","image":"https://images.ctfassets.net/hrltx12pl8hq/28ECAQiPJZ78hxatLTa7Ts/2f695d869736ae3b0de3e56ceaca3958/free-nature-images.jpg?fit=fill&w=1200&h=630"}, fln: fln);
+                      if (_formKey.currentState!.validate()) {
+                        authController.handleLogIn();
+                      }
                     }),
                 SizedBox(height: 74.h)
               ],

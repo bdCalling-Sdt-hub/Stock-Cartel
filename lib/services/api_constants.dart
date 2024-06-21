@@ -7,4 +7,5 @@ class ApiConstants {
   static const String loginEndPoint = "/user/login";
   static const String setPasswordEndPoint = "/user/set-password";
   static const String groupListEndPoint = "/groups/group-list";
+  static String getMessageEndPoint(String roomId) => "/groups/$roomId/message";
 }

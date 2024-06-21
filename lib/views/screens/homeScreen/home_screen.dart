@@ -75,8 +75,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               itemCount: _groupListController.groupList.length,
                               padding: EdgeInsets.zero,
                               itemBuilder: (context, index) {
-                                GroupListModel groupData =
-                                    _groupListController.groupList[index];
+                                GroupListModel groupData = _groupListController.groupList[index];
                                 return GestureDetector(
                                   onTap: () {
                                     if (groupData.groupType == 'adminOnly') {
