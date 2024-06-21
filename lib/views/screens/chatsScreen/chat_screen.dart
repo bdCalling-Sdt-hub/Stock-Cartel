@@ -10,6 +10,8 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../../../utils/app_colors.dart';
 import '../../../../utils/app_images.dart';
+import '../../../controllers/groupListController/group_list_controller.dart';
+import '../../../models/group_list_model.dart';
 import '../../../utils/app_icons.dart';
 import '../../widgets/custom_loading.dart';
 import '../../widgets/custom_text.dart';
@@ -23,12 +25,12 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
+  final GroupListController _groupListController = Get.put(GroupListController());
   final StreamController _streamController = StreamController();
   final ScrollController _scrollController = ScrollController();
   TextEditingController messageController = TextEditingController();
   Uint8List? _image;
   File? selectedIMage;
-
   List<Map<String, String>> messageList = [
     {
       "name": "Alice",
@@ -150,8 +152,9 @@ class _ChatScreenState extends State<ChatScreen> {
                         decoration: const BoxDecoration(
                           shape: BoxShape.circle,
                         ),
-                        child: Image.asset(
-                          AppImages.community,
+                        child: Image.network(
+                          '${_groupListController.groupList[0].avatar}',
+                          //AppImages.community,
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -186,7 +189,7 @@ class _ChatScreenState extends State<ChatScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       CustomText(
-                        text: "Community" ?? "${Get.parameters['userName']}",
+                        text:  '${_groupListController.groupList[0].name}',
                         fontsize: 16.h,
                         fontWeight: FontWeight.w500,
                         color: Colors.black,

@@ -18,7 +18,7 @@ class DateTimeWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(
+      padding: const EdgeInsets.only(
         // top: 2,
         left: AppDimensions.paddingSizeDefault / 2,
         right: AppDimensions.paddingSizeDefault / 2,

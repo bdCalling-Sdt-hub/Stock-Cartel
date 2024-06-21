@@ -1,7 +1,4 @@
-import 'dart:convert';
-import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:http/http.dart' as http;
 import 'package:stock_cartel/services/api_checker.dart';
 import 'package:stock_cartel/services/api_constants.dart';
 import '../../helpers/prefs_helpers.dart';
