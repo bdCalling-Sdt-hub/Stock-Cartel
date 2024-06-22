@@ -107,8 +107,9 @@ class _OnlyReadChatState extends State<OnlyReadChat> {
                         decoration: const BoxDecoration(
                           shape: BoxShape.circle,
                         ),
-                        child: Image.asset(
-                          AppImages.stock,
+                        child: Image.network(
+                          "${Get.parameters['avatar']}",
+                          //AppImages.stock,
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -143,7 +144,7 @@ class _OnlyReadChatState extends State<OnlyReadChat> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       CustomText(
-                        text: "Stock" ?? "${Get.parameters['userName']}",
+                        text: "${Get.parameters['name']}",
                         fontsize: 16.h,
                         fontWeight: FontWeight.w500,
                         color: Colors.black,
