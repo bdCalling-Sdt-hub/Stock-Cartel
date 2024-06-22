@@ -33,7 +33,6 @@ class GroupListController extends GetxController {
         groupList.value = jsonResponse.map((data) => GroupListModel.fromJson(data)).toList();
         isLoading(false);
       } else {
-        Get.snackbar('Error', 'Failed to load group list');
         ApiChecker.checkApi(response);
       }
 

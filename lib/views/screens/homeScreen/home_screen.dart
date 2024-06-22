@@ -25,8 +25,9 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final GroupListController _groupListController =
-      Get.put(GroupListController());
+
+  String roomId = Get.parameters['roomId'] ?? '';
+  final GroupListController _groupListController = Get.put(GroupListController());
 
   @override
   void initState() {
@@ -79,9 +80,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                 return GestureDetector(
                                   onTap: () {
                                     if (groupData.groupType == 'adminOnly') {
-                                      Get.toNamed(AppRoutes.onlyReadChat);
+                                      Get.toNamed(AppRoutes.onlyReadChat, parameters: {'roomId' : roomId, 'avatar' : '${ApiConstants.imageBaseUrl}${groupData.avatar!.publicFileUrl}', 'name': '${groupData.name}'});
                                     } else {
-                                      Get.toNamed(AppRoutes.chatScreen);
+                                      Get.toNamed(AppRoutes.chatScreen, parameters: {'roomId' : roomId,  'avatar' : '${ApiConstants.imageBaseUrl}${groupData.avatar!.publicFileUrl}', 'name': '${groupData.name}'});
                                     }
                                   },
                                   child: Container(

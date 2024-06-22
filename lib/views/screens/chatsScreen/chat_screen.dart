@@ -10,8 +10,9 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../../../utils/app_colors.dart';
 import '../../../../utils/app_images.dart';
+import '../../../controllers/chatScreenController/chat_screen_controller.dart';
 import '../../../controllers/groupListController/group_list_controller.dart';
-import '../../../models/group_list_model.dart';
+import '../../../services/api_constants.dart';
 import '../../../utils/app_icons.dart';
 import '../../widgets/custom_loading.dart';
 import '../../widgets/custom_text.dart';
@@ -26,97 +27,18 @@ class ChatScreen extends StatefulWidget {
 
 class _ChatScreenState extends State<ChatScreen> {
   final GroupListController _groupListController = Get.put(GroupListController());
+  final ChatScreenController _chatScreenController = Get.put(ChatScreenController());
   final StreamController _streamController = StreamController();
   final ScrollController _scrollController = ScrollController();
   TextEditingController messageController = TextEditingController();
   Uint8List? _image;
-  File? selectedIMage;
-  List<Map<String, String>> messageList = [
-    {
-      "name": "Alice",
-      "status": "sender",
-      "message": "Hey there!",
-      "image": AppImages.person
-    },
-    {
-      "name": "Bob",
-      "status": "receiver",
-      "message": "Hi, what's up?",
-      "image": AppImages.community
-    },
-    {
-      "name": "Charlie",
-      "status": "sender",
-      "message": "Just checking in.",
-      "image": AppImages.person
-    },
-    {
-      "name": "David",
-      "status": "receiver",
-      "message": "Everything's good here, thanks!",
-      "image": AppImages.community
-    },
-    {
-      "name": "Eve",
-      "status": "sender",
-      "message": "Cool.",
-      "image": AppImages.person
-    },
-    {
-      "name": "Frank",
-      "status": "receiver",
-      "message": "Did you see the latest update?",
-      "image": AppImages.community
-    },
-    {
-      "name": "Alice",
-      "status": "sender",
-      "message": "Hey there!",
-      "image": AppImages.person
-    },
-    {
-      "name": "Bob",
-      "status": "receiver",
-      "message": "Hi, what's up?",
-      "image": AppImages.community
-    },
-    {
-      "name": "Charlie",
-      "status": "sender",
-      "message": "Just checking in.",
-      "image": AppImages.person
-    },
-    {
-      "name": "David",
-      "status": "receiver",
-      "message": "Everything's good here, thanks!",
-      "image": AppImages.community
-    },
-    {
-      "name": "Eve",
-      "status": "sender",
-      "message": "Cool.",
-      "image": AppImages.person
-    },
-    {
-      "name": "Frank",
-      "status": "receiver",
-      "message": "Did you see the latest update?",
-      "image": AppImages.community
-    },
-  ];
+  File? selectedImage;
 
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
-      // If you want a smooth scroll animation instead of jumping directly, use animateTo:
-      // _scrollController.animateTo(
-      //   _scrollController.position.maxScrollExtent,
-      //   duration: Duration(milliseconds: 300),
-      //   curve: Curves.easeOut,
-      // );
     });
   }
 
@@ -153,8 +75,7 @@ class _ChatScreenState extends State<ChatScreen> {
                           shape: BoxShape.circle,
                         ),
                         child: Image.network(
-                          '${_groupListController.groupList[0].avatar}',
-                          //AppImages.community,
+                          "${Get.parameters['avatar']}",
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -169,7 +90,7 @@ class _ChatScreenState extends State<ChatScreen> {
                             color: Colors.red,
                             shape: BoxShape.circle,
                             border:
-                                Border.all(color: Colors.white, width: 1.5.r),
+                            Border.all(color: Colors.white, width: 1.5.r),
                             gradient: const LinearGradient(
                               colors: [
                                 Color(0xFF34DE00),
@@ -189,7 +110,7 @@ class _ChatScreenState extends State<ChatScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       CustomText(
-                        text:  '${_groupListController.groupList[0].name}',
+                        text: '${Get.parameters['name']}',
                         fontsize: 16.h,
                         fontWeight: FontWeight.w500,
                         color: Colors.black,
@@ -208,66 +129,62 @@ class _ChatScreenState extends State<ChatScreen> {
               Expanded(
                 child: Stack(
                   children: [
-                    StreamBuilder(
-                      stream: _streamController.stream,
-                      builder: (context, snapshot) {
-                        if (true) {
-                          return ListView.builder(
+                    Expanded(
+                      child: SizedBox(
+                        child: ListView.builder(
                             scrollDirection: Axis.vertical,
-                              controller: _scrollController,
-                              dragStartBehavior: DragStartBehavior.down,
-                              itemCount: messageList.length,
-                              itemBuilder: (context, index) {
-                                var message = messageList[index];
-                                return message['status'] == "sender"
-                                    ? senderBubble(context, message)
-                                    : receiverBubble(context, message);
-                              });
-                        } else {
-                          return const CustomLoading();
-                        }
-                      },
+                            controller: _scrollController,
+                            dragStartBehavior: DragStartBehavior.down,
+                            itemCount: _chatScreenController.messageList.length,
+                            itemBuilder: (context, index) {
+                              var message = _chatScreenController.messageList[index];
+                              return message.data== "sender"
+                                  ? senderBubble(context, message)
+                                  : receiverBubble(context, message);
+                            }
+                        ),
+                      ),
                     ),
-                    //========================================> Show Select Image <============================
-                    Positioned(
+                    if (_image != null)
+                      Positioned(
                         bottom: 0.h,
                         left: 0.w,
                         child: Column(
                           children: [
-                            if (_image != null)
-                              Stack(
-                                children: [
-                                  Container(
-                                    height: 120.h,
-                                    width: 120.w,
-                                    margin: EdgeInsets.only(bottom: 10.h),
-                                    decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                        image: MemoryImage(_image!),
-                                        fit: BoxFit.cover,
-                                      ),
-                                      borderRadius: BorderRadius.circular(12.r),
-                                      //border: Border.all(color: AppColors.primaryColor),
+                            Stack(
+                              children: [
+                                Container(
+                                  height: 120.h,
+                                  width: 120.w,
+                                  margin: EdgeInsets.only(bottom: 10.h),
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                      image: MemoryImage(_image!),
+                                      fit: BoxFit.cover,
                                     ),
+                                    borderRadius: BorderRadius.circular(12.r),
                                   ),
-                                  //========================================> Cancel Icon <============================
-                                  Positioned(
-                                      top: 0.h,
-                                      left: 0.w,
-                                      child: GestureDetector(
-                                          onTap: () {
-                                            Get.back();
-                                          },
-                                          child: const Icon(
-                                              Icons.cancel_outlined)))
-                                ],
-                              ),
+                                ),
+                                Positioned(
+                                    top: 0.h,
+                                    left: 0.w,
+                                    child: GestureDetector(
+                                        onTap: () {
+                                          setState(() {
+                                            _image = null;
+                                          });
+                                        },
+                                        child: const Icon(Icons.cancel_outlined)
+                                    )
+                                ),
+                              ],
+                            ),
                           ],
-                        ))
+                        ),
+                      ),
                   ],
                 ),
               ),
-              //===============================================> Write Sms Section <=============================
               SizedBox(height: 80.h),
             ],
           ),
@@ -287,41 +204,41 @@ class _ChatScreenState extends State<ChatScreen> {
                   controller: messageController,
                   hintText: "Type something…",
                   sufixicons: Padding(
-                    padding:
-                        EdgeInsets.symmetric(vertical: 8.h, horizontal: 16.w),
+                    padding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 16.w),
                     child: GestureDetector(
                         onTap: () {
                           openGallery();
                         },
-                        child: SvgPicture.asset(AppIcons.photo)),
+                        child: SvgPicture.asset(AppIcons.photo)
+                    ),
                   ),
                 ),
               ),
               GestureDetector(
                 onTap: () {
-                  Map<String, String> newMessage = {
+                  Map<String, dynamic> newMessage = {
                     "name": "John",
                     "status": "sender",
                     "message": messageController.text,
                     "image": AppImages.person,
                   };
                   if (messageController.text.isNotEmpty) {
-                    messageList.add(newMessage);
-                    _streamController.sink.add(messageList);
-                    print(messageList);
+                    _chatScreenController.messageList.add(newMessage);
                     messageController.clear();
-                    _image = null; // Clear the selected image after sending
+                    _image = null;
+                    setState(() {});
                   }
-                  setState(() {});
                 },
                 child: Container(
                     decoration: BoxDecoration(
                         border: Border.all(color: AppColors.primaryColor),
-                        borderRadius: BorderRadius.circular(8.r)),
+                        borderRadius: BorderRadius.circular(8.r)
+                    ),
                     child: Padding(
                       padding: const EdgeInsets.all(11.0),
                       child: SvgPicture.asset(AppIcons.sendIcon),
-                    )),
+                    )
+                ),
               )
             ],
           ),
@@ -330,7 +247,6 @@ class _ChatScreenState extends State<ChatScreen> {
     );
   }
 
-  //=============================================> Receiver Bubble <=================================
   receiverBubble(BuildContext context, Map<String, String> message) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
@@ -343,8 +259,8 @@ class _ChatScreenState extends State<ChatScreen> {
           decoration: const BoxDecoration(
             shape: BoxShape.circle,
           ),
-          child: Image.asset(
-            message['image']!,
+          child: Image.network(
+            '${ApiConstants.imageBaseUrl}${_chatScreenController.messageList[0].data!.attributes![0].senderId!.image}', // Modify according to your image source
             fit: BoxFit.cover,
           ),
         ),
@@ -361,29 +277,20 @@ class _ChatScreenState extends State<ChatScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  CustomText(
-                    text: 'User',
-                  fontsize: 12.sp,
-                    color: AppColors.primaryColor,
-                    fontWeight: FontWeight.w800,
-                    textAlign: TextAlign.start,
-                    bottom: 5.h,
-                  ),
                   Text(
-                    message['message'] ?? "",
+                    message['name'] ?? '',
                     style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 14.sp,
+                        color: AppColors.primaryColor,
+                        fontSize: 12.sp,
+                        fontWeight: FontWeight.w500
                     ),
-                    textAlign: TextAlign.start,
                   ),
                   SizedBox(height: 5.h),
-                  Align(
-                    alignment: Alignment.bottomRight,
-                    child: Text(
-                      'time',
-                      textAlign: TextAlign.end,
-                      style: TextStyle(color: Colors.black, fontSize: 12.sp),
+                  Text(
+                    message['message'] ?? '',
+                    style: TextStyle(
+                      color: const Color(0xFF333333),
+                      fontSize: 12.sp,
                     ),
                   ),
                 ],
@@ -395,47 +302,36 @@ class _ChatScreenState extends State<ChatScreen> {
     );
   }
 
-  //=============================================> Sender Bubble <========================================
   senderBubble(BuildContext context, Map<String, String> message) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
-      crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         Expanded(
           child: ChatBubble(
-            clipper: ChatBubbleClipper5(
-              type: BubbleType.sendBubble,
-            ),
-            alignment: Alignment.topRight,
+            clipper: ChatBubbleClipper5(type: BubbleType.sendBubble),
+            backGroundColor: const Color(0xffE1FEC6),
             margin: EdgeInsets.only(top: 8.h, bottom: 8.h),
-            backGroundColor: AppColors.primaryColor,
             child: Container(
               constraints: BoxConstraints(
-                maxWidth: MediaQuery.of(context).size.width * 0.50,
+                maxWidth: MediaQuery.of(context).size.width * 0.50.w,
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  CustomText(
-                    text: 'Me',
-                    fontsize: 12.sp,
-                    color: AppColors.white,
-                    fontWeight: FontWeight.w800,
-                    textAlign: TextAlign.start,
-                    bottom: 5.h,
-                  ),
                   Text(
-                    message['message'] ?? "",
-                    style: const TextStyle(color: Colors.white),
-                    textAlign: TextAlign.start,
+                    message['name'] ?? '',
+                    style: TextStyle(
+                        color: AppColors.primaryColor,
+                        fontSize: 12.sp,
+                        fontWeight: FontWeight.w500
+                    ),
                   ),
                   SizedBox(height: 5.h),
-                  Align(
-                    alignment: Alignment.bottomLeft,
-                    child: Text(
-                      'time',
-                      textAlign: TextAlign.end,
-                      style: TextStyle(color: Colors.white, fontSize: 12.sp),
+                  Text(
+                    message['message'] ?? '',
+                    style: TextStyle(
+                      color: const Color(0xFF333333),
+                      fontSize: 12.sp,
                     ),
                   ),
                 ],
@@ -443,30 +339,23 @@ class _ChatScreenState extends State<ChatScreen> {
             ),
           ),
         ),
-        SizedBox(width: 8.w),
-        Container(
-          height: 38.h,
-          width: 38.w,
-          clipBehavior: Clip.antiAlias,
-          decoration: const BoxDecoration(
-            shape: BoxShape.circle,
-          ),
-          child: Image.asset(
-            message['image']!,
-            fit: BoxFit.cover,
-          ),
-        ),
       ],
     );
   }
 
-  //==================================> Gallery <===============================
-  Future openGallery() async {
-    final pickImage =
-        await ImagePicker().pickImage(source: ImageSource.gallery);
-    setState(() {
-      selectedIMage = File(pickImage!.path);
-      _image = File(pickImage.path).readAsBytesSync();
-    });
+  Future<void> openGallery() async {
+    try {
+      final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+      if (image != null) {
+        final imageBytes = await image.readAsBytes();
+        setState(() {
+          _image = imageBytes;
+        });
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+    }
   }
 }
