@@ -25,11 +25,11 @@ class MessageWidget extends StatelessWidget {
     this.sendDateTextStyle,
   }) : super(key: key);
 
-  final ChatMessage message;
+  final ChatModel message;
 
   @override
   Widget build(BuildContext context) {
-    var isSender = message.sender!.id == "1";
+    var isSender = message.senderId!.id == "1";
     return Padding(
       padding: const EdgeInsets.only(top: AppDimensions.paddingSizeDefault),
       child: Align(
@@ -54,22 +54,22 @@ class MessageWidget extends StatelessWidget {
     );
   }
 
-  Widget messageContent(ChatMessage message) {
+  Widget messageContent(ChatModel message) {
     /// check message type and render the right widget
-    if (message.chatMedia == null) {
+    if (message.messageType == null) {
       /// render text message
       return TextMessageWidget(
         message: message,
         senderColor: senderColor,
       );
     } else {
-      return message.chatMedia!.mediaType == "image"
+      return message.messageType == "image"
           ? ImageMessageWidget(
               message: message,
               senderColor: senderColor,
               messageContainerTextStyle: messageContainerTextStyle,
             )
-          : message.chatMedia!.mediaType == "audio"
+          : message.messageType == "audio"
               ? Container()
               : TextMessageWidget(
                   message: message,

@@ -9,8 +9,9 @@ class ApiConstants {
   static const String changePasswordEndPoint = "/user/change-password";
   static const String forgetPasswordEndPoint = "/user/forget-password";
   static const String groupListEndPoint = "/groups/group-list";
-  static String getMessageEndPoint(String roomId) => "/groups/$roomId/message";
+  static String getMessageEndPoint(String roomId,String page) => "/groups/$roomId/message?page=$page";
   static String getPrivacyPolicyEndPoint = "/settings/privacy-policy";
   static String getAboutUsEndPoint = "/settings/about-us";
   static String getTermsConditionEndPoint = "/settings/terms-condition";
+
 }

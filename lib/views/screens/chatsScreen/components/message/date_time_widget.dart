@@ -13,7 +13,7 @@ class DateTimeWidget extends StatelessWidget {
     this.sendDateTextStyle,
   }) : super(key: key);
 
-  final ChatMessage message;
+  final ChatModel message;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,7 @@ class DateTimeWidget extends StatelessWidget {
         right: AppDimensions.paddingSizeDefault / 2,
       ),
       child: Text(
-        DateFormat("h:mm:ss a").format(message.createAt??DateTime.now()),
+        DateFormat("h:mm:ss a").format(message.createdAt??DateTime.now()),
         style: sendDateTextStyle ?? const TextStyle(fontSize: 12),
       ),
     );
