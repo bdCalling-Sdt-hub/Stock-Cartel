@@ -58,6 +58,7 @@ dependencies:
   path_provider:
   shimmer:
   photo_view:
+  grouped_list:
 
 
 

@@ -17,7 +17,7 @@ class ReadOnlyChatController extends GetxController {
     String bearerToken = await PrefsHelper.getString(AppConstants.bearerToken);
     var headers = {'Authorization': 'Bearer $bearerToken'};
     final response = await ApiClient.getData(
-        ApiConstants.getMessageEndPoint(roomId),
+        ApiConstants.getMessageEndPoint(roomId,""),
         headers: headers);
     if (response.statusCode == 200) {
       onlyReadChatScreenModel = OnlyReadChatScreenModel.fromJson( response.body);

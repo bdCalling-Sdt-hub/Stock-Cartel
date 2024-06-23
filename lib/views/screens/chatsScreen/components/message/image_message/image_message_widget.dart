@@ -10,7 +10,7 @@ import '../photo_gallery_view/photo_gallery_view.dart';
 //TODO add text size
 class ImageMessageWidget extends StatelessWidget {
   /// chat message model to get teh data
-  final ChatMessage message;
+  final ChatModel message;
 
   ///the color of the sender container
   final Color senderColor;
@@ -25,7 +25,7 @@ class ImageMessageWidget extends StatelessWidget {
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    var isSender=message.sender!.id=="1";
+    var isSender=message.senderId!.id=="1";
     return Column(
       crossAxisAlignment:
       isSender ? CrossAxisAlignment.end : CrossAxisAlignment.start,

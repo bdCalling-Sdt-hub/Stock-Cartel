@@ -7,7 +7,7 @@ import '../../../../../../models/chat_model.dart';
 /// this widget is used to render a text message container
 
 class TextMessageWidget extends StatelessWidget {
-  final ChatMessage message;
+  final ChatModel message;
   final Color senderColor;
 
   const TextMessageWidget({
@@ -18,7 +18,7 @@ class TextMessageWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var isSender=message.sender!.id=="1";
+    var isSender=message.senderId!.id=="1";
     return Column(
       crossAxisAlignment:
       isSender? CrossAxisAlignment.end : CrossAxisAlignment.start,

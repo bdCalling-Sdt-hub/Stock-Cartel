@@ -80,16 +80,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                 GroupListModel groupData = _groupListController.groupList[index];
                                 return GestureDetector(
                                   onTap: () {
-                                    if (groupData.groupType == 'adminOnly') {
-                                      Get.toNamed(AppRoutes.onlyReadChat, parameters: {'roomId' : groupData.roomId ?? "", 'avatar' : '${ApiConstants.imageBaseUrl}${groupData.avatar!.publicFileUrl}', 'name': '${groupData.name}'});
-                                    } else {
-                                      Get.toNamed(AppRoutes.chatScreen, parameters: {'roomId' : groupData.roomId ?? "",  'avatar' : '${ApiConstants.imageBaseUrl}${groupData.avatar!.publicFileUrl}', 'name': '${groupData.name}'});
-                                    }
+                                      Get.toNamed(AppRoutes.chatScreen, arguments:groupData.groupType=="adminOnly",parameters: {'roomId' : groupData.roomId ?? "",  'avatar' : '${ApiConstants.imageBaseUrl}${groupData.avatar!.publicFileUrl}', 'name': '${groupData.name}',});
                                   },
                                   child: Container(
                                     margin: EdgeInsets.symmetric(vertical: 8.h),
-                                    width: 350.w,
-                                    height: 75.h,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(8.w),
                                       color: const Color(0xffe6f2e6),
@@ -101,57 +95,64 @@ class _HomeScreenState extends State<HomeScreen> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Row(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              //=======================================> Group Avatar <======================
-                                              Container(
-                                                width: 58.w,
-                                                height: 58.h,
-                                                decoration: BoxDecoration(
-                                                  borderRadius: BorderRadius.circular(100.w),
-                                                  color: const Color(0xffe6f2e0),
-                                                ),
-                                                child: ClipRRect(
-                                                  borderRadius: BorderRadius.circular(100.w),
-                                                  child: Image.network(
-                                                    '${ApiConstants.imageBaseUrl}${groupData.avatar!.publicFileUrl}',
-                                                    fit: BoxFit.cover,
+                                          Expanded(
+                                            child: Row(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                //=======================================> Group Avatar <======================
+                                                Container(
+                                                  width: 58.w,
+                                                  height: 58.h,
+                                                  decoration: BoxDecoration(
+                                                    borderRadius: BorderRadius.circular(100.w),
+                                                    color: const Color(0xffe6f2e0),
                                                   ),
-                                                ),
-                                              ),
-                                              SizedBox(width: 12.w),
-                                              //=======================================> Title and Subtitle Column <======================
-                                              Column(
-                                                crossAxisAlignment: CrossAxisAlignment.start,
-                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                children: [
-                                                  CustomText(
-                                                    text: '${groupData.name}',
-                                                    fontWeight: FontWeight.w500,
-                                                    fontsize: 18.w,
-                                                  ),
-                                                  SizedBox(
-                                                    width: 100.w,
-                                                    child: CustomText(
-                                                      text: '${groupData.lastMessage!.message}',
-                                                      fontsize: 12.w,
-                                                      textAlign: TextAlign.start,
+                                                  child: ClipRRect(
+                                                    borderRadius: BorderRadius.circular(100.w),
+                                                    child: Image.network(
+                                                      '${ApiConstants.imageBaseUrl}${groupData.avatar!.publicFileUrl}',
+                                                      fit: BoxFit.cover,
                                                     ),
-                                                  )
-                                                ],
-                                              ),
-                                            ],
+                                                  ),
+                                                ),
+                                                SizedBox(width: 12.w),
+                                                //=======================================> Title and Subtitle Column <======================
+                                                Expanded(
+                                                  child: Column(
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                    children: [
+                                                      CustomText(
+                                                        text: '${groupData.name}',
+                                                        fontWeight: FontWeight.w500,
+                                                        fontsize: 18.w,
+                                                      ),
+                                                      SizedBox(
+                                                        width: 100.w,
+                                                        child: CustomText(
+                                                          text: '${groupData.lastMessage!.message}',
+                                                          fontsize: 12.w,
+                                                          maxline: 2,
+                                                          textAlign: TextAlign.start,
+                                                        ),
+                                                      )
+                                                    ],
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
                                           ),
                                           //=======================================> Time and Count Column <======================
                                           Column(
                                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            crossAxisAlignment: CrossAxisAlignment.end,
                                             children: [
                                               CustomText(
                                                 text: groupData.lastMessage?.createdAt != null
                                                     ? timeago.format(groupData.lastMessage!.createdAt!)
                                                     : '',
+
                                                 fontsize: 12.w,
                                                 color: Colors.grey,
 
