@@ -235,7 +235,7 @@ class _ChatScreenState extends State<ChatScreen> {
                     SenderId sender = SenderId(
                       id: PrefsHelper.clientId,
                       name: PrefsHelper.myName,
-                      image: PrefsHelper.myImage,
+                      //image: PrefsHelper.myImage,
                     );
                     Attribute newMessage = Attribute(
                       senderId: sender,

@@ -103,7 +103,7 @@ class SettingsScreen extends StatelessWidget {
             ),
             SizedBox(height: 16.h),
             //=================================> Website Section <=======================
-            GestureDetector(
+            /* GestureDetector(
               onTap: () {
                 //Get.toNamed(AppRoutes.aboutusScreen);
               },
@@ -118,7 +118,7 @@ class SettingsScreen extends StatelessWidget {
                   color: Colors.black,
                 ),
               ),
-            ),
+            ),*/
           ],
         ),
       ),
