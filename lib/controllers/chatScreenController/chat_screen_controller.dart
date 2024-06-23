@@ -9,8 +9,10 @@ import '../../services/api_client.dart';
 import '../../utils/app_constants.dart';
 
 class ChatScreenController extends GetxController {
-  var messageList = <ChatScreenModel>[].obs;
+  var messageList = [].obs;
   var isLoading = true.obs;
+
+  ChatScreenModel chatScreenModel = ChatScreenModel.fromJson({});
 
   getMessages(String roomId) async {
     isLoading(true);
@@ -20,9 +22,13 @@ class ChatScreenController extends GetxController {
         ApiConstants.getMessageEndPoint(roomId),
         headers: headers);
     if (response.statusCode == 200) {
-      List<dynamic> jsonResponse = response.body['data']['attributes'];
-      messageList.value =
-          jsonResponse.map((data) => ChatScreenModel.fromJson(data)).toList();
+      // List<dynamic> jsonResponse = response.body['data']['attributes'];
+       chatScreenModel = ChatScreenModel.fromJson( response.body);
+
+       messageList.addAll(chatScreenModel.data!.attributes!);
+
+       print(messageList.length);
+
       isLoading(false);
     } else {
       ApiChecker.checkApi(response);
