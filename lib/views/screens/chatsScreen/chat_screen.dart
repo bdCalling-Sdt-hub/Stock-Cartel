@@ -20,6 +20,7 @@ import '../../../utils/app_icons.dart';
 import '../../widgets/custom_loading.dart';
 import '../../widgets/custom_text.dart';
 import '../../widgets/custom_text_field.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 class ChatScreen extends StatefulWidget {
   ChatScreen({super.key});
@@ -173,7 +174,7 @@ class _ChatScreenState extends State<ChatScreen> {
                                 ),
                                 Positioned(
                                     top: 0.h,
-                                    left: 0.w,
+                                    right: 0.w,
                                     child: GestureDetector(
                                         onTap: () {
                                           setState(() {
@@ -221,6 +222,7 @@ class _ChatScreenState extends State<ChatScreen> {
               ),
               GestureDetector(
                 onTap: () {
+
                   Map<String, dynamic> newMessage = {
                     "name": PrefsHelper.myName,
                     "status": "sender",
@@ -230,10 +232,24 @@ class _ChatScreenState extends State<ChatScreen> {
 
                   Attribute item = Attribute.fromJson(newMessage);
                   if (messageController.text.isNotEmpty) {
+                    SenderId sender = SenderId(
+                      id: PrefsHelper.clientId,
+                      name: PrefsHelper.myName,
+                      image: PrefsHelper.myImage,
+                    );
+                    Attribute newMessage = Attribute(
+                      senderId: sender,
+                      text: messageController.text,
+                      createdAt: DateTime.now(),
+                    );
                     _chatScreenController.messageList.add(newMessage);
                     messageController.clear();
-                    _image = null;
-                    setState(() {});
+                    setState(() {
+                      _image = null;
+                    });
+                    WidgetsBinding.instance.addPostFrameCallback((_) {
+                      _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
+                    });
                   }
                 },
                 child: Container(
@@ -306,7 +322,7 @@ class _ChatScreenState extends State<ChatScreen> {
                           alignment: Alignment.bottomRight,
                           child: Text(
                             message.createdAt != null
-                                ? TimeFormatHelper.timeFormat(message.createdAt!)
+                                ? timeago.format(message.createdAt!)
                                 : '',
                             style: TextStyle(
                               color: AppColors.primaryColor,
@@ -357,6 +373,26 @@ class _ChatScreenState extends State<ChatScreen> {
                       color: const Color(0xFF333333),
                       fontSize: 12.sp,
                     ),
+                  ),
+                  SizedBox(height: 5.h),
+                  Row(
+                    children: [
+                      Flexible(
+                        child: Align(
+                          alignment: Alignment.bottomLeft,
+                          child: Text(
+                            message.createdAt != null
+                                ? timeago.format(message.createdAt!)
+                                : '',
+                            style: TextStyle(
+                              color: AppColors.white,
+                              fontSize: 12.sp,
+                            ),
+                            textAlign: TextAlign.end,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),

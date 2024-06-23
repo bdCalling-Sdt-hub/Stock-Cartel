@@ -16,6 +16,7 @@ import '../../../utils/app_colors.dart';
 import '../../../utils/app_icons.dart';
 import '../../../utils/app_images.dart';
 import '../../widgets/bottom_menu..dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({super.key});
@@ -149,7 +150,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                             children: [
                                               CustomText(
                                                 text: groupData.lastMessage?.createdAt != null
-                                                    ? TimeFormatHelper.timeFormat(groupData.lastMessage!.createdAt!)
+                                                    ? timeago.format(groupData.lastMessage!.createdAt!)
                                                     : '',
                                                 fontsize: 12.w,
                                                 color: Colors.grey,

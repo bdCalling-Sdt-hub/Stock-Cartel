@@ -7,7 +7,7 @@ class PrefsHelper extends GetxController {
   static String token = "";
   static String clientId = "";
   static String forgetPasswordToken = "";
-  static String myImage = "";
+  static String? myImage = "";
   static String myName = "";
   static String myEmail = "";
   static bool isProvider = false;
