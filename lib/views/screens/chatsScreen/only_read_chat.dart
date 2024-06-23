@@ -13,6 +13,7 @@ import '../../../helpers/time_format.dart';
 import '../../../models/read_only_chat_screen_model.dart';
 import '../../widgets/custom_loading.dart';
 import '../../widgets/custom_text.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 class OnlyReadChat extends StatefulWidget {
   const OnlyReadChat({super.key});
@@ -187,7 +188,7 @@ class _OnlyReadChatState extends State<OnlyReadChat> {
                     padding: EdgeInsets.all(8.0.w),
                     child: CustomText(
                       text:
-                          'Read Only,Sending messages are not allowed in this chat.'
+                          'Read Only, Sending messages are not allowed in this chat.'
                               .tr,
                       fontsize: 10.sp,
                       textAlign: TextAlign.center,
@@ -236,7 +237,7 @@ class _OnlyReadChatState extends State<OnlyReadChat> {
                           alignment: Alignment.bottomRight,
                           child: Text(
                             message.createdAt != null
-                                ? TimeFormatHelper.timeFormat(message.createdAt!)
+                                ? timeago.format(message.createdAt!)
                                 : '',
                             style: TextStyle(
                               color: AppColors.primaryColor,
