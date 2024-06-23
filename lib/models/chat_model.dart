@@ -1,67 +1,113 @@
-class ChatMessage {
-  final String? text;
-  final ChatMedia? chatMedia;
-  final Sender? sender;
-  final DateTime? createAt;
+// To parse this JSON data, do
+//
+//     final chatModel = chatModelFromJson(jsonString);
 
-  ChatMessage({
-    this.text,
-    this.chatMedia,
-    this.sender,
-    this.createAt,
-  });
+import 'dart:convert';
 
-  factory ChatMessage.fromJson(Map<String, dynamic> json) => ChatMessage(
-    text: json["text"],
-    chatMedia: json["chat_media"] == null ? null : ChatMedia.fromJson(json["chat_media"]),
-    sender: json["sender"] == null ? null : Sender.fromJson(json["sender"]),
-    createAt:json["create_at"]==null?null:DateTime.parse(json["create_at"]),
-  );
+List<ChatModel> chatModelFromJson(String str) => List<ChatModel>.from(json.decode(str).map((x) => ChatModel.fromJson(x)));
 
-  Map<String, dynamic> toJson() => {
-    "text": text,
-    "chat_media": chatMedia?.toJson(),
-    "sender": sender?.toJson(),
-    "create_at": createAt,
-  };
-}
+String chatModelToJson(List<ChatModel> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-class ChatMedia {
-  final String? url;
-  final String? mediaType;
-
-  ChatMedia({
-    this.url,
-    this.mediaType,
-  });
-
-  factory ChatMedia.fromJson(Map<String, dynamic> json) => ChatMedia(
-    url: json["url"],
-    mediaType: json["media_type"],
-  );
-
-  Map<String, dynamic> toJson() => {
-    "url": url,
-    "media_type": mediaType,
-  };
-}
-
-class Sender {
+class ChatModel {
   final String? id;
-  final String? image;
+  final SenderId? senderId;
+  final String? roomId;
+  final String? text;
+  final bool? readed;
+  final dynamic replyTo;
+  final List<dynamic>? deletedBy;
+  final String? messageType;
+  final FileClass? file;
+  final DateTime? createdAt;
+  final DateTime? updatedAt;
 
-  Sender({
+  ChatModel({
     this.id,
-    this.image,
+    this.senderId,
+    this.roomId,
+    this.text,
+    this.readed,
+    this.replyTo,
+    this.deletedBy,
+    this.messageType,
+    this.file,
+    this.createdAt,
+    this.updatedAt,
   });
 
-  factory Sender.fromJson(Map<String, dynamic> json) => Sender(
-    id: json["id"],
-    image: json["image"],
+  factory ChatModel.fromJson(Map<String, dynamic> json) => ChatModel(
+    id: json["_id"],
+    senderId: json["senderId"] == null ? null : SenderId.fromJson(json["senderId"]),
+    roomId: json["roomId"],
+    text: json["text"],
+    readed: json["readed"],
+    replyTo: json["replyTo"],
+    deletedBy: json["deletedBy"] == null ? [] : List<dynamic>.from(json["deletedBy"]!.map((x) => x)),
+    messageType: json["messageType"],
+    file: json["file"] == null ? null : FileClass.fromJson(json["file"]),
+    createdAt: json["createdAt"] == null ? null : DateTime.parse(json["createdAt"]),
+    updatedAt: json["updatedAt"] == null ? null : DateTime.parse(json["updatedAt"]),
   );
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "image": image,
+    "_id": id,
+    "senderId": senderId?.toJson(),
+    "roomId": roomId,
+    "text": text,
+    "readed": readed,
+    "replyTo": replyTo,
+    "deletedBy": deletedBy == null ? [] : List<dynamic>.from(deletedBy!.map((x) => x)),
+    "messageType": messageType,
+    "file": file?.toJson(),
+    "createdAt": createdAt?.toIso8601String(),
+    "updatedAt": updatedAt?.toIso8601String(),
+  };
+}
+
+class FileClass {
+  final String? publicFileUrl;
+  final String? path;
+
+  FileClass({
+    this.publicFileUrl,
+    this.path,
+  });
+
+  factory FileClass.fromJson(Map<String, dynamic> json) => FileClass(
+    publicFileUrl: json["publicFileURL"],
+    path: json["path"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "publicFileURL": publicFileUrl,
+    "path": path,
+  };
+}
+
+class SenderId {
+  final String? id;
+  final String? name;
+  final FileClass? image;
+  final bool? online;
+
+  SenderId({
+    this.id,
+    this.name,
+    this.image,
+    this.online,
+  });
+
+  factory SenderId.fromJson(Map<String, dynamic> json) => SenderId(
+    id: json["_id"],
+    name: json["name"],
+    image: json["image"] == null ? null : FileClass.fromJson(json["image"]),
+    online: json["online"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "_id": id,
+    "name": name,
+    "image": image?.toJson(),
+    "online": online,
   };
 }

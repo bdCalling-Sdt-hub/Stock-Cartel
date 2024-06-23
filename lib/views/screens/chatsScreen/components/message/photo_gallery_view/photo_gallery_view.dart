@@ -5,10 +5,9 @@ import 'package:photo_view/photo_view.dart';
 
 import '../../../../../../models/chat_model.dart';
 
-
 /// this widget is used for viewing the image in full size
 class PhotoGalleryView extends StatefulWidget {
-  final ChatMessage chatMessage;
+  final ChatModel chatMessage;
 
   const PhotoGalleryView({
     Key? key,
@@ -25,12 +24,13 @@ class _PhotoGalleryViewState extends State<PhotoGalleryView> {
     super.initState();
 
     /// check if url is provided or a path to a file
-    bool _validURL = Uri.parse(widget.chatMessage.chatMedia!.url!).isAbsolute;
+    bool _validURL =
+        Uri.parse(widget.chatMessage.file!.publicFileUrl!).isAbsolute;
 
     _validURL
-        ? imageProvider = NetworkImage(widget.chatMessage.chatMedia!.url!)
-        : imageProvider = FileImage(File(widget.chatMessage.chatMedia!.url
-    !));
+        ? imageProvider = NetworkImage(widget.chatMessage.file!.publicFileUrl!)
+        : imageProvider =
+            FileImage(File(widget.chatMessage.file!.publicFileUrl!));
   }
 
   @override
