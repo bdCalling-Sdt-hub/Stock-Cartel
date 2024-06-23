@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import '../../../../controllers/authController/auth_controller.dart';
 import '../../../../routes/app_routes.dart';
 import '../../../../utils/app_colors.dart';
 import '../../../../utils/app_icons.dart';
@@ -22,7 +23,9 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController phoneNumberCodeCTRl = TextEditingController();
   final TextEditingController phoneNumberCTRl = TextEditingController();
+  final _authController = Get.put(AuthController());
   String _selectedCountryCode = '';
+  
 
   @override
   Widget build(BuildContext context) {
@@ -110,12 +113,12 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 //====================================> Get OTP Button  <=========================
                 CustomButton(
                     text: AppStrings.getOtp.tr,
+                    loading: _authController.forgotLoading.value,
                     onTap: () {
                       Get.toNamed(AppRoutes.verifyNumberScreen);
-                      /*if (_formKey.currentState!.validate()) {
-                        _authcontroller.handleForget();
-                        // Get.toNamed(AppRoutes.verifyOtpScreen);
-                      }*/
+                      if (_formKey.currentState!.validate()) {
+                        _authController.forgotPassword(phoneNumberCTRl.text.trim());
+                      }
                     }),
                 SizedBox(height: 74.h)
               ],

@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:stock_cartel/controllers/authController/auth_controller.dart';
+import '../../../../controllers/changePasswordController/change_password_controller.dart';
 import '../../../../routes/app_routes.dart';
 import '../../../../utils/app_colors.dart';
+import '../../../../utils/app_constants.dart';
 import '../../../../utils/app_icons.dart';
 import '../../../../utils/app_strings.dart';
 import '../../../widgets/custom_button.dart';
@@ -22,8 +25,10 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   final TextEditingController oldPasswordCtrl = TextEditingController();
   final TextEditingController newPasswordCtrl = TextEditingController();
   final TextEditingController confirmPassController = TextEditingController();
+  final ChangePasswordController _changePassCtrl = Get.put(
+      ChangePasswordController());
+  final AuthController _authController = Get.put(AuthController());
 
-  // AuthController _authController = Get.put(AuthController());
   bool isObscuresOld = true;
   bool isObscure = true;
   bool isObscures = true;
@@ -77,7 +82,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                       prifixicon: _customIcons(AppIcons.lock),
                       isPassword: true,
                       hintText: AppStrings.setNewPassword.tr,
-                      validator: (value) {
+                      /*validator: (value) {
                         if (value == null) {
                           return "Please set new password";
                         } else if (value.length < 8 ||
@@ -85,7 +90,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                           return "Password: 8 characters min, letters & digits \nrequired";
                         }
                         return null;
-                      },
+                      },*/
                     ),
                     SizedBox(height: 16.h),
                     //===============================> Confirm Password Text-field <===============================
@@ -98,13 +103,16 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                       isPassword: true,
                       hintText: AppStrings.confirmNewPassword.tr,
                       validator: (value) {
-                        /* if (value == null) {
-                          return "Please re-enter new password";
-                        } else if (value !=
-                            _authController.newPasswordCtrl.text) {
-                          return "Passwords do not match";
+                        bool data = AppConstants.passwordValidator.hasMatch(
+                            value);
+                        if (value.isEmpty) {
+                          return "Please re-enter password";
+                        } else if (!data) {
+                          return "Insecure password detected.";
+                        } else if (newPasswordCtrl.text != value) {
+                          return "Password did not match.";
                         }
-                        return null;*/
+                        return null;
                       },
                     ),
                     SizedBox(height: 16.h),
@@ -112,9 +120,8 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                       onTap: () {
                         Get.toNamed(AppRoutes.forgotPasswordScreen,
                             parameters: {
-                              // "email": _authController.emailCtrl.text
+                              "phone": _authController.phoneNumberCTRl.text
                             });
-                        // Get.toNamed(AppRoutes.forgotPasswordScreen);
                       },
                       child: CustomText(
                         text: AppStrings.forgotPassword.tr,
@@ -126,16 +133,17 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                     ),
                     SizedBox(height: 367.h),
                     //===============================> Change Password Button <===============================
-                    CustomButton(
-                        text: AppStrings.changePasswords.tr,
-                        onTap: () {
-                          // if (_formKey.currentState!.validate()) {
-                          //   _authController.handleChangePassword(
-                          //       _authController.oldPasswordCtrl.text,
-                          //       _authController.newPasswordCtrl.text);
-                          // Get.toNamed(AppRoutes.verifyOtpScreen);
-                          //}
-                        }),
+                    Obx(() => CustomButton(
+                          text: AppStrings.changePasswords.tr,
+                          loading: _changePassCtrl.changeLoading.value,
+                          onTap: () {
+                            if (_formKey.currentState!.validate()) {
+                              _changePassCtrl.handleChangePassword(
+                                  oldPasswordCtrl.text,
+                                  confirmPassController.text);
+                            }
+                          })
+                    ),
                     SizedBox(height: 74.h),
                   ],
                 ),
@@ -148,9 +156,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   }
 
   //===============================> Custom Icons Method <===============================
-  _customIcons(
-    String icon,
-  ) {
+  _customIcons(String icon,) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 21.w),
       child: SvgPicture.asset(
