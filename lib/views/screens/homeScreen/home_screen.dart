@@ -80,9 +80,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                 return GestureDetector(
                                   onTap: () {
                                     if (groupData.groupType == 'adminOnly') {
-                                      Get.toNamed(AppRoutes.onlyReadChat, parameters: {'roomId' : roomId, 'avatar' : '${ApiConstants.imageBaseUrl}${groupData.avatar!.publicFileUrl}', 'name': '${groupData.name}'});
+                                      Get.toNamed(AppRoutes.onlyReadChat, parameters: {'roomId' : groupData.roomId ?? "", 'avatar' : '${ApiConstants.imageBaseUrl}${groupData.avatar!.publicFileUrl}', 'name': '${groupData.name}'});
                                     } else {
-                                      Get.toNamed(AppRoutes.chatScreen, parameters: {'roomId' : roomId,  'avatar' : '${ApiConstants.imageBaseUrl}${groupData.avatar!.publicFileUrl}', 'name': '${groupData.name}'});
+                                      Get.toNamed(AppRoutes.chatScreen, parameters: {'roomId' : groupData.roomId ?? "",  'avatar' : '${ApiConstants.imageBaseUrl}${groupData.avatar!.publicFileUrl}', 'name': '${groupData.name}'});
                                     }
                                   },
                                   child: Container(
@@ -123,20 +123,21 @@ class _HomeScreenState extends State<HomeScreen> {
                                               SizedBox(width: 12.w),
                                               //=======================================> Title and Subtitle Column <======================
                                               Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                 children: [
                                                   CustomText(
                                                     text: '${groupData.name}',
                                                     fontWeight: FontWeight.w500,
                                                     fontsize: 18.w,
                                                   ),
-                                                  CustomText(
-                                                    text: '${groupData.lastMessage!.message}',
-                                                    fontsize: 12.w,
+                                                  SizedBox(
+                                                    width: 100.w,
+                                                    child: CustomText(
+                                                      text: '${groupData.lastMessage!.message}',
+                                                      fontsize: 12.w,
+                                                      textAlign: TextAlign.start,
+                                                    ),
                                                   )
                                                 ],
                                               ),
@@ -144,8 +145,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           ),
                                           //=======================================> Time and Count Column <======================
                                           Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                             children: [
                                               CustomText(
                                                 text: groupData.lastMessage?.createdAt != null
@@ -153,6 +153,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     : '',
                                                 fontsize: 12.w,
                                                 color: Colors.grey,
+
                                               ),
                                               SvgPicture.asset(
                                                 AppIcons.counter,

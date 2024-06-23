@@ -8,10 +8,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:stock_cartel/helpers/prefs_helpers.dart';
 import '../../../../utils/app_colors.dart';
 import '../../../../utils/app_images.dart';
 import '../../../controllers/chatScreenController/chat_screen_controller.dart';
 import '../../../controllers/groupListController/group_list_controller.dart';
+import '../../../helpers/time_format.dart';
+import '../../../models/chat_screen_model.dart';
 import '../../../services/api_constants.dart';
 import '../../../utils/app_icons.dart';
 import '../../widgets/custom_loading.dart';
@@ -26,17 +29,21 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
-  final GroupListController _groupListController = Get.put(GroupListController());
-  final ChatScreenController _chatScreenController = Get.put(ChatScreenController());
+  final GroupListController _groupListController =
+      Get.put(GroupListController());
+  final ChatScreenController _chatScreenController =
+      Get.put(ChatScreenController());
   final StreamController _streamController = StreamController();
   final ScrollController _scrollController = ScrollController();
   TextEditingController messageController = TextEditingController();
   Uint8List? _image;
   File? selectedImage;
+  String roomId = Get.parameters['roomId'] ?? "";
 
   @override
   void initState() {
     super.initState();
+    _chatScreenController.getMessages(roomId);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
     });
@@ -44,6 +51,7 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   Widget build(BuildContext context) {
+    print(roomId);
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -65,8 +73,8 @@ class _ChatScreenState extends State<ChatScreen> {
                       ),
                     ),
                   ),
-                  Stack(
-                    children: [
+                  //Stack(
+                    //children: [
                       Container(
                         height: 38.h,
                         width: 38.w,
@@ -79,7 +87,7 @@ class _ChatScreenState extends State<ChatScreen> {
                           fit: BoxFit.cover,
                         ),
                       ),
-                      Positioned(
+                      /*Positioned(
                         bottom: 0,
                         right: 0,
                         child: Container(
@@ -90,7 +98,7 @@ class _ChatScreenState extends State<ChatScreen> {
                             color: Colors.red,
                             shape: BoxShape.circle,
                             border:
-                            Border.all(color: Colors.white, width: 1.5.r),
+                                Border.all(color: Colors.white, width: 1.5.r),
                             gradient: const LinearGradient(
                               colors: [
                                 Color(0xFF34DE00),
@@ -102,9 +110,9 @@ class _ChatScreenState extends State<ChatScreen> {
                             ),
                           ),
                         ),
-                      )
-                    ],
-                  ),
+                      )*/
+                    //],
+                  //),
                   SizedBox(width: 8.w),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -115,12 +123,12 @@ class _ChatScreenState extends State<ChatScreen> {
                         fontWeight: FontWeight.w500,
                         color: Colors.black,
                       ),
-                      CustomText(
-                        top: 4.h,
-                        text: "Online",
-                        fontsize: 12.h,
-                        fontWeight: FontWeight.w400,
-                      )
+                      // CustomText(
+                      //   top: 4.h,
+                      //   text: "Online",
+                      //   fontsize: 12.h,
+                      //   fontWeight: FontWeight.w400,
+                      // )
                     ],
                   ),
                 ],
@@ -129,22 +137,20 @@ class _ChatScreenState extends State<ChatScreen> {
               Expanded(
                 child: Stack(
                   children: [
-                    Expanded(
-                      child: SizedBox(
-                        child: ListView.builder(
-                            scrollDirection: Axis.vertical,
-                            controller: _scrollController,
-                            dragStartBehavior: DragStartBehavior.down,
-                            itemCount: _chatScreenController.messageList.length,
-                            itemBuilder: (context, index) {
-                              var message = _chatScreenController.messageList[index];
-                              return message.data== "sender"
-                                  ? senderBubble(context, message)
-                                  : receiverBubble(context, message);
-                            }
-                        ),
-                      ),
-                    ),
+                    Obx(() {
+                      return ListView.builder(
+                          scrollDirection: Axis.vertical,
+                          controller: _scrollController,
+                          dragStartBehavior: DragStartBehavior.down,
+                          itemCount: _chatScreenController.messageList.length,
+                          itemBuilder: (context, index) {
+                            Attribute message = _chatScreenController.messageList[index];
+                            print(message);
+                            return message.senderId?.id == PrefsHelper.clientId
+                                ? senderBubble(context, message)
+                                : receiverBubble(context, message);
+                          });
+                    }),
                     if (_image != null)
                       Positioned(
                         bottom: 0.h,
@@ -174,9 +180,8 @@ class _ChatScreenState extends State<ChatScreen> {
                                             _image = null;
                                           });
                                         },
-                                        child: const Icon(Icons.cancel_outlined)
-                                    )
-                                ),
+                                        child:
+                                            const Icon(Icons.cancel_outlined))),
                               ],
                             ),
                           ],
@@ -204,24 +209,26 @@ class _ChatScreenState extends State<ChatScreen> {
                   controller: messageController,
                   hintText: "Type something…",
                   sufixicons: Padding(
-                    padding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 16.w),
+                    padding:
+                        EdgeInsets.symmetric(vertical: 8.h, horizontal: 16.w),
                     child: GestureDetector(
                         onTap: () {
                           openGallery();
                         },
-                        child: SvgPicture.asset(AppIcons.photo)
-                    ),
+                        child: SvgPicture.asset(AppIcons.photo)),
                   ),
                 ),
               ),
               GestureDetector(
                 onTap: () {
                   Map<String, dynamic> newMessage = {
-                    "name": "John",
+                    "name": PrefsHelper.myName,
                     "status": "sender",
                     "message": messageController.text,
-                    "image": AppImages.person,
+                    "image": PrefsHelper.myImage,
                   };
+
+                  Attribute item = Attribute.fromJson(newMessage);
                   if (messageController.text.isNotEmpty) {
                     _chatScreenController.messageList.add(newMessage);
                     messageController.clear();
@@ -232,13 +239,11 @@ class _ChatScreenState extends State<ChatScreen> {
                 child: Container(
                     decoration: BoxDecoration(
                         border: Border.all(color: AppColors.primaryColor),
-                        borderRadius: BorderRadius.circular(8.r)
-                    ),
+                        borderRadius: BorderRadius.circular(8.r)),
                     child: Padding(
                       padding: const EdgeInsets.all(11.0),
                       child: SvgPicture.asset(AppIcons.sendIcon),
-                    )
-                ),
+                    )),
               )
             ],
           ),
@@ -247,7 +252,7 @@ class _ChatScreenState extends State<ChatScreen> {
     );
   }
 
-  receiverBubble(BuildContext context, Map<String, String> message) {
+  receiverBubble(BuildContext context, Attribute message) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -260,7 +265,8 @@ class _ChatScreenState extends State<ChatScreen> {
             shape: BoxShape.circle,
           ),
           child: Image.network(
-            '${ApiConstants.imageBaseUrl}${_chatScreenController.messageList[0].data!.attributes![0].senderId!.image}', // Modify according to your image source
+            '${ApiConstants.imageBaseUrl}${message.senderId?.image?.publicFileUrl ?? ""}',
+            // Modify according to your image source
             fit: BoxFit.cover,
           ),
         ),
@@ -278,20 +284,39 @@ class _ChatScreenState extends State<ChatScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    message['name'] ?? '',
+                    message.senderId?.name?.split(" ")[0] ?? '',
                     style: TextStyle(
                         color: AppColors.primaryColor,
                         fontSize: 12.sp,
-                        fontWeight: FontWeight.w500
-                    ),
+                        fontWeight: FontWeight.w500),
                   ),
                   SizedBox(height: 5.h),
                   Text(
-                    message['message'] ?? '',
+                    message.text ?? '',
                     style: TextStyle(
                       color: const Color(0xFF333333),
                       fontSize: 12.sp,
                     ),
+                  ),
+                  SizedBox(height: 5.h),
+                  Row(
+                    children: [
+                      Flexible(
+                        child: Align(
+                          alignment: Alignment.bottomRight,
+                          child: Text(
+                            message.createdAt != null
+                                ? TimeFormatHelper.timeFormat(message.createdAt!)
+                                : '',
+                            style: TextStyle(
+                              color: AppColors.primaryColor,
+                              fontSize: 12.sp,
+                            ),
+                            textAlign: TextAlign.end,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -302,7 +327,7 @@ class _ChatScreenState extends State<ChatScreen> {
     );
   }
 
-  senderBubble(BuildContext context, Map<String, String> message) {
+  senderBubble(BuildContext context, Attribute message) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
@@ -319,16 +344,15 @@ class _ChatScreenState extends State<ChatScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    message['name'] ?? '',
+                    message.senderId?.name ?? "",
                     style: TextStyle(
                         color: AppColors.primaryColor,
                         fontSize: 12.sp,
-                        fontWeight: FontWeight.w500
-                    ),
+                        fontWeight: FontWeight.w500),
                   ),
                   SizedBox(height: 5.h),
                   Text(
-                    message['message'] ?? '',
+                    message.text ?? '',
                     style: TextStyle(
                       color: const Color(0xFF333333),
                       fontSize: 12.sp,

@@ -7,6 +7,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../../utils/app_colors.dart';
 import '../../../../utils/app_images.dart';
+import '../../../controllers/readOnlyChatController/read_only_chat_controller.dart';
+import '../../../helpers/prefs_helpers.dart';
+import '../../../helpers/time_format.dart';
+import '../../../models/read_only_chat_screen_model.dart';
 import '../../widgets/custom_loading.dart';
 import '../../widgets/custom_text.dart';
 
@@ -18,9 +22,11 @@ class OnlyReadChat extends StatefulWidget {
 }
 
 class _OnlyReadChatState extends State<OnlyReadChat> {
+  final ReadOnlyChatController _readOnlyChatController = Get.put(ReadOnlyChatController());
   final StreamController _streamController = StreamController();
   final ScrollController _scrollController = ScrollController();
   TextEditingController messageController = TextEditingController();
+  String roomId = Get.parameters['roomId'] ?? "";
   List<Map<String, String>> messageList = [
     {
       "status": "receiver",
@@ -70,6 +76,7 @@ class _OnlyReadChatState extends State<OnlyReadChat> {
   @override
   void initState() {
     super.initState();
+    _readOnlyChatController.getMessages(roomId);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
     });
@@ -98,8 +105,8 @@ class _OnlyReadChatState extends State<OnlyReadChat> {
                       ),
                     ),
                   ),
-                  Stack(
-                    children: [
+                  //Stack(
+                   // children: [
                       Container(
                         height: 38.h,
                         width: 38.w,
@@ -113,7 +120,7 @@ class _OnlyReadChatState extends State<OnlyReadChat> {
                           fit: BoxFit.cover,
                         ),
                       ),
-                      Positioned(
+                      /*Positioned(
                         bottom: 0,
                         right: 0,
                         child: Container(
@@ -136,9 +143,9 @@ class _OnlyReadChatState extends State<OnlyReadChat> {
                             ),
                           ),
                         ),
-                      )
-                    ],
-                  ),
+                      )*/
+                   // ],
+                 // ),
                   SizedBox(width: 8.w),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -149,12 +156,6 @@ class _OnlyReadChatState extends State<OnlyReadChat> {
                         fontWeight: FontWeight.w500,
                         color: Colors.black,
                       ),
-                      CustomText(
-                        top: 4.h,
-                        text: "Online",
-                        fontsize: 12.h,
-                        fontWeight: FontWeight.w400,
-                      )
                     ],
                   ),
                 ],
@@ -163,23 +164,16 @@ class _OnlyReadChatState extends State<OnlyReadChat> {
                 height: 20.h,
               ),
               Expanded(
-                child: StreamBuilder(
-                  stream: _streamController.stream,
-                  builder: (context, snapshot) {
-                    if (true) {
-                      return ListView.builder(
-                          controller: _scrollController,
-                          dragStartBehavior: DragStartBehavior.down,
-                          itemCount: messageList.length,
-                          itemBuilder: (context, index) {
-                            var message = messageList[index];
-                            return receiverBubble(context, message);
-                          });
-                    } else {
-                      return const CustomLoading();
-                    }
-                  },
-                ),
+                child: Obx(() {
+                  return ListView.builder(
+                      controller: _scrollController,
+                      dragStartBehavior: DragStartBehavior.down,
+                      itemCount: _readOnlyChatController.messageList.length,
+                      itemBuilder: (context, index) {
+                        Attribute message = _readOnlyChatController.messageList[index];
+                        return receiverBubble(context, message);
+                      });
+                })
               ),
               //===============================================> Read Only SMS Section <=============================
               SizedBox(height: 10.h),
@@ -209,7 +203,7 @@ class _OnlyReadChatState extends State<OnlyReadChat> {
   }
 
   //=============================================> Receiver Bubble <=================================
-  receiverBubble(BuildContext context, Map<String, String> message) {
+  receiverBubble(BuildContext context, Attribute message) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -221,13 +215,13 @@ class _OnlyReadChatState extends State<OnlyReadChat> {
             margin: EdgeInsets.only(top: 8.h, bottom: 8.h),
             child: Container(
               constraints: BoxConstraints(
-                maxWidth: MediaQuery.of(context).size.width * 0.75.w,
+                maxWidth: MediaQuery.of(context).size.width * 0.50.w,
               ),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    message['message'] ?? "",
+                    message.text ?? "",
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 14.sp,
@@ -236,17 +230,19 @@ class _OnlyReadChatState extends State<OnlyReadChat> {
                   ),
                   SizedBox(height: 5.h),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    mainAxisSize: MainAxisSize.min,
                     children: [
                       Flexible(
-                        child: Text(
-                          'time',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 12.sp,
+                        child: Align(
+                          alignment: Alignment.bottomRight,
+                          child: Text(
+                            message.createdAt != null
+                                ? TimeFormatHelper.timeFormat(message.createdAt!)
+                                : '',
+                            style: TextStyle(
+                              color: AppColors.primaryColor,
+                              fontSize: 12.sp,
+                            ),
                           ),
-                          textAlign: TextAlign.end,
                         ),
                       ),
                     ],

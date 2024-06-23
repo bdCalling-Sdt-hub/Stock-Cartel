@@ -82,7 +82,7 @@ class AuthController extends GetxController {
       Get.offAllNamed(AppRoutes.homeScreen);
       var responseBody = response.body;
       await PrefsHelper.setString(AppConstants.bearerToken, responseBody['data']['token']);
-      //await PrefsHelper.setString(AppConstants.isLogged, true);
+      await PrefsHelper.setBool(AppConstants.isLogged, true);
       logInPhoneNumberCtrl.clear();
       logInPassCtrl.clear();
     } else {
