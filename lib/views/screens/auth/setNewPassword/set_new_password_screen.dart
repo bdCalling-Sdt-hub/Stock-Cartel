@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import '../../../../controllers/authController/auth_controller.dart';
 import '../../../../routes/app_routes.dart';
 import '../../../../utils/app_strings.dart';
 import '../../../widgets/custom_button.dart';
@@ -12,7 +13,7 @@ class SetNewPasswordScreen extends StatelessWidget {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController setPasswordCTRl = TextEditingController();
   final TextEditingController confirmPasswordCTRl = TextEditingController();
-
+  final _authController = Get.put(AuthController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
