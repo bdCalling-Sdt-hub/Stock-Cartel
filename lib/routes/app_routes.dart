@@ -7,7 +7,6 @@ import '../views/screens/auth/logInScreen/log_in_screen.dart';
 import '../views/screens/auth/setNewPassword/set_new_password_screen.dart';
 import '../views/screens/auth/verifyNumber/verify_number_screen.dart';
 import '../views/screens/chatsScreen/chat_screen.dart';
-import '../views/screens/chatsScreen/only_read_chat.dart';
 import '../views/screens/homeScreen/home_screen.dart';
 import '../views/screens/notificationsScreen/notifications_screen.dart';
 import '../views/screens/onboardingScreen/onboarding_screen.dart';
@@ -68,6 +67,5 @@ class AppRoutes{
   GetPage(name: privacyPolicyScreen , page: () => PrivacyPolicyScreen()),
   GetPage(name: termsConditionScreen , page: () => TermsConditionScreen()),
   GetPage(name: aboutusScreen , page: () => AboutusScreen()),
-  GetPage(name: onlyReadChat , page: () => OnlyReadChat()),
   ];
 }

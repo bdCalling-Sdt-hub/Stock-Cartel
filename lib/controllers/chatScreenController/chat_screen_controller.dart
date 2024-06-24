@@ -95,24 +95,27 @@ class ChatController extends GetxController {
 
   ///  send message
 
-  // sendMessage(String message, {required String chatId,required String userId}) async {
-  //   var body = {
-  //     "chat": chatId,
-  //     "sender": userId,
-  //     "receiver": "admin",
-  //     "message": message
-  //   };
-  //   var response =
-  //   await SocketApi.emitWithAck(SocketConstants.newMessageEvent, body);
-  //   if (response['status'] == "Success") {
-  //     ChatModel demoData = ChatModel.fromJson(response['message']);
-  //     chatList.add(demoData);
-  //     chatList.refresh();
-  //     update();
-  //     messageCtrl.clear();
-  //     scrollToEnd();
-  //   }
-  // }
+  sendMessage(String message, {required String chatId}) async {
+    var userId =await PrefsHelper.getString(AppConstants.id);
+    var body =
+      {
+        "roomId": chatId,
+        "senderId":userId,
+        "text":message,
+        "messageType":"text"
+    };
+    print("Message body : $body");
+    var response = await SocketService.emitWithAck("chat/send", body);
+    debugPrint("Message send response : $body");
+    // if (response['status'] == "Success") {
+    //   ChatModel demoData = ChatModel.fromJson(response['message']);
+    //   chatList.add(demoData);
+    //   chatList.refresh();
+    //   update();
+    //   messageCtrl.clear();
+    //   scrollToEnd();
+    // }
+  }
 
   ///  scroll bottom and end
   scrollToEnd() {

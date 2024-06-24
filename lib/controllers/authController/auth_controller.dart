@@ -83,6 +83,7 @@ class AuthController extends GetxController {
       var responseBody = response.body;
       await PrefsHelper.setString(AppConstants.bearerToken, responseBody['data']['token']);
       await PrefsHelper.setBool(AppConstants.isLogged, true);
+      await PrefsHelper.setString(AppConstants.id, responseBody['data']['attributes']['_id']);
       logInPhoneNumberCtrl.clear();
       logInPassCtrl.clear();
     } else {
@@ -153,6 +154,7 @@ class AuthController extends GetxController {
         var responseBody = json.decode(response.body);
         await PrefsHelper.setString(
             AppConstants.bearerToken, responseBody["data"]['token']);
+        await PrefsHelper.setString(AppConstants.id, responseBody['data']['attributes']['_id']);
         print('================token ${responseBody["data"]['token']}');
 
       } else {

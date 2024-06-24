@@ -14,6 +14,7 @@ class ImageMessageWidget extends StatelessWidget {
 
   ///the color of the sender container
   final Color senderColor;
+  final bool isSender;
 
   final TextStyle? messageContainerTextStyle;
 
@@ -21,11 +22,11 @@ class ImageMessageWidget extends StatelessWidget {
     Key? key,
     required this.message,
     required this.senderColor,
+    required this.isSender,
     this.messageContainerTextStyle,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    var isSender=message.senderId!.id=="1";
     return Column(
       crossAxisAlignment:
       isSender ? CrossAxisAlignment.end : CrossAxisAlignment.start,

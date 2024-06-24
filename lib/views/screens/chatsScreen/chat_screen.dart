@@ -18,6 +18,7 @@ import '../../../helpers/time_format.dart';
 import '../../../models/chat_model.dart';
 import '../../../models/chat_screen_model.dart';
 import '../../../services/api_constants.dart';
+import '../../../utils/app_constants.dart';
 import '../../../utils/app_icons.dart';
 import '../../widgets/custom_loading.dart';
 import '../../widgets/custom_text.dart';
@@ -75,10 +76,17 @@ class _ChatScreenState extends State<ChatScreen> {
         _chatController.loadMore(roomId);
       }
     });
-
+    getUserId();
     //  _chatController.receivedListen(userData.id!);
 
     super.initState();
+  }
+
+  var userId="";
+
+
+  getUserId()async{
+    userId =await PrefsHelper.getString(AppConstants.id);
   }
 
   @override
@@ -139,7 +147,7 @@ class _ChatScreenState extends State<ChatScreen> {
                       GroupedListView<ChatModel, DateTime>(
                         elements: _chatController.chatList.value,
                         controller: _chatController.scrollController,
-                        padding: EdgeInsets.symmetric(horizontal: 20.w),
+                        padding: EdgeInsets.symmetric(horizontal: 10.w),
                         order: GroupedListOrder.DESC,
                         itemComparator: (item1, item2) =>
                             item1.createdAt!.compareTo(item2.createdAt!),
@@ -154,7 +162,9 @@ class _ChatScreenState extends State<ChatScreen> {
                           return const SizedBox();
                         },
                         itemBuilder: (context, ChatModel message) {
+
                           return MessageWidget(
+                            isSender: message.senderId!.id==userId,
                             message: message,
                             senderColor: AppColors.primaryColor,
                             inActiveAudioSliderColor: AppColors.primaryColor,
@@ -255,7 +265,12 @@ class _ChatScreenState extends State<ChatScreen> {
                       width: 10.w,
                     ),
                     GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        if(messageController.text.isNotEmpty){
+                          _chatController.sendMessage(messageController.text.tr, chatId:roomId);
+                          messageController.clear();
+                        }
+                           },
                       child: Container(
                           decoration: BoxDecoration(
                               border:
@@ -317,140 +332,6 @@ class _ChatScreenState extends State<ChatScreen> {
     );
   }
 
-  receiverBubble(BuildContext context, Attribute message) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          height: 38.h,
-          width: 38.w,
-          clipBehavior: Clip.antiAlias,
-          decoration: const BoxDecoration(
-            shape: BoxShape.circle,
-          ),
-          child: Image.network(
-            '${ApiConstants.imageBaseUrl}${message.senderId?.image?.publicFileUrl ?? ""}',
-            // Modify according to your image source
-            fit: BoxFit.cover,
-          ),
-        ),
-        SizedBox(width: 8.w),
-        Expanded(
-          child: ChatBubble(
-            clipper: ChatBubbleClipper5(type: BubbleType.receiverBubble),
-            backGroundColor: const Color(0xffe6f2e6),
-            margin: EdgeInsets.only(top: 8.h, bottom: 8.h),
-            child: Container(
-              constraints: BoxConstraints(
-                maxWidth: MediaQuery.of(context).size.width * 0.50.w,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    message.senderId?.name?.split(" ")[0] ?? '',
-                    style: TextStyle(
-                        color: AppColors.primaryColor,
-                        fontSize: 12.sp,
-                        fontWeight: FontWeight.w500),
-                  ),
-                  SizedBox(height: 5.h),
-                  Text(
-                    message.text ?? '',
-                    style: TextStyle(
-                      color: const Color(0xFF333333),
-                      fontSize: 12.sp,
-                    ),
-                  ),
-                  SizedBox(height: 5.h),
-                  Row(
-                    children: [
-                      Flexible(
-                        child: Align(
-                          alignment: Alignment.bottomRight,
-                          child: Text(
-                            message.createdAt != null
-                                ? timeago.format(message.createdAt!)
-                                : '',
-                            style: TextStyle(
-                              color: AppColors.primaryColor,
-                              fontSize: 12.sp,
-                            ),
-                            textAlign: TextAlign.end,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
-  senderBubble(BuildContext context, Attribute message) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: [
-        Expanded(
-          child: ChatBubble(
-            clipper: ChatBubbleClipper5(type: BubbleType.sendBubble),
-            backGroundColor: const Color(0xffE1FEC6),
-            margin: EdgeInsets.only(top: 8.h, bottom: 8.h),
-            child: Container(
-              constraints: BoxConstraints(
-                maxWidth: MediaQuery.of(context).size.width * 0.50.w,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    message.senderId?.name ?? "",
-                    style: TextStyle(
-                        color: AppColors.primaryColor,
-                        fontSize: 12.sp,
-                        fontWeight: FontWeight.w500),
-                  ),
-                  SizedBox(height: 5.h),
-                  Text(
-                    message.text ?? '',
-                    style: TextStyle(
-                      color: const Color(0xFF333333),
-                      fontSize: 12.sp,
-                    ),
-                  ),
-                  SizedBox(height: 5.h),
-                  Row(
-                    children: [
-                      Flexible(
-                        child: Align(
-                          alignment: Alignment.bottomLeft,
-                          child: Text(
-                            message.createdAt != null
-                                ? timeago.format(message.createdAt!)
-                                : '',
-                            style: TextStyle(
-                              color: AppColors.white,
-                              fontSize: 12.sp,
-                            ),
-                            textAlign: TextAlign.end,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-      ],
-    );
-  }
 
   Future<void> openGallery() async {
     try {

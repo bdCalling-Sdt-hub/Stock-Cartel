@@ -14,6 +14,7 @@ class GroupListController extends GetxController {
 
   @override
   void onInit() {
+    getGroupList();
     super.onInit();
 
   }

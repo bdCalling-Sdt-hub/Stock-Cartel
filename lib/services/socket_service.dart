@@ -46,7 +46,7 @@ class SocketService {
   ///<------------------------- Socket Client ---------------->
 
   static IO.Socket socket = IO.io(
-    "",
+    "http://192.168.10.46:3032",
     IO.OptionBuilder().setTransports(['websocket'])
         //   .disableAutoConnect()
         //    .enableForceNewConnection()
