@@ -21,20 +21,18 @@ class ChatController extends GetxController {
   var loading = false.obs;
   var isLoadMoreRunning=false.obs;
 
-  // listenMessage(String chatId) async {
-  //   SocketService.socket.on("new-message::$chatId", (data) {
-  //     ChatModel demoData = ChatModel.fromJson(data);
-  //     if (userId != demoData.senderId!.id) {
-  //       chatList.add(demoData);
-  //       chatList.refresh();
-  //       update();
-  //       debugPrint("=========> Response Message $data");
-  //     }
-  //   });
-  // }
+  listenMessage(String chatId) async {
+    SocketService.socket.on("chat/lastMessage::$chatId", (data) {
+      ChatModel demoData = ChatModel.fromJson(data);
+        chatList.add(demoData);
+        chatList.refresh();
+        update();
+        debugPrint("=========> Response Message $data");
+    });
+  }
 
   offSocket(String chatId) {
-    SocketService.socket.off("new-message::$chatId");
+    SocketService.socket.off("chat/lastMessage::$chatId");
     debugPrint("Socket off New message");
   }
 

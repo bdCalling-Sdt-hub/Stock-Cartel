@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
+import 'package:stock_cartel/services/api_constants.dart';
 
 import '../../../../../../models/chat_model.dart';
 
@@ -25,12 +26,12 @@ class _PhotoGalleryViewState extends State<PhotoGalleryView> {
 
     /// check if url is provided or a path to a file
     bool _validURL =
-        Uri.parse(widget.chatMessage.file!.publicFileUrl!).isAbsolute;
+        Uri.parse(ApiConstants.imageBaseUrl+widget.chatMessage.file!.publicFileUrl!).isAbsolute;
 
     _validURL
-        ? imageProvider = NetworkImage(widget.chatMessage.file!.publicFileUrl!)
+        ? imageProvider = NetworkImage(ApiConstants.imageBaseUrl+widget.chatMessage.file!.publicFileUrl!)
         : imageProvider =
-            FileImage(File(widget.chatMessage.file!.publicFileUrl!));
+            FileImage(File(ApiConstants.imageBaseUrl+widget.chatMessage.file!.publicFileUrl!));
   }
 
   @override

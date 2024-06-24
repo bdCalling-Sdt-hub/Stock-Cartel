@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_bubble/chat_bubble.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 import 'package:stock_cartel/helpers/prefs_helpers.dart';
 import 'package:stock_cartel/services/api_constants.dart';
 import 'package:stock_cartel/utils/app_dimensions.dart';
@@ -28,73 +29,14 @@ class TextMessageWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return isSender? senderBubble(context, message):receiverBubble(context, message);
-
-    // return Row(
-    //   crossAxisAlignment:  isSender ? CrossAxisAlignment.end : CrossAxisAlignment.start,
-    //   children: [
-    //     if(!isSender)
-    //       CustomNetworkImage(imageUrl:ApiConstants.imageBaseUrl+message.senderId!.image!.publicFileUrl!, height:40.r, width: 40.r,boxShape: BoxShape.circle,),
-    //     if(!isSender)
-    //     const SizedBox(width: 10,),
-    //     Column(
-    //       crossAxisAlignment:  isSender ? CrossAxisAlignment.end : CrossAxisAlignment.start,
-    //       children: [
-    //         ConstrainedBox(
-    //           constraints: BoxConstraints(
-    //               maxWidth: MediaQuery.of(context).size.width / 2, minWidth: 50),
-    //           child: Container(
-    //             padding: const EdgeInsets.symmetric(
-    //               horizontal: AppDimensions.paddingSizeDefault * 0.75,
-    //               vertical: AppDimensions.paddingSizeDefault / 2,
-    //             ),
-    //             decoration: BoxDecoration(
-    //               color: senderColor.withOpacity(isSender ? 1 : 0.1),
-    //               borderRadius: BorderRadius.only(
-    //                   topRight: Radius.circular(20.r),
-    //                   bottomLeft: Radius.circular(20.r),
-    //                   bottomRight: Radius.circular(20.r)),
-    //             ),
-    //             child: Text(
-    //               "$isSender" ?? "",
-    //               textDirection: TextDirection.rtl,
-    //               style: TextStyle(
-    //                 color: isSender ? Colors.white : Colors.black,
-    //               ),
-    //             ),
-    //           ),
-    //         ),
-    //         DateTimeWidget(
-    //           message: message,
-    //           sendDateTextStyle: TextStyle(fontSize: 12.sp,),
-    //         )
-    //       ],
-    //     ),
-    //
-    //     if(isSender)
-    //       CustomNetworkImage(imageUrl:ApiConstants.imageBaseUrl+message.senderId!.image!.publicFileUrl!, height:40.r, width: 40.r,boxShape: BoxShape.circle,),
-    //     if(isSender)
-    //       const SizedBox(width: 10,),
-    //   ],
-    // );
   }
   receiverBubble(BuildContext context, ChatModel message) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Container(
-          height: 38.h,
-          width: 38.w,
-          clipBehavior: Clip.antiAlias,
-          decoration: const BoxDecoration(
-            shape: BoxShape.circle,
-          ),
-          child: Image.network(
-            '${ApiConstants.imageBaseUrl}${message.senderId?.image?.publicFileUrl ?? ""}',
-            // Modify according to your image source
-            fit: BoxFit.cover,
-          ),
-        ),
+        CustomNetworkImage(imageUrl:ApiConstants.imageBaseUrl+message.senderId!.image!.publicFileUrl!, height: 38.h, width:38.h,boxShape: BoxShape.circle,),
+
         SizedBox(width: 8.w),
         Expanded(
           child: ChatBubble(
@@ -131,9 +73,7 @@ class TextMessageWidget extends StatelessWidget {
                         child: Align(
                           alignment: Alignment.bottomRight,
                           child: Text(
-                            message.createdAt != null
-                                ? timeago.format(message.createdAt!)
-                                : '',
+                            DateFormat("h:mm a").format(message.createdAt??DateTime.now()),
                             style: TextStyle(
                               color: AppColors.primaryColor,
                               fontSize: 12.sp,
@@ -186,9 +126,7 @@ class TextMessageWidget extends StatelessWidget {
                         child: Align(
                           alignment: Alignment.bottomLeft,
                           child: Text(
-                            message.createdAt != null
-                                ? timeago.format(message.createdAt!)
-                                : '',
+                            DateFormat("h:mm a").format(message.createdAt??DateTime.now()),
                             style: TextStyle(
                               color:Colors.white.withOpacity(0.6),
                               fontSize: 12.sp,
@@ -205,19 +143,8 @@ class TextMessageWidget extends StatelessWidget {
           ),
         ),
         SizedBox(width: 10.w,),
-        Container(
-          height: 38.h,
-          width: 38.w,
-          clipBehavior: Clip.antiAlias,
-          decoration: const BoxDecoration(
-            shape: BoxShape.circle,
-          ),
-          child: Image.network(
-            '${ApiConstants.imageBaseUrl}${message.senderId?.image?.publicFileUrl ?? ""}',
-            // Modify according to your image source
-            fit: BoxFit.cover,
-          ),
-        ),
+        CustomNetworkImage(imageUrl:ApiConstants.imageBaseUrl+message.senderId!.image!.publicFileUrl!, height: 38.h, width:38.h,boxShape: BoxShape.circle,),
+
       ],
     );
   }

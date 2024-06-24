@@ -9,6 +9,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:grouped_list/grouped_list.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:stock_cartel/helpers/prefs_helpers.dart';
 import '../../../../utils/app_colors.dart';
 import '../../../../utils/app_images.dart';
@@ -54,9 +55,8 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   void initState() {
-    // _chatController.getUserId();
-    // _chatController.readMessage(chatId);
-    // _chatController.listenMessage(Get.arguments);
+    getUserId();
+    _chatController.listenMessage(roomId);
     _chatController.scrollController =
         ScrollController(initialScrollOffset: 0.0);
 
@@ -76,17 +76,20 @@ class _ChatScreenState extends State<ChatScreen> {
         _chatController.loadMore(roomId);
       }
     });
-    getUserId();
-    //  _chatController.receivedListen(userData.id!);
 
     super.initState();
   }
 
-  var userId="";
+  var userId = "";
 
+  getUserId() async {
+    userId = await PrefsHelper.getString(AppConstants.id);
+  }
 
-  getUserId()async{
-    userId =await PrefsHelper.getString(AppConstants.id);
+  @override
+  void dispose() {
+    _chatController.offSocket(roomId);
+    super.dispose();
   }
 
   @override
@@ -100,7 +103,6 @@ class _ChatScreenState extends State<ChatScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
-
                 children: [
                   GestureDetector(
                     onTap: () {
@@ -126,7 +128,6 @@ class _ChatScreenState extends State<ChatScreen> {
                       fit: BoxFit.cover,
                     ),
                   ),
-                 
                   SizedBox(width: 8.w),
                   Expanded(
                     child: CustomText(
@@ -147,7 +148,7 @@ class _ChatScreenState extends State<ChatScreen> {
                       GroupedListView<ChatModel, DateTime>(
                         elements: _chatController.chatList.value,
                         controller: _chatController.scrollController,
-                        padding: EdgeInsets.symmetric(horizontal: 10.w),
+                       // padding: EdgeInsets.symmetric(horizontal: 10.w),
                         order: GroupedListOrder.DESC,
                         itemComparator: (item1, item2) =>
                             item1.createdAt!.compareTo(item2.createdAt!),
@@ -159,12 +160,43 @@ class _ChatScreenState extends State<ChatScreen> {
                         shrinkWrap: true,
                         //physics: const AlwaysScrollableScrollPhysics(),
                         groupSeparatorBuilder: (DateTime date) {
-                          return const SizedBox();
+
+                          final now = DateTime.now();
+                          final today =
+                          DateTime(now.year, now.month, now.day);
+                          return Center(
+                            child: Container(
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(5),
+                                    boxShadow: [
+                                      BoxShadow(
+                                          offset: const Offset(0, 3),
+                                          spreadRadius: 0,
+                                          blurRadius: 2,
+                                          color: Colors.black
+                                              .withOpacity(0.15))
+                                    ]),
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 5.w, vertical: 3.h),
+                                margin: EdgeInsets.symmetric(
+                                  vertical: 10.h,
+                                ),
+                                child: today == date
+                                    ? const Text("Today")
+                                    : Text(
+                                  DateFormat('MMMM dd, yyyy')
+                                      .format(date),
+                                  style: TextStyle(
+                                    fontSize: 10.sp,
+                                    color: Colors.black,
+                                  ),
+                                )),
+                          );
                         },
                         itemBuilder: (context, ChatModel message) {
-
                           return MessageWidget(
-                            isSender: message.senderId!.id==userId,
+                            isSender: message.senderId!.id == userId,
                             message: message,
                             senderColor: AppColors.primaryColor,
                             inActiveAudioSliderColor: AppColors.primaryColor,
@@ -224,116 +256,77 @@ class _ChatScreenState extends State<ChatScreen> {
                 ),
               ),
               SizedBox(height: 10.h),
-             Get.arguments?  Center(
-               child: Container(
-                 decoration: BoxDecoration(
-                     border:
-                     Border.all(width: 1.w, color: AppColors.primaryColor),
-                     borderRadius: BorderRadius.circular(5.r)),
-                 child: Padding(
-                   padding: EdgeInsets.all(8.0.w),
-                   child: CustomText(
-                     text:
-                     'Read Only, Sending messages are not allowed in this chat.'
-                         .tr,
-                     fontsize: 10.sp,
-                     textAlign: TextAlign.center,
-                   ),
-                 ),
-               ),
-             ):Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.w),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      child: CustomTextField(
-                        controller: messageController,
-                        hintText: "Type something…",
-                        sufixicons: Padding(
-                          padding: EdgeInsets.symmetric(
-                              vertical: 8.h, horizontal: 16.w),
-                          child: GestureDetector(
-                              onTap: () {
-                                openGallery();
-                              },
-                              child: SvgPicture.asset(AppIcons.photo)),
+              Get.arguments
+                  ? Center(
+                      child: Container(
+                        decoration: BoxDecoration(
+                            border: Border.all(
+                                width: 1.w, color: AppColors.primaryColor),
+                            borderRadius: BorderRadius.circular(5.r)),
+                        child: Padding(
+                          padding: EdgeInsets.all(8.0.w),
+                          child: CustomText(
+                            text:
+                                'Read Only, Sending messages are not allowed in this chat.'
+                                    .tr,
+                            fontsize: 10.sp,
+                            textAlign: TextAlign.center,
+                          ),
                         ),
                       ),
-                    ),
-                    SizedBox(
-                      width: 10.w,
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        if(messageController.text.isNotEmpty){
-                          _chatController.sendMessage(messageController.text.tr, chatId:roomId);
-                          messageController.clear();
-                        }
-                           },
-                      child: Container(
-                          decoration: BoxDecoration(
-                              border:
-                                  Border.all(color: AppColors.primaryColor),
-                              borderRadius: BorderRadius.circular(8.r)),
-                          child: Padding(
-                            padding:  EdgeInsets.symmetric(horizontal:16.w,vertical:16.w),
-                            child: SvgPicture.asset(AppIcons.sendIcon),
-                          )),
                     )
-                  ],
-                ),
-              ),
-
-
+                  : Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 20.w),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            child: CustomTextField(
+                              controller: messageController,
+                              hintText: "Type something…",
+                              sufixicons: Padding(
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 8.h, horizontal: 16.w),
+                                child: GestureDetector(
+                                    onTap: () {
+                                      openGallery();
+                                    },
+                                    child: SvgPicture.asset(AppIcons.photo)),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 10.w,
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              if (messageController.text.isNotEmpty) {
+                                _chatController.sendMessage(
+                                    messageController.text.tr,
+                                    chatId: roomId);
+                                messageController.clear();
+                              }
+                            },
+                            child: Container(
+                                decoration: BoxDecoration(
+                                    border: Border.all(
+                                        color: AppColors.primaryColor),
+                                    borderRadius: BorderRadius.circular(8.r)),
+                                child: Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 16.w, vertical: 16.w),
+                                  child: SvgPicture.asset(AppIcons.sendIcon),
+                                )),
+                          )
+                        ],
+                      ),
+                    ),
             ],
           ),
         ),
       ),
-      // bottomSheet: Container(
-      //   height: MediaQuery.of(context).size.height * 0.1,
-      //   width: MediaQuery.of(context).size.width,
-      //   child: Padding(
-      //     padding: EdgeInsets.symmetric(horizontal: 20.w),
-      //     child: Row(
-      //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      //       children: [
-      //         SizedBox(
-      //           width: 295.w,
-      //           child: CustomTextField(
-      //             controller: messageController,
-      //             hintText: "Type something…",
-      //             sufixicons: Padding(
-      //               padding:
-      //                   EdgeInsets.symmetric(vertical: 8.h, horizontal: 16.w),
-      //               child: GestureDetector(
-      //                   onTap: () {
-      //                     openGallery();
-      //                   },
-      //                   child: SvgPicture.asset(AppIcons.photo)),
-      //             ),
-      //           ),
-      //         ),
-      //         GestureDetector(
-      //           onTap: () {
-      //
-      //           },
-      //           child: Container(
-      //               decoration: BoxDecoration(
-      //                   border: Border.all(color: AppColors.primaryColor),
-      //                   borderRadius: BorderRadius.circular(8.r)),
-      //               child: Padding(
-      //                 padding: const EdgeInsets.all(11.0),
-      //                 child: SvgPicture.asset(AppIcons.sendIcon),
-      //               )),
-      //         )
-      //       ],
-      //     ),
-      //   ),
-      // ),
     );
   }
-
 
   Future<void> openGallery() async {
     try {
