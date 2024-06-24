@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -6,6 +7,9 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:stock_cartel/helpers/prefs_helpers.dart';
+import 'package:stock_cartel/services/api_constants.dart';
+import '../../../../controllers/profileController/profile_controller.dart';
 import '../../../../utils/app_colors.dart';
 import '../../../../utils/app_icons.dart';
 import '../../../../utils/app_strings.dart';
@@ -21,28 +25,27 @@ class EditProfileScreen extends StatefulWidget {
 }
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
+  final ProfileController _profileController = Get.put(ProfileController());
   final _nameController = TextEditingController();
-  final _emailController = TextEditingController();
-  final _phoneNumberController = TextEditingController();
+  final _phoneNumberController =
+      TextEditingController(text: PrefsHelper.myPhone);
   var parameter = Get.parameters;
   Uint8List? _image;
   File? selectedIMage;
 
-  /*@override
+  @override
   void initState() {
     // TODO: implement initState
     super.initState();
     setState(() {
-      _nameController.text =
-      parameter['name']! == "null" ? "" : parameter['name']!;
-      _emailController.text = parameter['email']!;
-      _phoneNumberController.text =
-      parameter['phone']! == 'null' ? "" : parameter['phone']!;
+      var profileData = _profileController.profileModel.value.data?.attributes;
+      _nameController.text = "${profileData?.name}";
     });
-  }*/
+  }
 
   @override
   Widget build(BuildContext context) {
+    _profileController.getProfileData();
     return Scaffold(
       appBar: AppBar(
         title: CustomText(
@@ -53,6 +56,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       ),
       body: LayoutBuilder(
         builder: (context, constraints) {
+          var profileData =
+              _profileController.profileModel.value.data?.attributes;
           return SingleChildScrollView(
             child: ConstrainedBox(
               constraints: BoxConstraints(
@@ -71,11 +76,26 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                               ? CircleAvatar(
                                   radius: 60.r,
                                   backgroundImage: MemoryImage(_image!))
-                              : CircleAvatar(
-                                  radius: 60.r,
-                                  backgroundImage: const NetworkImage(
-                                      'https://st3.depositphotos.com/15648834/17930/v/450/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-settingsScreen.jpg'),
-                                ),
+                              : Container(
+                                  clipBehavior: Clip.antiAlias,
+                                  height: 100.h,
+                                  width: 100.w,
+                                  decoration: const BoxDecoration(
+                                      shape: BoxShape.circle),
+                                  child: profileData?.image?.publicFileUrl ==
+                                              null ||
+                                          profileData?.image?.publicFileUrl ==
+                                              ''
+                                      ? CachedNetworkImage(
+                                          imageUrl:
+                                              "${ApiConstants.imageBaseUrl}/${profileData?.image?.publicFileUrl}",
+                                          fit: BoxFit.cover,
+                                        )
+                                      : CachedNetworkImage(
+                                          imageUrl:
+                                              "${ApiConstants.imageBaseUrl}/${profileData?.image?.publicFileUrl}",
+                                          fit: BoxFit.cover,
+                                        )),
                           Positioned(
                               bottom: 12.h,
                               right: 0.w,
@@ -94,18 +114,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         hintText: 'Enter your name',
                         prifixicon: _prefixIcon(AppIcons.person)),
                     SizedBox(height: 16.h),
-                    //=================================> Email <=========================
-                    CustomTextField(
-                        controller: _emailController,
-                        hintText: 'Enter your name',
-                        prifixicon: _prefixIcon(AppIcons.mail)),
-                    SizedBox(height: 16.h),
-
                     //=================================> Phone Number <=========================
                     CustomTextField(
                       keyboardType: TextInputType.number,
+                      readOnly: true,
                       controller: _phoneNumberController,
-                      hintText: '(000) 000-0000',
+                      hintText: '${profileData?.phone}',
                       prifixicon: _prefixIcon(AppIcons.phone),
                     ),
                     SizedBox(height: 16.h),
@@ -113,15 +127,15 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     const Spacer(),
 
                     //===========================> Update profile button <===================
-                    CustomButton(
-                        text: AppStrings.updateProfile.tr,
-                        onTap: () {
-                          /*_profileController.editProfile(
-                              _nameController.text,
-                              _phoneNumberController.text,
-                              selectedIMage,
-                              _emailController.text);*/
-                        }),
+                    Obx(
+                      () => CustomButton(
+                          text: AppStrings.updateProfile.tr,
+                          loading: _profileController.loading.value,
+                          onTap: () {
+                            _profileController.editProfile(_nameController.text,
+                                _phoneNumberController.text, selectedIMage);
+                          }),
+                    ),
                     SizedBox(height: 24.h),
                   ],
                 ),

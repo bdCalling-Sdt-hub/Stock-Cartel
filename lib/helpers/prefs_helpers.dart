@@ -9,7 +9,7 @@ class PrefsHelper extends GetxController {
   static String forgetPasswordToken = "";
   static String? myImage = "";
   static String myName = "";
-  static String myEmail = "";
+  static String myPhone = "";
   static bool isProvider = false;
   static String mySubscription = "premium-plus";
   static String localizationLanguageCode = 'en';
@@ -23,7 +23,7 @@ class PrefsHelper extends GetxController {
     clientId = preferences.getString("") ?? "";
     myImage = preferences.getString("") ?? "";
     myName = preferences.getString("") ?? "";
-    myEmail = preferences.getString("") ?? "";
+    myPhone = preferences.getString("") ?? "";
     isProvider = preferences.getBool("") ?? false;
     //  forgetPasswordToken = preferences.getString(AppConstants.forgetPasswordToken) ?? "";
     localizationLanguageCode =
@@ -87,7 +87,7 @@ class PrefsHelper extends GetxController {
     clientId = "";
     isProvider = false;
     myName = "";
-    myEmail = "";
+    myPhone = "";
     // preferences.remove(AppConstants.bearerToken);
     // preferences.remove(AppConstants.forgetPasswordToken);
     // preferences.remove("clientId");

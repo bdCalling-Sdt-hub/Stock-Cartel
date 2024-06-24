@@ -261,8 +261,8 @@ class ApiClient extends GetxService {
       List<MultipartListBody>? multipartListBody,
       Map<String, String>? headers}) async {
     try {
-      // bearerToken = await PrefsHelper.getString(AppConstants.bearerToken);
-      bearerToken = PrefsHelper.token;
+      bearerToken = await PrefsHelper.getString(AppConstants.bearerToken);
+      // bearerToken = PrefsHelper.token;
 
       var mainHeaders = {
         'Accept-Language': 'en',

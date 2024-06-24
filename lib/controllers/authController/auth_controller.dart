@@ -82,6 +82,7 @@ class AuthController extends GetxController {
       Get.offAllNamed(AppRoutes.homeScreen);
       var responseBody = response.body;
       await PrefsHelper.setString(AppConstants.bearerToken, responseBody['data']['token']);
+      await PrefsHelper.setString(AppConstants.phoneNumber, responseBody['data']['attributes']["phone"]);
       await PrefsHelper.setBool(AppConstants.isLogged, true);
       logInPhoneNumberCtrl.clear();
       logInPassCtrl.clear();
@@ -179,14 +180,14 @@ class AuthController extends GetxController {
         headers: header);
     if (response.statusCode == 200) {
       Get.toNamed(AppRoutes.verifyNumberScreen,
-          parameters: {"phone": phone, "screenType": "forgot"});
+          parameters: {"phone": phone, "screenType": "forgotPasswordScreen"});
     } else {
       Fluttertoast.showToast(msg: response.statusText ?? "");
     }
     forgotLoading(false);
   }
 
- //====================================> Reset password <==================================
+ //====================================> Set New password <==================================
  var setPasswordLoading = false.obs;
   setPassword(String phone, String password) async {
     setPasswordLoading(true);
