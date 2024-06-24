@@ -40,7 +40,7 @@ class _ChatScreenState extends State<ChatScreen> {
       Get.put(GroupListController());
   final ChatController _chatController = Get.put(ChatController());
   TextEditingController messageController = TextEditingController();
-  Uint8List? _image;
+  String _imagePath = "";
   File? selectedImage;
   String roomId = Get.parameters['roomId'] ?? "";
 
@@ -148,7 +148,7 @@ class _ChatScreenState extends State<ChatScreen> {
                       GroupedListView<ChatModel, DateTime>(
                         elements: _chatController.chatList.value,
                         controller: _chatController.scrollController,
-                       // padding: EdgeInsets.symmetric(horizontal: 10.w),
+                        // padding: EdgeInsets.symmetric(horizontal: 10.w),
                         order: GroupedListOrder.DESC,
                         itemComparator: (item1, item2) =>
                             item1.createdAt!.compareTo(item2.createdAt!),
@@ -160,10 +160,8 @@ class _ChatScreenState extends State<ChatScreen> {
                         shrinkWrap: true,
                         //physics: const AlwaysScrollableScrollPhysics(),
                         groupSeparatorBuilder: (DateTime date) {
-
                           final now = DateTime.now();
-                          final today =
-                          DateTime(now.year, now.month, now.day);
+                          final today = DateTime(now.year, now.month, now.day);
                           return Center(
                             child: Container(
                                 decoration: BoxDecoration(
@@ -174,8 +172,7 @@ class _ChatScreenState extends State<ChatScreen> {
                                           offset: const Offset(0, 3),
                                           spreadRadius: 0,
                                           blurRadius: 2,
-                                          color: Colors.black
-                                              .withOpacity(0.15))
+                                          color: Colors.black.withOpacity(0.15))
                                     ]),
                                 padding: EdgeInsets.symmetric(
                                     horizontal: 5.w, vertical: 3.h),
@@ -185,13 +182,13 @@ class _ChatScreenState extends State<ChatScreen> {
                                 child: today == date
                                     ? const Text("Today")
                                     : Text(
-                                  DateFormat('MMMM dd, yyyy')
-                                      .format(date),
-                                  style: TextStyle(
-                                    fontSize: 10.sp,
-                                    color: Colors.black,
-                                  ),
-                                )),
+                                        DateFormat('MMMM dd, yyyy')
+                                            .format(date),
+                                        style: TextStyle(
+                                          fontSize: 10.sp,
+                                          color: Colors.black,
+                                        ),
+                                      )),
                           );
                         },
                         itemBuilder: (context, ChatModel message) {
@@ -215,7 +212,7 @@ class _ChatScreenState extends State<ChatScreen> {
                                       ),
                                     )
                                   : const SizedBox())),
-                      if (_image != null)
+                      if (_imagePath.isNotEmpty)
                         Positioned(
                           bottom: 0.h,
                           left: 0.w,
@@ -229,7 +226,7 @@ class _ChatScreenState extends State<ChatScreen> {
                                     margin: EdgeInsets.only(bottom: 10.h),
                                     decoration: BoxDecoration(
                                       image: DecorationImage(
-                                        image: MemoryImage(_image!),
+                                        image: AssetImage(_imagePath),
                                         fit: BoxFit.cover,
                                       ),
                                       borderRadius: BorderRadius.circular(12.r),
@@ -241,7 +238,7 @@ class _ChatScreenState extends State<ChatScreen> {
                                       child: GestureDetector(
                                           onTap: () {
                                             setState(() {
-                                              _image = null;
+                                              _imagePath = "";
                                             });
                                           },
                                           child: const Icon(
@@ -300,11 +297,22 @@ class _ChatScreenState extends State<ChatScreen> {
                           ),
                           GestureDetector(
                             onTap: () {
-                              if (messageController.text.isNotEmpty) {
-                                _chatController.sendMessage(
-                                    messageController.text.tr,
-                                    chatId: roomId);
+                              if (_imagePath.isEmpty) {
+                                if (messageController.text.isNotEmpty) {
+                                  _chatController.sendMessage(
+                                      messageController.text,
+                                      chatId: roomId);
+                                  messageController.clear();
+                                }
+                              } else {
+                                _chatController.sendFile(messageController.text,
+                                    chatId: roomId,
+                                    userId: userId,
+                                    image: _imagePath);
                                 messageController.clear();
+                                setState(() {
+                                  _imagePath = "";
+                                });
                               }
                             },
                             child: Container(
@@ -332,9 +340,9 @@ class _ChatScreenState extends State<ChatScreen> {
     try {
       final image = await ImagePicker().pickImage(source: ImageSource.gallery);
       if (image != null) {
-        final imageBytes = await image.readAsBytes();
+        final imagePath = await image.path;
         setState(() {
-          _image = imageBytes;
+          _imagePath = imagePath;
         });
       }
     } catch (e) {

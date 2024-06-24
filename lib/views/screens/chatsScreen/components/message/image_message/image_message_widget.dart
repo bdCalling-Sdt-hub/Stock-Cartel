@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 import 'package:stock_cartel/views/widgets/cache_network_image.dart';
 
 import '../../../../../../models/chat_model.dart';
@@ -50,8 +51,9 @@ class ImageMessageWidget extends StatelessWidget {
               !isSender ? CrossAxisAlignment.end : CrossAxisAlignment.start,
           children: [
             Container(
+              margin: EdgeInsets.symmetric(horizontal: 10.w,vertical: 10.w),
               decoration: BoxDecoration(
-                color: senderColor.withOpacity(0.3),
+                color:message.text!.isNotEmpty? senderColor.withOpacity(0.3):Colors.transparent,
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Column(
@@ -89,17 +91,24 @@ class ImageMessageWidget extends StatelessWidget {
                   Visibility(
                     visible: message.text!.isNotEmpty,
                     child: Padding(
-                      padding: EdgeInsets.only(
-                        bottom: 8,
-                        top: 8,
-                        right: isSender ? 8 : 0,
-                        left: isSender ? 0 : 8,
-                      ),
+                      padding: const EdgeInsets.all(8.0),
                       child: Text(
                         message.text ?? "",
                         style: messageContainerTextStyle ??
-                            const TextStyle(fontSize: 12),
+                            const TextStyle(fontSize: 14),
                       ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      DateFormat("h:mm a").format(message.createdAt??DateTime.now()),
+                      style: TextStyle(
+                        color:Colors.black.withOpacity(0.6),
+                        fontSize: 12.sp,
+
+                      ),
+                      textAlign: TextAlign.left,
                     ),
                   ),
                 ],
