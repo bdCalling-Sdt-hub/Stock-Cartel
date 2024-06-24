@@ -8,7 +8,12 @@ class ApiConstants {
   static const String updateProfileEndPoint = "/user/update-profile";
   static const String loginEndPoint = "/user/login";
   static const String setPasswordEndPoint = "/user/set-password";
+  static const String changePasswordEndPoint = "/user/change-password";
+  static const String forgetPasswordEndPoint = "/user/forget-password";
   static const String groupListEndPoint = "/groups/group-list";
   static String getMessageEndPoint(String roomId,String page) => "/groups/$roomId/message?page=$page";
+  static String getPrivacyPolicyEndPoint = "/settings/privacy-policy";
+  static String getAboutUsEndPoint = "/settings/about-us";
+  static String getTermsConditionEndPoint = "/settings/terms-condition";
 
 }
