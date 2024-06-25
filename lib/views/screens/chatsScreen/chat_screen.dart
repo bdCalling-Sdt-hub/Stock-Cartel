@@ -44,15 +44,6 @@ class _ChatScreenState extends State<ChatScreen> {
   File? selectedImage;
   String roomId = Get.parameters['roomId'] ?? "";
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   _chatScreenController.getMessages(roomId);
-  //   WidgetsBinding.instance.addPostFrameCallback((_) {
-  //     _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
-  //   });
-  // }
-
   @override
   void initState() {
     getUserId();
@@ -283,7 +274,7 @@ class _ChatScreenState extends State<ChatScreen> {
                             child: CustomTextField(
                               controller: messageController,
                               hintText: "Type something…",
-                              sufixicons: Padding(
+                             /* sufixicons: Padding(
                                 padding: EdgeInsets.symmetric(
                                     vertical: 8.h, horizontal: 16.w),
                                 child: GestureDetector(
@@ -291,12 +282,10 @@ class _ChatScreenState extends State<ChatScreen> {
                                       openGallery();
                                     },
                                     child: SvgPicture.asset(AppIcons.photo)),
-                              ),
+                              ),*/
                             ),
                           ),
-                          SizedBox(
-                            width: 10.w,
-                          ),
+                          SizedBox(width: 10.w),
                           GestureDetector(
                             onTap: () {
                               if (_imagePath.isEmpty) {
@@ -337,7 +326,7 @@ class _ChatScreenState extends State<ChatScreen> {
       ),
     );
   }
-
+/*
   Future<void> openGallery() async {
     try {
       final image = await ImagePicker().pickImage(source: ImageSource.gallery);
@@ -352,5 +341,5 @@ class _ChatScreenState extends State<ChatScreen> {
         print(e);
       }
     }
-  }
+  }*/
 }

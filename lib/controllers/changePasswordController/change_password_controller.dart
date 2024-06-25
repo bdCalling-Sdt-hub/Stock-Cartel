@@ -52,7 +52,6 @@ class ChangePasswordController extends GetxController {
   //========================> Resend otp <=======================
 
   var resendOtpLoading = false.obs;
-
   resendOtp(String email) async {
     resendOtpLoading(true);
     var body = {"email": email};
