@@ -118,7 +118,7 @@ class _ChatScreenState extends State<ChatScreen> {
                       fit: BoxFit.cover,
                     ),
                   ),
-                 
+
                   SizedBox(width: 8.w),
                   Expanded(
                     child: CustomText(
@@ -270,6 +270,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 ),
               ),
 
+
               GestureDetector(
                 onTap: () {
 
@@ -311,6 +312,7 @@ class _ChatScreenState extends State<ChatScreen> {
                       child: SvgPicture.asset(AppIcons.sendIcon),
                     )),
               )
+
 
             ],
           ),

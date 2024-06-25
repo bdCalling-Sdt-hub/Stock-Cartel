@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-
 import '../helpers/prefs_helpers.dart';
 import '../routes/app_routes.dart';
 import '../utils/app_constants.dart';

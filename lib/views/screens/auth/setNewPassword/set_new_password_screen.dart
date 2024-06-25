@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../../controllers/authController/auth_controller.dart';
 import '../../../../routes/app_routes.dart';
+import '../../../../utils/app_constants.dart';
 import '../../../../utils/app_strings.dart';
 import '../../../widgets/custom_button.dart';
 import '../../../widgets/custom_text.dart';
@@ -45,15 +46,6 @@ class SetNewPasswordScreen extends StatelessWidget {
                   controller: setPasswordCTRl,
                   hintText: AppStrings.setANewPassword.tr,
                   isPassword: true,
-                  /* validator: (value) {
-                    if (value == null) {
-                      return "Please set new password";
-                    } else if (value.length < 8 ||
-                        !_validatePassword(value)) {
-                      return "Password: 8 characters min, letters & digits \nrequired";
-                    }
-                    return null;
-                  },*/
                 ),
                 //====================================> Confirm Password Text Field <=========================
                 SizedBox(height: 16.h),
@@ -61,29 +53,30 @@ class SetNewPasswordScreen extends StatelessWidget {
                   controller: confirmPasswordCTRl,
                   hintText: AppStrings.confirmNewPassword.tr,
                   isPassword: true,
-                 /* validator: (value) {
-                    if (value == null) {
-                      return "Please re-enter new password";
-                    } else if (value !=
-                        _authController.newPasswordCtrl.text) {
-                      return "Passwords do not match";
+                  validator: (value){
+                    bool data = AppConstants.passwordValidator.hasMatch(value);
+                    if (value.isEmpty) {
+                      return "Please enter confirm password";
+                    } else if (!data) {
+                      return "Insecure password detected.";
+                    }else if(setPasswordCTRl.text !=value){
+                      return "Password did not match.";
                     }
                     return null;
-                  },*/
+                  },
                 ),
                 //====================================> Reset Password Button  <=========================
                 SizedBox(height: 382.h),
-                CustomButton(
-                    text: AppStrings.resetPassword.tr,
-                    onTap: () {
-                       //Get.toNamed(AppRoutes.createAccountScreen);
-                      /*if (_formKey.currentState!.validate()) {
-                        _authController.handleChangePassword(
-                            _authController.oldPasswordCtrl.text,
-                            _authController.newPasswordCtrl.text);
-                        // Get.toNamed(AppRoutes.verifyOtpScreen);
-                      }*/
-                    }),
+                Obx(()=> CustomButton(
+                      text: AppStrings.resetPassword.tr,
+                      loading: _authController.setPasswordLoading.value,
+                      onTap: () {
+                        if (_formKey.currentState!.validate()) {
+                          _authController.setPassword(
+                              Get.arguments, confirmPasswordCTRl.text);
+                        }
+                      }),
+                ),
                 SizedBox(height: 74.h)
               ],
             ),
