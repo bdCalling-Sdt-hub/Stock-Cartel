@@ -10,6 +10,7 @@ import 'package:get/get.dart';
 import 'package:grouped_list/grouped_list.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:stock_cartel/controllers/profileController/profile_controller.dart';
 import 'package:stock_cartel/helpers/prefs_helpers.dart';
 import '../../../../utils/app_colors.dart';
 import '../../../../utils/app_images.dart';
@@ -36,9 +37,9 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
-  final GroupListController _groupListController =
-      Get.put(GroupListController());
+  final GroupListController _groupListController = Get.put(GroupListController());
   final ChatController _chatController = Get.put(ChatController());
+  final ProfileController _profileController = Get.put(ProfileController());
   TextEditingController messageController = TextEditingController();
   String _imagePath = "";
   File? selectedImage;

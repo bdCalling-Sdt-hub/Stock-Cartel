@@ -86,19 +86,13 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                       .notificationsList.length +
                                   1,
                               itemBuilder: (context, index) {
-                                if (index <
-                                    _notificationController
-                                        .notificationsList.length) {
-                                  Attribute notifications =
-                                      _notificationController
-                                          .notificationsList[index];
+                                if (index < _notificationController.notificationsList.length) {
+                                  Attribute notifications = _notificationController.notificationsList[index];
                                   return Padding(
                                     padding: EdgeInsets.only(
                                       bottom: 16.h,
                                     ),
-                                    child: _Notification(
-                                        '${notifications.message}',
-                                        notifications.createdAt!),
+                                    child: _Notification('${notifications.message}', notifications.createdAt!),
                                   );
                                 } else if (index >=
                                     _notificationController.totalResult) {
