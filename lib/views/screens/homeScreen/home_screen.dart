@@ -32,7 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
-    _groupListController.getGroupList();
+
     // TODO: implement initState
     super.initState();
   }
@@ -127,7 +127,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                                         text: '${groupData.name}',
                                                         fontWeight: FontWeight.w500,
                                                         fontsize: 18.w,
+                                                        maxline: 1,
+                                                        textAlign: TextAlign.start,
                                                       ),
+                                                      SizedBox(height: 10.h,),
                                                       SizedBox(
                                                         width: 100.w,
                                                         child: CustomText(
@@ -144,6 +147,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                             ),
                                           ),
                                           //=======================================> Time and Count Column <======================
+                                         SizedBox(width: 10.w,),
                                           Column(
                                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                             crossAxisAlignment: CrossAxisAlignment.end,
@@ -157,6 +161,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 color: Colors.grey,
 
                                               ),
+                                              SizedBox(height: 10.h,),
                                               SvgPicture.asset(
                                                 AppIcons.counter,
                                                 width: 24.w,

@@ -24,7 +24,7 @@ void main() async {
   Map<String, Map<String, String>> _languages = await di.init();
   await NotificationHelper.initLocalNotification(fln);
   Get.put(AuthController());
- // SocketService.init();
+ SocketService.init();
   runApp(MyApp(
     languages: _languages,
   ));

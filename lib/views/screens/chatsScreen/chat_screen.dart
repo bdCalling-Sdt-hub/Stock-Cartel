@@ -9,6 +9,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:grouped_list/grouped_list.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:stock_cartel/helpers/prefs_helpers.dart';
 import '../../../../utils/app_colors.dart';
 import '../../../../utils/app_images.dart';
@@ -18,6 +19,7 @@ import '../../../helpers/time_format.dart';
 import '../../../models/chat_model.dart';
 import '../../../models/chat_screen_model.dart';
 import '../../../services/api_constants.dart';
+import '../../../utils/app_constants.dart';
 import '../../../utils/app_icons.dart';
 import '../../widgets/custom_loading.dart';
 import '../../widgets/custom_text.dart';
@@ -38,7 +40,7 @@ class _ChatScreenState extends State<ChatScreen> {
       Get.put(GroupListController());
   final ChatController _chatController = Get.put(ChatController());
   TextEditingController messageController = TextEditingController();
-  Uint8List? _image;
+  String _imagePath = "";
   File? selectedImage;
   String roomId = Get.parameters['roomId'] ?? "";
 
@@ -53,9 +55,8 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   void initState() {
-    // _chatController.getUserId();
-    // _chatController.readMessage(chatId);
-    // _chatController.listenMessage(Get.arguments);
+    getUserId();
+    _chatController.listenMessage(roomId);
     _chatController.scrollController =
         ScrollController(initialScrollOffset: 0.0);
 
@@ -76,9 +77,19 @@ class _ChatScreenState extends State<ChatScreen> {
       }
     });
 
-    //  _chatController.receivedListen(userData.id!);
-
     super.initState();
+  }
+
+  var userId = "";
+
+  getUserId() async {
+    userId = await PrefsHelper.getString(AppConstants.id);
+  }
+
+  @override
+  void dispose() {
+    _chatController.offSocket(roomId);
+    super.dispose();
   }
 
   @override
@@ -92,7 +103,6 @@ class _ChatScreenState extends State<ChatScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
-
                 children: [
                   GestureDetector(
                     onTap: () {
@@ -139,7 +149,7 @@ class _ChatScreenState extends State<ChatScreen> {
                       GroupedListView<ChatModel, DateTime>(
                         elements: _chatController.chatList.value,
                         controller: _chatController.scrollController,
-                        padding: EdgeInsets.symmetric(horizontal: 20.w),
+                        // padding: EdgeInsets.symmetric(horizontal: 10.w),
                         order: GroupedListOrder.DESC,
                         itemComparator: (item1, item2) =>
                             item1.createdAt!.compareTo(item2.createdAt!),
@@ -151,10 +161,40 @@ class _ChatScreenState extends State<ChatScreen> {
                         shrinkWrap: true,
                         //physics: const AlwaysScrollableScrollPhysics(),
                         groupSeparatorBuilder: (DateTime date) {
-                          return const SizedBox();
+                          final now = DateTime.now();
+                          final today = DateTime(now.year, now.month, now.day);
+                          return Center(
+                            child: Container(
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(5),
+                                    boxShadow: [
+                                      BoxShadow(
+                                          offset: const Offset(0, 3),
+                                          spreadRadius: 0,
+                                          blurRadius: 2,
+                                          color: Colors.black.withOpacity(0.15))
+                                    ]),
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 5.w, vertical: 3.h),
+                                margin: EdgeInsets.symmetric(
+                                  vertical: 10.h,
+                                ),
+                                child: today == date
+                                    ? const Text("Today")
+                                    : Text(
+                                        DateFormat('MMMM dd, yyyy')
+                                            .format(date),
+                                        style: TextStyle(
+                                          fontSize: 10.sp,
+                                          color: Colors.black,
+                                        ),
+                                      )),
+                          );
                         },
                         itemBuilder: (context, ChatModel message) {
                           return MessageWidget(
+                            isSender: message.senderId!.id == userId,
                             message: message,
                             senderColor: AppColors.primaryColor,
                             inActiveAudioSliderColor: AppColors.primaryColor,
@@ -173,7 +213,7 @@ class _ChatScreenState extends State<ChatScreen> {
                                       ),
                                     )
                                   : const SizedBox())),
-                      if (_image != null)
+                      if (_imagePath.isNotEmpty)
                         Positioned(
                           bottom: 0.h,
                           left: 0.w,
@@ -187,7 +227,7 @@ class _ChatScreenState extends State<ChatScreen> {
                                     margin: EdgeInsets.only(bottom: 10.h),
                                     decoration: BoxDecoration(
                                       image: DecorationImage(
-                                        image: MemoryImage(_image!),
+                                        image: AssetImage(_imagePath),
                                         fit: BoxFit.cover,
                                       ),
                                       borderRadius: BorderRadius.circular(12.r),
@@ -199,7 +239,7 @@ class _ChatScreenState extends State<ChatScreen> {
                                       child: GestureDetector(
                                           onTap: () {
                                             setState(() {
-                                              _image = null;
+                                              _imagePath = "";
                                             });
                                           },
                                           child: const Icon(
@@ -214,286 +254,87 @@ class _ChatScreenState extends State<ChatScreen> {
                 ),
               ),
               SizedBox(height: 10.h),
-             Get.arguments?  Center(
-               child: Container(
-                 decoration: BoxDecoration(
-                     border:
-                     Border.all(width: 1.w, color: AppColors.primaryColor),
-                     borderRadius: BorderRadius.circular(5.r)),
-                 child: Padding(
-                   padding: EdgeInsets.all(8.0.w),
-                   child: CustomText(
-                     text:
-                     'Read Only, Sending messages are not allowed in this chat.'
-                         .tr,
-                     fontsize: 10.sp,
-                     textAlign: TextAlign.center,
-                   ),
-                 ),
-               ),
-             ):Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.w),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      child: CustomTextField(
-                        controller: messageController,
-                        hintText: "Type something…",
-                        sufixicons: Padding(
-                          padding: EdgeInsets.symmetric(
-                              vertical: 8.h, horizontal: 16.w),
-                          child: GestureDetector(
-                              onTap: () {
-                                openGallery();
-                              },
-                              child: SvgPicture.asset(AppIcons.photo)),
+              Get.arguments
+                  ? Center(
+                      child: Container(
+                        decoration: BoxDecoration(
+                            border: Border.all(
+                                width: 1.w, color: AppColors.primaryColor),
+                            borderRadius: BorderRadius.circular(5.r)),
+                        child: Padding(
+                          padding: EdgeInsets.all(8.0.w),
+                          child: CustomText(
+                            text:
+                                'Read Only, Sending messages are not allowed in this chat.'
+                                    .tr,
+                            fontsize: 10.sp,
+                            textAlign: TextAlign.center,
+
+                          ),
                         ),
                       ),
-                    ),
-                    SizedBox(
-                      width: 10.w,
-                    ),
-                    GestureDetector(
-                      onTap: () {},
-                      child: Container(
-                          decoration: BoxDecoration(
-                              border:
-                                  Border.all(color: AppColors.primaryColor),
-                              borderRadius: BorderRadius.circular(8.r)),
-                          child: Padding(
-                            padding:  EdgeInsets.symmetric(horizontal:16.w,vertical:16.w),
-                            child: SvgPicture.asset(AppIcons.sendIcon),
-                          )),
                     )
-                  ],
-                ),
-              ),
-
-
-              GestureDetector(
-                onTap: () {
-
-                  Map<String, dynamic> newMessage = {
-                    "name": PrefsHelper.myName,
-                    "status": "sender",
-                    "message": messageController.text,
-                    "image": PrefsHelper.myImage,
-                  };
-
-                  Attribute item = Attribute.fromJson(newMessage);
-                  if (messageController.text.isNotEmpty) {
-                    SenderId sender = SenderId(
-                      id: PrefsHelper.clientId,
-                      name: PrefsHelper.myName,
-                      //image: PrefsHelper.myImage,
-                    );
-                    Attribute newMessage = Attribute(
-                      senderId: sender,
-                      text: messageController.text,
-                      createdAt: DateTime.now(),
-                    );
-                    _chatScreenController.messageList.add(newMessage);
-                    messageController.clear();
-                    setState(() {
-                      _image = null;
-                    });
-                    WidgetsBinding.instance.addPostFrameCallback((_) {
-                      _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
-                    });
-                  }
-                },
-                child: Container(
-                    decoration: BoxDecoration(
-                        border: Border.all(color: AppColors.primaryColor),
-                        borderRadius: BorderRadius.circular(8.r)),
-                    child: Padding(
-                      padding: const EdgeInsets.all(11.0),
-                      child: SvgPicture.asset(AppIcons.sendIcon),
-                    )),
-              )
-
-
+                  : Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 20.w),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            child: CustomTextField(
+                              controller: messageController,
+                              hintText: "Type something…",
+                              sufixicons: Padding(
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 8.h, horizontal: 16.w),
+                                child: GestureDetector(
+                                    onTap: () {
+                                      openGallery();
+                                    },
+                                    child: SvgPicture.asset(AppIcons.photo)),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 10.w,
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              if (_imagePath.isEmpty) {
+                                if (messageController.text.isNotEmpty) {
+                                  _chatController.sendMessage(
+                                      messageController.text,
+                                      chatId: roomId);
+                                  messageController.clear();
+                                }
+                              } else {
+                                _chatController.sendFile(messageController.text,
+                                    chatId: roomId,
+                                    userId: userId,
+                                    image: _imagePath);
+                                messageController.clear();
+                                setState(() {
+                                  _imagePath = "";
+                                });
+                              }
+                            },
+                            child: Container(
+                                decoration: BoxDecoration(
+                                    border: Border.all(
+                                        color: AppColors.primaryColor),
+                                    borderRadius: BorderRadius.circular(8.r)),
+                                child: Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 16.w, vertical: 16.w),
+                                  child: SvgPicture.asset(AppIcons.sendIcon),
+                                )),
+                          )
+                        ],
+                      ),
+                    ),
             ],
           ),
         ),
       ),
-      // bottomSheet: Container(
-      //   height: MediaQuery.of(context).size.height * 0.1,
-      //   width: MediaQuery.of(context).size.width,
-      //   child: Padding(
-      //     padding: EdgeInsets.symmetric(horizontal: 20.w),
-      //     child: Row(
-      //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      //       children: [
-      //         SizedBox(
-      //           width: 295.w,
-      //           child: CustomTextField(
-      //             controller: messageController,
-      //             hintText: "Type something…",
-      //             sufixicons: Padding(
-      //               padding:
-      //                   EdgeInsets.symmetric(vertical: 8.h, horizontal: 16.w),
-      //               child: GestureDetector(
-      //                   onTap: () {
-      //                     openGallery();
-      //                   },
-      //                   child: SvgPicture.asset(AppIcons.photo)),
-      //             ),
-      //           ),
-      //         ),
-      //         GestureDetector(
-      //           onTap: () {
-      //
-      //           },
-      //           child: Container(
-      //               decoration: BoxDecoration(
-      //                   border: Border.all(color: AppColors.primaryColor),
-      //                   borderRadius: BorderRadius.circular(8.r)),
-      //               child: Padding(
-      //                 padding: const EdgeInsets.all(11.0),
-      //                 child: SvgPicture.asset(AppIcons.sendIcon),
-      //               )),
-      //         )
-      //       ],
-      //     ),
-      //   ),
-      // ),
-    );
-  }
-
-  receiverBubble(BuildContext context, Attribute message) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          height: 38.h,
-          width: 38.w,
-          clipBehavior: Clip.antiAlias,
-          decoration: const BoxDecoration(
-            shape: BoxShape.circle,
-          ),
-          child: Image.network(
-            '${ApiConstants.imageBaseUrl}${message.senderId?.image?.publicFileUrl ?? ""}',
-            // Modify according to your image source
-            fit: BoxFit.cover,
-          ),
-        ),
-        SizedBox(width: 8.w),
-        Expanded(
-          child: ChatBubble(
-            clipper: ChatBubbleClipper5(type: BubbleType.receiverBubble),
-            backGroundColor: const Color(0xffe6f2e6),
-            margin: EdgeInsets.only(top: 8.h, bottom: 8.h),
-            child: Container(
-              constraints: BoxConstraints(
-                maxWidth: MediaQuery.of(context).size.width * 0.50.w,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    message.senderId?.name?.split(" ")[0] ?? '',
-                    style: TextStyle(
-                        color: AppColors.primaryColor,
-                        fontSize: 12.sp,
-                        fontWeight: FontWeight.w500),
-                  ),
-                  SizedBox(height: 5.h),
-                  Text(
-                    message.text ?? '',
-                    style: TextStyle(
-                      color: const Color(0xFF333333),
-                      fontSize: 12.sp,
-                    ),
-                  ),
-                  SizedBox(height: 5.h),
-                  Row(
-                    children: [
-                      Flexible(
-                        child: Align(
-                          alignment: Alignment.bottomRight,
-                          child: Text(
-                            message.createdAt != null
-                                ? timeago.format(message.createdAt!)
-                                : '',
-                            style: TextStyle(
-                              color: AppColors.primaryColor,
-                              fontSize: 12.sp,
-                            ),
-                            textAlign: TextAlign.end,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
-  senderBubble(BuildContext context, Attribute message) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: [
-        Expanded(
-          child: ChatBubble(
-            clipper: ChatBubbleClipper5(type: BubbleType.sendBubble),
-            backGroundColor: const Color(0xffE1FEC6),
-            margin: EdgeInsets.only(top: 8.h, bottom: 8.h),
-            child: Container(
-              constraints: BoxConstraints(
-                maxWidth: MediaQuery.of(context).size.width * 0.50.w,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    message.senderId?.name ?? "",
-                    style: TextStyle(
-                        color: AppColors.primaryColor,
-                        fontSize: 12.sp,
-                        fontWeight: FontWeight.w500),
-                  ),
-                  SizedBox(height: 5.h),
-                  Text(
-                    message.text ?? '',
-                    style: TextStyle(
-                      color: const Color(0xFF333333),
-                      fontSize: 12.sp,
-                    ),
-                  ),
-                  SizedBox(height: 5.h),
-                  Row(
-                    children: [
-                      Flexible(
-                        child: Align(
-                          alignment: Alignment.bottomLeft,
-                          child: Text(
-                            message.createdAt != null
-                                ? timeago.format(message.createdAt!)
-                                : '',
-                            style: TextStyle(
-                              color: AppColors.white,
-                              fontSize: 12.sp,
-                            ),
-                            textAlign: TextAlign.end,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-      ],
     );
   }
 
@@ -501,9 +342,9 @@ class _ChatScreenState extends State<ChatScreen> {
     try {
       final image = await ImagePicker().pickImage(source: ImageSource.gallery);
       if (image != null) {
-        final imageBytes = await image.readAsBytes();
+        final imagePath = await image.path;
         setState(() {
-          _image = imageBytes;
+          _imagePath = imagePath;
         });
       }
     } catch (e) {

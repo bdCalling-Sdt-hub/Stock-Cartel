@@ -1,5 +1,5 @@
 import 'dart:async';
-
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
@@ -21,30 +21,25 @@ class ChatController extends GetxController {
   var loading = false.obs;
   var isLoadMoreRunning=false.obs;
 
-  // listenMessage(String chatId) async {
-  //   SocketService.socket.on("new-message::$chatId", (data) {
-  //     ChatModel demoData = ChatModel.fromJson(data);
-  //     if (userId != demoData.senderId!.id) {
-  //       chatList.add(demoData);
-  //       chatList.refresh();
-  //       update();
-  //       debugPrint("=========> Response Message $data");
-  //     }
-  //   });
-  // }
+
+
+
+  listenMessage(String chatId) async {
+    SocketService.socket.on("chat/lastMessage::$chatId", (data) {
+      ChatModel demoData = ChatModel.fromJson(data);
+        chatList.add(demoData);
+        chatList.refresh();
+        update();
+        debugPrint("=========> Response Message $data");
+    });
+  }
 
   offSocket(String chatId) {
-    SocketService.socket.off("new-message::$chatId");
+    SocketService.socket.off("chat/lastMessage::$chatId");
     debugPrint("Socket off New message");
   }
 
-  // readMessage(String chatId)async{
-  //   var userId= await PrefsHelper.getString(AppConstants.userId);
-  //   SocketService.emit("read",{
-  //     "chat_id":chatId,
-  //     "user_id":userId
-  //   });
-  // }
+
 
   fastLoad(String chatId) async {
     page = 1;
@@ -95,24 +90,41 @@ class ChatController extends GetxController {
 
   ///  send message
 
-  // sendMessage(String message, {required String chatId,required String userId}) async {
-  //   var body = {
-  //     "chat": chatId,
-  //     "sender": userId,
-  //     "receiver": "admin",
-  //     "message": message
-  //   };
-  //   var response =
-  //   await SocketApi.emitWithAck(SocketConstants.newMessageEvent, body);
-  //   if (response['status'] == "Success") {
-  //     ChatModel demoData = ChatModel.fromJson(response['message']);
-  //     chatList.add(demoData);
-  //     chatList.refresh();
-  //     update();
-  //     messageCtrl.clear();
-  //     scrollToEnd();
-  //   }
-  // }
+  sendMessage(String message, {required String chatId}) async {
+    var userId =await PrefsHelper.getString(AppConstants.id);
+    var body =
+      {
+        "roomId": chatId,
+        "senderId":userId,
+        "text":message,
+        "messageType":"text"
+    };
+    print("Message body : $body");
+    var response = await SocketService.emitWithAck("chat/send", body);
+    debugPrint("Message send response : $body");
+  }
+
+
+  sendFile(String message, {required String chatId ,required String userId,required String image})async{
+   
+    var body={
+      'roomId': chatId,
+      'senderId': userId,
+      'messageType': 'image',
+      'text':message
+    };
+    List<MultipartBody> multipartBody=[
+      MultipartBody("image",File(image))
+    ];
+    var response = await ApiClient.postMultipartData(ApiConstants.chatsSendFile, body,multipartBody: multipartBody);
+    if(response.statusCode==200){
+      
+    }else{
+      ApiChecker.checkApi(response);
+    }
+    
+
+  }
 
   ///  scroll bottom and end
   scrollToEnd() {
