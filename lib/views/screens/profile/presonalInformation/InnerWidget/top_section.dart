@@ -1,8 +1,11 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import '../../../../../services/api_constants.dart';
 import '../../../../../utils/app_colors.dart';
 import '../../../../../utils/app_icons.dart';
+import '../../../../../utils/app_images.dart';
 import '../../../../widgets/custom_text.dart';
 
 class TopSection extends StatelessWidget {
@@ -32,24 +35,37 @@ class TopSection extends StatelessWidget {
                     //=================================> Profile image <==========================
                     Container(
                       clipBehavior: Clip.antiAlias,
-                      width: 100.w,
-                      height: 100.h,
+                      width: 80.w,
+                      height: 80.h,
                       margin: EdgeInsets.only(right: 10.w),
                       decoration: BoxDecoration(
                           border:
                               Border.all(width: 2.w, color: AppColors.white),
                           shape: BoxShape.circle,
                           color: Colors.white),
-                      child: Image.network(
-                        "https://st3.depositphotos.com/15648834/17930/v/450/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-settingsScreen.jpg",
+                      child: image == '' || image == null
+                          ? Image.asset(
+                        AppImages.person,
                         fit: BoxFit.cover,
-                      ),
-                    ),
+                      )
+                          :  Container(
+                        height: 80.h,
+                        width: 80.w,
+                        clipBehavior: Clip.antiAlias,
+                        decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            border:
+                            Border.all(width: 2.w, color: AppColors.white)),
+                        child: CachedNetworkImage(
+                          imageUrl: "${ApiConstants.imageBaseUrl}/$image",
+                          fit: BoxFit.cover,
+                        ),
+                      )),
 
                     //=================================> Profile Name <==========================
                     Expanded(
                       child: CustomText(
-                        text: 'Mr Swapon',
+                        text: name == null ? "name" : '$name',
                         textAlign: TextAlign.start,
                         fontsize: 24.sp,
                         color: Colors.white,

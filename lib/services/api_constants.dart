@@ -16,5 +16,6 @@ class ApiConstants {
   static String getAboutUsEndPoint = "/settings/about-us";
   static String getTermsConditionEndPoint = "/settings/terms-condition";
   static String chatsSendFile="/chats/send-file";
+  static String getProfileEndPoint(String userId) => "/user/single-user/$userId";
 
 }

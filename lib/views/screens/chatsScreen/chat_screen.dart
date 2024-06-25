@@ -128,6 +128,7 @@ class _ChatScreenState extends State<ChatScreen> {
                       fit: BoxFit.cover,
                     ),
                   ),
+
                   SizedBox(width: 8.w),
                   Expanded(
                     child: CustomText(
@@ -268,6 +269,7 @@ class _ChatScreenState extends State<ChatScreen> {
                                     .tr,
                             fontsize: 10.sp,
                             textAlign: TextAlign.center,
+
                           ),
                         ),
                       ),
