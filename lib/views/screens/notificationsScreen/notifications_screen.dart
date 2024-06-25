@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:stock_cartel/views/widgets/custom_page_loading.dart';
 import 'package:timeago/timeago.dart' as TimeAgo;
+import '../../../controllers/notificationController/notifiaction_controller.dart';
+import '../../../models/notification_model.dart';
 import '../../../utils/app_colors.dart';
 import '../../../utils/app_icons.dart';
 import '../../../utils/app_strings.dart';
@@ -16,30 +19,31 @@ class NotificationScreen extends StatefulWidget {
 }
 
 class _NotificationScreenState extends State<NotificationScreen> {
+  final NotificationController _notificationController =
+      Get.put(NotificationController());
   final ScrollController _scrollController = ScrollController();
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   _addScrollListener();
-  // }
-  //
-  // @override
-  // void dispose() {
-  //   _scrollController.dispose();
-  //   super.dispose();
-  // }
-  //
-  // void _addScrollListener() {
-  //   _scrollController.addListener(() {
-  //     if (_scrollController.position.pixels ==
-  //         _scrollController.position.maxScrollExtent) {
-  //       _notificationController.loadMore();
-  //       print("load more true");
-  //     }
-  //   });
-  // }
-  //
+  @override
+  void initState() {
+    super.initState();
+    _addScrollListener();
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  void _addScrollListener() {
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels ==
+          _scrollController.position.maxScrollExtent) {
+        _notificationController.loadMore();
+        print("load more true");
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,21 +59,56 @@ class _NotificationScreenState extends State<NotificationScreen> {
 
       //================================> Body section <=======================
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 20.h),
+        padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 12.h),
         child: Column(
           children: [
             //================================> Notification section <=======================
             Expanded(
-              child: ListView.builder(
-                itemCount: 20,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: EdgeInsets.only(
-                        bottom: 12.h, top: index == 0 ? 20.h : 0),
-                    child: _Notification(
-                        'Your booking request has approved.'.tr, DateTime.now()),
-                  );
-                },
+              child: Obx(
+                () => _notificationController.notificationLoading.value
+                    ? const CustomPageLoading()
+                    : _notificationController.notificationsList.isEmpty
+                        ? Center(
+                            child: CustomText(
+                            text: "No notifications yet",
+                          ))
+                        : RefreshIndicator(
+                            onRefresh: () async {
+                              //_notificationController.notificationsList.refresh();
+                              _notificationController.page.value = 1;
+                              _notificationController.notificationsList.clear();
+                              await _notificationController.getNotifications();
+                            },
+                            child: ListView.builder(
+                              controller: _scrollController,
+                              physics: const AlwaysScrollableScrollPhysics(),
+                              itemCount: _notificationController
+                                      .notificationsList.length +
+                                  1,
+                              itemBuilder: (context, index) {
+                                if (index <
+                                    _notificationController
+                                        .notificationsList.length) {
+                                  Attribute notifications =
+                                      _notificationController
+                                          .notificationsList[index];
+                                  return Padding(
+                                    padding: EdgeInsets.only(
+                                      bottom: 16.h,
+                                    ),
+                                    child: _Notification(
+                                        '${notifications.message}',
+                                        notifications.createdAt!),
+                                  );
+                                } else if (index >=
+                                    _notificationController.totalResult) {
+                                  return null;
+                                } else {
+                                  return null;
+                                }
+                              },
+                            ),
+                          ),
               ),
             ),
           ],
@@ -82,7 +121,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 8.w),
       decoration: BoxDecoration(
-          color:Color(0xffE7F2E6), borderRadius: BorderRadius.circular(4.r)),
+          color: Color(0xffE7F2E6), borderRadius: BorderRadius.circular(4.r)),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
@@ -112,7 +151,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 CustomText(
-                  text: 'Welcome Stock-Cartel',
+                  text: title,
                   fontsize: 14.h,
                   color: Colors.black,
                 ),
