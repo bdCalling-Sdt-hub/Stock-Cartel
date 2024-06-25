@@ -67,7 +67,6 @@ class PrefsHelper extends GetxController {
   }
 
   //===============================> Remove Value <==================================
-
   static Future remove(String key) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     return preferences.remove(key);

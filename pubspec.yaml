@@ -59,6 +59,7 @@ dependencies:
   shimmer:
   photo_view:
   grouped_list:
+  webview_flutter:
 
 
 

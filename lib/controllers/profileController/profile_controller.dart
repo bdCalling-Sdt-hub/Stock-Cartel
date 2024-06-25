@@ -21,8 +21,7 @@ class ProfileController extends GetxController {
   getProfileData() async {
     setRxRequestStatus(Status.loading);
     var userId = await PrefsHelper.getString(AppConstants.id);
-    var response =
-        await ApiClient.getData(ApiConstants.getProfileEndPoint(userId));
+    var response = await ApiClient.getData(ApiConstants.getProfileEndPoint);
 
     if (response.statusCode == 200) {
       profileModel.value = ProfileModel.fromJson(response.body);
