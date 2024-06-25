@@ -269,6 +269,51 @@ class _ChatScreenState extends State<ChatScreen> {
                   ],
                 ),
               ),
+
+
+              GestureDetector(
+                onTap: () {
+
+                  Map<String, dynamic> newMessage = {
+                    "name": PrefsHelper.myName,
+                    "status": "sender",
+                    "message": messageController.text,
+                    "image": PrefsHelper.myImage,
+                  };
+
+                  Attribute item = Attribute.fromJson(newMessage);
+                  if (messageController.text.isNotEmpty) {
+                    SenderId sender = SenderId(
+                      id: PrefsHelper.clientId,
+                      name: PrefsHelper.myName,
+                      //image: PrefsHelper.myImage,
+                    );
+                    Attribute newMessage = Attribute(
+                      senderId: sender,
+                      text: messageController.text,
+                      createdAt: DateTime.now(),
+                    );
+                    _chatScreenController.messageList.add(newMessage);
+                    messageController.clear();
+                    setState(() {
+                      _image = null;
+                    });
+                    WidgetsBinding.instance.addPostFrameCallback((_) {
+                      _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
+                    });
+                  }
+                },
+                child: Container(
+                    decoration: BoxDecoration(
+                        border: Border.all(color: AppColors.primaryColor),
+                        borderRadius: BorderRadius.circular(8.r)),
+                    child: Padding(
+                      padding: const EdgeInsets.all(11.0),
+                      child: SvgPicture.asset(AppIcons.sendIcon),
+                    )),
+              )
+
+
             ],
           ),
         ),
