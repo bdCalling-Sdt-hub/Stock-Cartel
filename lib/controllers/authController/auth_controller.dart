@@ -18,14 +18,11 @@ class AuthController extends GetxController {
 
   Future<void> handleRegister() async {
     registerLoading(true);
-    try {
       String phoneNumber = phoneNumberCTRl.text.trim();
       String countryCode = selectedCountryCode;
       Map<String, dynamic> body = {
         "phone": countryCode + phoneNumber,
       };
-      print("===================> Request Body: $body");
-
       var headers = {'Content-Type': 'application/json'};
       Response response = await ApiClient.postData(
         ApiConstants.registerEndPoint,
@@ -33,24 +30,19 @@ class AuthController extends GetxController {
         headers: headers,
       );
       print("============> Response: ${response.body} and Status Code: ${response.statusCode}");
-
       if (response.statusCode == 200) {
         Get.toNamed(AppRoutes.verifyNumberScreen, parameters: {
-          "phone": phoneNumber,
+          "phone": countryCode + phoneNumber,
           "screenType": "registerScreen",
         });
-        var responseBody = json.decode(response.body);
-        Fluttertoast.showToast(msg: responseBody['message']);
+        Fluttertoast.showToast(msg: response.body['message']);
         phoneNumberCTRl.clear();
       } else {
         ApiChecker.checkApi(response);
       }
-    } catch (e, s) {
-      print("===> Error: $e");
-      print("===> Stack Trace: $s");
-    } finally {
+
       registerLoading(false);
-    }
+
   }
 
 
@@ -101,9 +93,7 @@ class AuthController extends GetxController {
     resendOtpLoading(true);
     var body = {"phone": phone};
     Map<String, String> header = {'Accept-Language': 'en',};
-    var response = await ApiClient.postData(
-        ApiConstants.otpVerifyEndPoint, json.encode(body),
-        headers: header);
+    var response = await ApiClient.postData(ApiConstants.otpVerifyEndPoint, json.encode(body), headers: header);
     print("===> ${response.body}");
     if (response.statusCode == 200) {
 
@@ -133,8 +123,8 @@ class AuthController extends GetxController {
       'Cookie': 'i18next=en'
     };
 
-    try {
-      var body = {'phone': phone, 'otpCode': otp};
+
+      var body = {'phone': phone, 'code': otp};
       verifyLoading(true);
       Response response = await ApiClient.postData(
         ApiConstants.otpVerifyEndPoint,
@@ -146,28 +136,24 @@ class AuthController extends GetxController {
       print("============${response.body} and ${response.statusCode}");
 
       if (response.statusCode == 200 || response.statusCode == 201) {
+        print('================token ${response.body['data']['token']}');
+        await PrefsHelper.setString(AppConstants.bearerToken,response.body['data']['token']);
+        await PrefsHelper.setString(AppConstants.id, response.body['data']['attributes']['_id']);
+
         if (type == "forgotPasswordScreen") {
           Get.toNamed(
               AppRoutes.setNewPasswordScreen, parameters: {"phone": phone});
         } else {
+
           Get.offAllNamed(AppRoutes.createAccountScreen);
         }
-        var responseBody = json.decode(response.body);
-        await PrefsHelper.setString(
-            AppConstants.bearerToken, responseBody["data"]['token']);
-        await PrefsHelper.setString(AppConstants.id, responseBody['data']['attributes']['_id']);
-        print('================token ${responseBody["data"]['token']}');
-
       } else {
         ApiChecker.checkApi(response);
       }
+
       otpCtrl.clear();
-    } catch (e, s) {
-      print("===> e : $e");
-      print("===> s : $s");
-    } finally {
       verifyLoading(false);
-    }
+
   }
 
 //=================================> Forgot pass word <==========================================

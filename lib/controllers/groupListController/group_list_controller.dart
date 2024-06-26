@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:get/get.dart';
 import 'package:stock_cartel/services/api_checker.dart';
 import 'package:stock_cartel/services/api_constants.dart';

@@ -147,7 +147,33 @@ class _LogInScreenState extends State<LogInScreen> {
                         authController.handleLogIn();
                       }
                     }),
-                SizedBox(height: 74.h)
+                SizedBox(height: 12.h),
+
+                //===============================> Don’t have an account Section <===============================
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    CustomText(
+                      text:'Do not have an Account',
+                      fontWeight: FontWeight.w500,
+                      fontsize: 15.h,
+                      fontName: 'Lato',
+                    ),
+                    SizedBox(width: 5.w),
+                    GestureDetector(
+                      onTap: () {
+                        Get.offAllNamed(AppRoutes.registerScreen);
+                      },
+                      child: CustomText(
+                        color: AppColors.primaryColor,
+                        text: AppStrings.register,
+                        fontWeight: FontWeight.w500,
+                        fontsize: 15.h,
+                      ),
+                    )
+                  ],
+                ),
+                SizedBox(height: 64.h),
               ],
             ),
           ),

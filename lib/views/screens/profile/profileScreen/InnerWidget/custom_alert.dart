@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import '../../../../../helpers/prefs_helpers.dart';
 import '../../../../../routes/app_routes.dart';
 import '../../../../../utils/app_colors.dart';
+import '../../../../../utils/app_constants.dart';
 import '../../../../../utils/app_strings.dart';
 import '../../../../widgets/custom_button.dart';
 import '../../../../widgets/custom_text.dart';
@@ -46,11 +48,10 @@ class CustomAlert extends StatelessWidget {
                     child: CustomButton(
                         text: 'Yes'.tr,
                         onTap: () async {
-                          /*await PrefsHelper.remove(AppConstants.isLogged);
-                          await PrefsHelper.remove(AppConstants.userId);
-                          // await PrefsHelper.remove(AppConstants.bearerToken);
-                          await PrefsHelper.remove(AppConstants.subscription);
-                          _authController.googleSignIn.signOut();*/
+                          await PrefsHelper.remove(AppConstants.isLogged);
+                          await PrefsHelper.remove(AppConstants.id);
+                          await PrefsHelper.remove(AppConstants.bearerToken);
+                          //await PrefsHelper.remove(AppConstants.subscription);
                           Get.offAllNamed(AppRoutes.logInScreen);
                         })),
               ],
