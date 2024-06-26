@@ -28,17 +28,12 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
   void setSelectedIndex(int index) {
     selectedIndex = index;
   }
-
   String? entDate;
-
-  /*List subscription = [
-    {'title': "1 Week", "price": "9.99", "duration": "Week"},
-    {'title': "1 Month", "price": "29.99", "duration": "Month"},
-    {'title': "1 Year", "price": "249.99", "duration": "Year"},
-  ];*/
 
   @override
   Widget build(BuildContext context) {
+    print("${_subscriptionController
+        .subscriptionData.length}");
     if (_subscriptionController.selectedIndex.value == 0) {
       _subscriptionController.subscriptionName.value = 'week';
       entDate = "${now.add(const Duration(days: 7))}";
@@ -52,7 +47,7 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
     }
     print("===>selected index ${_subscriptionController.selectedIndex
         .value} and ${_subscriptionController.subscriptionName.value}");
-    print("now $now and endDate ${now.add(Duration(days: 10))}");
+    print("now $now and endDate ${now.add(Duration(days: 3))}");
 
     return Scaffold(
       appBar: AppBar(
@@ -92,7 +87,8 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
                       itemCount: _subscriptionController.subscriptionData
                           .length,
                       itemBuilder: (context, index) {
-                        Attribute data = _subscriptionController
+                      //  print("${_subscriptionController.subscriptionData[index]}");
+                        var data = _subscriptionController
                             .subscriptionData[index];
                         bool isSelected = selectedIndex == index;
                         return GestureDetector(
@@ -123,14 +119,14 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
                                     .spaceBetween,
                                 children: [
                                   CustomText(
-                                    text: "${data.title}",
+                                    text: "${data["title"]}",
                                     fontWeight: FontWeight.w500,
                                     fontsize: 14.w,
                                   ),
                                   Row(
                                     children: [
                                       CustomText(
-                                        text: '\$${data.price}',
+                                        text: '\$${data["price"]}',
                                         fontWeight: FontWeight.w500,
                                         fontsize: 18.w,
                                         color: isSelected
@@ -138,7 +134,7 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
                                             : Colors.black,
                                       ),
                                       CustomText(
-                                        text: '\/${data.duration}',
+                                        text: '\/${data["duration"]}',
                                         fontsize: 14.w,
                                       ),
                                       SizedBox(width: 8.w),

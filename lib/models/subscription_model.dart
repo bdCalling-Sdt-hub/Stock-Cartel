@@ -13,13 +13,15 @@ class SubscriptionModel {
     this.pagination,
   });
 
-  factory SubscriptionModel.fromJson(Map<String, dynamic> json) => SubscriptionModel(
-    status: json["status"],
-    statusCode: json["statusCode"],
-    message: json["message"],
-    data: json["data"] == null ? null : Data.fromJson(json["data"]),
-    pagination: json["pagination"] == null ? null : Pagination.fromJson(json["pagination"]),
-  );
+  factory SubscriptionModel.fromJson(Map<String, dynamic> json) {
+    return SubscriptionModel(
+      status: json["status"] as String?,
+      statusCode: json["statusCode"] as int?,
+      message: json["message"] as String?,
+      data: json["data"] == null ? null : Data.fromJson(json["data"] as Map<String, dynamic>),
+      pagination: json["pagination"] == null ? null : Pagination.fromJson(json["pagination"] as Map<String, dynamic>),
+    );
+  }
 
   Map<String, dynamic> toJson() => {
     "status": status,
@@ -37,9 +39,15 @@ class Data {
     this.attributes,
   });
 
-  factory Data.fromJson(Map<String, dynamic> json) => Data(
-    attributes: json["attributes"] == null ? [] : List<Attribute>.from(json["attributes"]!.map((x) => Attribute.fromJson(x))),
-  );
+  factory Data.fromJson(Map<String, dynamic> json) {
+    return Data(
+      attributes: json["attributes"] == null
+          ? []
+          : List<Attribute>.from(
+        (json["attributes"] as List<dynamic>).map((x) => Attribute.fromJson(x as Map<String, dynamic>)),
+      ),
+    );
+  }
 
   Map<String, dynamic> toJson() => {
     "attributes": attributes == null ? [] : List<dynamic>.from(attributes!.map((x) => x.toJson())),
@@ -65,15 +73,17 @@ class Attribute {
     this.v,
   });
 
-  factory Attribute.fromJson(Map<String, dynamic> json) => Attribute(
-    id: json["_id"],
-    title: json["title"],
-    duration: json["duration"],
-    price: json["price"]?.toDouble(),
-    createdAt: json["createdAt"] == null ? null : DateTime.parse(json["createdAt"]),
-    updatedAt: json["updatedAt"] == null ? null : DateTime.parse(json["updatedAt"]),
-    v: json["__v"],
-  );
+  factory Attribute.fromJson(Map<String, dynamic> json) {
+    return Attribute(
+      id: json["_id"] as String?,
+      title: json["title"] as String?,
+      duration: json["duration"] as String?,
+      price: (json["price"] as num?)?.toDouble(),
+      createdAt: json["createdAt"] == null ? null : DateTime.parse(json["createdAt"] as String),
+      updatedAt: json["updatedAt"] == null ? null : DateTime.parse(json["updatedAt"] as String),
+      v: json["__v"] as int?,
+    );
+  }
 
   Map<String, dynamic> toJson() => {
     "_id": id,
@@ -89,9 +99,7 @@ class Attribute {
 class Pagination {
   Pagination();
 
-  factory Pagination.fromJson(Map<String, dynamic> json) => Pagination(
-  );
+  factory Pagination.fromJson(Map<String, dynamic> json) => Pagination();
 
-  Map<String, dynamic> toJson() => {
-  };
+  Map<String, dynamic> toJson() => {};
 }
