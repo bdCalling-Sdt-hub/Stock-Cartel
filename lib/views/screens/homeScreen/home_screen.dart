@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -45,6 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
         padding: EdgeInsets.symmetric(horizontal: 20.w),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             //====================================> Logo With Notification <==========================
             SizedBox(height: 62.h),
@@ -57,12 +59,21 @@ class _HomeScreenState extends State<HomeScreen> {
                   width: 86.w,
                   height: 48.h,
                 ),
-                GestureDetector(
-                    onTap: () {
-                      Get.toNamed(AppRoutes.notificationScreen);
-                    },
-                    child: SvgPicture.asset(AppIcons.notifications,
-                        width: 36.w, height: 36.h))
+                Row(
+                  children: [
+                    GestureDetector(
+                        onTap: () {
+                          Get.toNamed(AppRoutes.joinGroupScreen);},
+                        child: SvgPicture.asset(AppIcons.groupIcon,color: AppColors.primaryColor,
+                            width: 28.w, height: 28.h)),
+                    SizedBox(width: 18.w),
+                    GestureDetector(
+                        onTap: () {
+                          Get.toNamed(AppRoutes.notificationScreen);},
+                        child: SvgPicture.asset(AppIcons.notification, color: AppColors.primaryColor ,
+                            width: 28.w, height: 28.h))
+                  ],
+                ),
               ],
             ),
             SizedBox(height: 22.h),
@@ -110,9 +121,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   ),
                                                   child: ClipRRect(
                                                     borderRadius: BorderRadius.circular(100.w),
-                                                    child: Image.network(
-                                                      '${ApiConstants.imageBaseUrl}${groupData.avatar!.publicFileUrl}',
+                                                    child: CachedNetworkImage(
+                                                      imageUrl: '${ApiConstants.imageBaseUrl}${groupData.avatar!.publicFileUrl}',
                                                       fit: BoxFit.cover,
+                                                      placeholder: (context, url) => const CircularProgressIndicator(),
                                                     ),
                                                   ),
                                                 ),
