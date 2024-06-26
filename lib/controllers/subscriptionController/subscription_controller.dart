@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_rx/get_rx.dart';
@@ -16,20 +18,18 @@ class SubscriptionController extends GetxController {
   void onInit() {
     // TODO: implement onInit
     super.onInit();
-    getSubScription();
+    getSubscription();
   }
 
   RxBool subscriptionLoading = false.obs;
   RxList subscriptionData = [].obs;
   SubscriptionModel subscriptionModel = SubscriptionModel.fromJson({});
-  getSubScription() async {
+  getSubscription() async {
     subscriptionLoading(true);
     var response = await ApiClient.getData(ApiConstants.subscriptionEndPoint);
     if (response.statusCode == 200) {
-      //subscriptionData.value = List<SubscriptionModel>.from(response.body['data']['attributes'].map((e) => SubscriptionModel.fromJson(e)));
-      if (subscriptionModel.data?.attributes != null) {
-        subscriptionData.addAll(subscriptionModel.data!.attributes!);
-      }
+      subscriptionData.value = response.body['data']['attributes'];
+      print(response.body['data']['attributes']);
       update();
       subscriptionLoading(false);
     }
