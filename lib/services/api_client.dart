@@ -109,7 +109,6 @@ class ApiClient extends GetxService {
       Map<String, String>? headers}) async {
     try {
       bearerToken = await PrefsHelper.getString(AppConstants.bearerToken);
-
       var mainHeaders = {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer $bearerToken'

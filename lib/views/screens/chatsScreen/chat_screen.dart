@@ -259,6 +259,7 @@ class _ChatScreenState extends State<ChatScreen> {
                             text:
                                 'Read Only, Sending messages are not allowed in this chat.'
                                     .tr,
+                            maxline: 2,
                             fontsize: 10.sp,
                             textAlign: TextAlign.center,
 
@@ -266,6 +267,25 @@ class _ChatScreenState extends State<ChatScreen> {
                         ),
                       ),
                     )
+                  : _profileController.profileModel.value.data!.attributes!.isBlocked?Center(
+                    child: Container(
+                      decoration: BoxDecoration(
+                          border: Border.all(
+                              width: 1.w, color: AppColors.primaryColor),
+                          borderRadius: BorderRadius.circular(5.r)),
+                      child: Padding(
+                        padding: EdgeInsets.all(8.0.w),
+                        child: CustomText(
+                          text:
+                          'Admin has blocked you. Please contact with admin.'.tr,
+                          fontsize: 10.sp,
+                          maxline: 2,
+                          textAlign: TextAlign.center,
+
+                        ),
+                      ),
+                    ),
+                  )
                   : Padding(
                       padding: EdgeInsets.symmetric(horizontal: 20.w),
                       child: Row(
@@ -321,6 +341,7 @@ class _ChatScreenState extends State<ChatScreen> {
                         ],
                       ),
                     ),
+
             ],
           ),
         ),

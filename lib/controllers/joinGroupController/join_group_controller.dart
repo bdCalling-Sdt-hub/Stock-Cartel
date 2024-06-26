@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:get/get.dart';
 import 'package:stock_cartel/models/join_group_model.dart';
 import 'package:stock_cartel/services/api_checker.dart';
@@ -23,7 +25,6 @@ class JoinGroupController extends GetxController {
     print(headers);
 
     final response = await ApiClient.getData(ApiConstants.joinGroupListEndPoint, headers: headers);
-
     if (response.statusCode == 200) {
       List<dynamic> jsonResponse = response.body['data']['attributes'];
       joinGroupList.value = jsonResponse.map((data) => Attribute.fromJson(data)).toList();
@@ -31,5 +32,26 @@ class JoinGroupController extends GetxController {
     } else {
       ApiChecker.checkApi(response);
     }
+  }
+
+  //=================================> Join Group Method <=========================
+  var joinLoading = false.obs;
+  postJoinGroupList(String roomId) async {
+    joinLoading(true);
+   // var headers = {'Content-Type': 'application/json'};
+    var body = {
+      "roomId":roomId
+    };
+
+    print('API Body: $roomId');
+    var response = await ApiClient.postData(ApiConstants.joinUserEndPoint, body);
+
+    print('Response Post Method : ${response.statusCode}');
+    if (response.statusCode == 200) {
+      print('dfjhga');
+    } else {
+      ApiChecker.checkApi(response);
+    }
+    joinLoading(false);
   }
 }

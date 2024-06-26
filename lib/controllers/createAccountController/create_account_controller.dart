@@ -41,10 +41,11 @@ class CreateAccountController extends GetxController {
         "===========response body : ${response.body} \nand status code : ${response.statusCode}");
 
     if (response.statusCode == 200 || response.statusCode == 201) {
+
+      Get.offAllNamed(AppRoutes.logInScreen);
       createAccountModel.value = CreateAccountModel.fromJson(
           json.decode(response.body)['data']['attributes']);
       createAccountModel.refresh();
-      Get.offAllNamed(AppRoutes.logInScreen);
     } else {
       ApiChecker.checkApi(response);
     }

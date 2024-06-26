@@ -57,7 +57,7 @@ class Attributes {
   final bool? isAdmin;
   final bool? isVerified;
   final bool? isDeleted;
-  final bool? isBlocked;
+  final bool isBlocked;
   final bool? isPassword;
   final Image? image;
   final String? subscription;
@@ -78,7 +78,7 @@ class Attributes {
     this.isAdmin,
     this.isVerified,
     this.isDeleted,
-    this.isBlocked,
+    this.isBlocked=false,
     this.isPassword,
     this.image,
     this.subscription,
