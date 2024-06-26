@@ -8,6 +8,7 @@ import '../views/screens/auth/setNewPassword/set_new_password_screen.dart';
 import '../views/screens/auth/verifyNumber/verify_number_screen.dart';
 import '../views/screens/chatsScreen/chat_screen.dart';
 import '../views/screens/homeScreen/home_screen.dart';
+import '../views/screens/joinGroupScreen/join_group_screen.dart';
 import '../views/screens/notificationsScreen/notifications_screen.dart';
 import '../views/screens/onboardingScreen/onboarding_screen.dart';
 import '../views/screens/profile/editProfile/edit_profile_screen.dart';
@@ -44,6 +45,7 @@ class AppRoutes{
   static const String termsConditionScreen = "/terms_condition_screen.dart";
   static const String aboutusScreen = "/aboutus_screen.dart";
   static const String onlyReadChat = "/only_read_chat.dart";
+  static const String joinGroupScreen = "/join_group_screen.dart";
 
   static List<GetPage> get routes => [
   GetPage(name: splashScreen, page: () => SplashScreen()),
@@ -67,5 +69,6 @@ class AppRoutes{
   GetPage(name: privacyPolicyScreen , page: () => PrivacyPolicyScreen()),
   GetPage(name: termsConditionScreen , page: () => TermsConditionScreen()),
   GetPage(name: aboutusScreen , page: () => AboutusScreen()),
+  GetPage(name: joinGroupScreen , page: () => JoinGroupScreen()),
   ];
 }

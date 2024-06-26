@@ -119,7 +119,7 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
                                     .spaceBetween,
                                 children: [
                                   CustomText(
-                                    text: "${data["title"]}",
+                                    text: "1 ${data["title"]}",
                                     fontWeight: FontWeight.w500,
                                     fontsize: 14.w,
                                   ),

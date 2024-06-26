@@ -10,6 +10,7 @@ class ApiConstants {
   static const String changePasswordEndPoint = "/user/change-password";
   static const String forgetPasswordEndPoint = "/user/forget-password";
   static const String groupListEndPoint = "/groups/group-list";
+  static const String joinGroupListEndPoint = "/groups/group-add-list";
   static String getMessageEndPoint(String roomId,String page) => "/groups/$roomId/message?page=$page";
   static String getPrivacyPolicyEndPoint = "/settings/privacy-policy";
   static String getAboutUsEndPoint = "/settings/about-us";
@@ -18,5 +19,6 @@ class ApiConstants {
   static String getProfileEndPoint = "/user/single-user";
   static String notificationsEndPoint = "/notifications/user?page=1&limit=1";
   static String subscriptionEndPoint = "/subscription/all-subscription";
+  static String joinUserEndPoint = "/groups/join-group";
 
 }

@@ -27,6 +27,7 @@ class AppIcons{
   static const String counter = "$basePath/Counter.svg";
   static const String sendIcon = "$basePath/sendIcon.svg";
   static const String photo = "$basePath/photo.svg";
+  static const String groupIcon = "$basePath/groupIcon.svg";
 
 
 }
