@@ -3,12 +3,12 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import '../../models/create_account_model.dart';
-import '../../routes/app_routes.dart';
-import '../../services/api_checker.dart';
-import '../../services/api_client.dart';
-import '../../services/api_constants.dart';
-import '../authController/auth_controller.dart';
+import '../models/create_account_model.dart';
+import '../routes/app_routes.dart';
+import '../services/api_checker.dart';
+import '../services/api_client.dart';
+import '../services/api_constants.dart';
+import 'auth_controller.dart';
 
 class CreateAccountController extends GetxController {
   var loading = false.obs;
@@ -24,8 +24,7 @@ class CreateAccountController extends GetxController {
     Map<String, String> body = {
       "name": name,
       "password": password,
-      "phone": authController.selectedCountryCode +
-          authController.phoneNumberCTRl.text,
+      "phone": phoneNumber,
     };
 
     debugPrint(

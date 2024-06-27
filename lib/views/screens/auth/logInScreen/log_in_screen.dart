@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:stock_cartel/helpers/notification_helper.dart';
-import '../../../../controllers/authController/auth_controller.dart';
+import '../../../../controllers/auth_controller.dart';
 import '../../../../main.dart';
 import '../../../../routes/app_routes.dart';
 import '../../../../utils/app_colors.dart';
@@ -147,14 +147,14 @@ class _LogInScreenState extends State<LogInScreen> {
                         authController.handleLogIn();
                       }
                     }),
-                SizedBox(height: 12.h),
+                SizedBox(height: 18.h),
 
                 //===============================> Don’t have an account Section <===============================
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     CustomText(
-                      text:'Do not have an Account',
+                      text:'Don\'t have an Account',
                       fontWeight: FontWeight.w500,
                       fontsize: 15.h,
                       fontName: 'Lato',

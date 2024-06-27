@@ -4,7 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:stock_cartel/views/widgets/custom_page_loading.dart';
 import 'package:timeago/timeago.dart' as TimeAgo;
-import '../../../controllers/notificationController/notifiaction_controller.dart';
+import '../../../controllers/notifiaction_controller.dart';
 import '../../../models/notification_model.dart';
 import '../../../utils/app_colors.dart';
 import '../../../utils/app_icons.dart';
@@ -148,6 +148,8 @@ class _NotificationScreenState extends State<NotificationScreen> {
                   text: title,
                   fontsize: 14.h,
                   color: Colors.black,
+                  maxline: 5,
+                  textAlign: TextAlign.start,
                 ),
                 Align(
                   alignment: Alignment.centerLeft,

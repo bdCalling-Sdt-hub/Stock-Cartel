@@ -5,11 +5,13 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:stock_cartel/controllers/groupListController/group_list_controller.dart';
-import 'package:stock_cartel/controllers/profileController/profile_controller.dart';
+import 'package:shimmer/shimmer.dart';
+import 'package:stock_cartel/controllers/group_list_controller.dart';
+import 'package:stock_cartel/controllers/profile_controller.dart';
 import 'package:stock_cartel/helpers/time_format.dart';
 import 'package:stock_cartel/services/api_client.dart';
 import 'package:stock_cartel/services/api_constants.dart';
+import 'package:stock_cartel/services/socket_service.dart';
 import 'package:stock_cartel/views/widgets/custom_page_loading.dart';
 import 'package:stock_cartel/views/widgets/custom_text.dart';
 import '../../../models/group_list_model.dart';
@@ -28,17 +30,23 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
   String roomId = Get.parameters['roomId'] ?? '';
   final GroupListController _groupListController = Get.put(GroupListController());
   final ProfileController _profileController = Get.put(ProfileController());
-
   @override
   void initState() {
-
     // TODO: implement initState
+    listenCount();
     super.initState();
   }
+
+  listenCount(){
+    SocketService.socket.on("groups/updated", (data){
+      _groupListController.getGroupList();
+      debugPrint("update group list : $data");
+    });
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
         padding: EdgeInsets.symmetric(horizontal: 20.w),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             //====================================> Logo With Notification <==========================
             SizedBox(height: 62.h),
@@ -82,13 +90,14 @@ class _HomeScreenState extends State<HomeScreen> {
             //====================================> Chat List Section <===============================
             Obx(
               () => _groupListController.isLoading.value
-                  ? const Center(child: CustomPageLoading())
+                  ? Expanded(child: const Center(child: CustomPageLoading()))
                   : _groupListController.groupList.isEmpty
-                      ? Center(child: CustomText(text: "No group found"))
+                      ? Expanded(child: Center(child: CustomText(text: "No data found!")))
                       : Expanded(
                           child: RefreshIndicator(
                             onRefresh: ()async{
-                              _groupListController.getGroupList();},
+                              _groupListController.getGroupList();
+                              },
                             child: ListView.builder(
                                 itemCount: _groupListController.groupList.length,
                                 padding: EdgeInsets.zero,
@@ -130,7 +139,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                                       child: CachedNetworkImage(
                                                         imageUrl: '${ApiConstants.imageBaseUrl}${groupData.avatar!.publicFileUrl}',
                                                         fit: BoxFit.cover,
-                                                        placeholder: (context, url) => const CircularProgressIndicator(),
                                                       ),
                                                     ),
                                                   ),
@@ -149,14 +157,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                                           textAlign: TextAlign.start,
                                                         ),
                                                         SizedBox(height: 10.h,),
-                                                        SizedBox(
-                                                          width: 100.w,
-                                                          child: CustomText(
-                                                            text: '${groupData.lastMessage!.message}',
-                                                            fontsize: 12.w,
-                                                            maxline: 2,
-                                                            textAlign: TextAlign.start,
-                                                          ),
+                                                        CustomText(
+                                                          text: '${groupData.lastMessage!.message}',
+                                                          fontsize: 12.w,
+                                                          maxline: 1,
+                                                          textAlign: TextAlign.start,
                                                         )
                                                       ],
                                                     ),
@@ -172,24 +177,30 @@ class _HomeScreenState extends State<HomeScreen> {
                                               children: [
                                                 CustomText(
                                                   text: groupData.lastMessage?.createdAt != null
-                                                      ? timeago.format(groupData.lastMessage!.createdAt!)
+                                                      ? TimeFormatHelper.timeFormat(groupData.lastMessage!.createdAt!)
                                                       : '',
-
                                                   fontsize: 12.w,
                                                   color: Colors.grey,
 
                                                 ),
                                                 SizedBox(height: 10.h,),
-                                                CustomText(
-                                                  //text: groupData.unreadCount,
-                                                  fontsize: 16.w,
-                                                  color: AppColors.primaryColor,
-                                                ),
-                                                /*SvgPicture.asset(
-                                                  AppIcons.counter,
-                                                  width: 24.w,
-                                                  height: 24.h,
-                                                ),*/
+                                                //==========================> Unread Count <========================
+                                                groupData.unreadCount !=0 ?
+                                                Container(
+                                                  decoration: BoxDecoration(
+                                                    color: AppColors.primaryColor,
+                                                    shape: BoxShape.circle
+                                                  ),
+                                                  child: Padding(
+                                                    padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
+                                                    child: CustomText(
+                                                      text: "${groupData.unreadCount}",
+                                                      fontsize: 10.w,
+                                                      color: AppColors.white,
+                                                    ),
+                                                  ),
+                                                )
+                                                :  const SizedBox(),
                                               ],
                                             )
                                           ],

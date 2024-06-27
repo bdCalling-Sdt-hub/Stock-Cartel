@@ -1,19 +1,17 @@
-import 'dart:convert';
 import 'package:get/get.dart';
+import '../services/api_client.dart';
+import '../services/api_constants.dart';
 
-import '../../services/api_client.dart';
-import '../../services/api_constants.dart';
-
-
-class TermsConditionsController extends GetxController {
+class AboutUsController extends GetxController {
   RxBool isLoading = false.obs;
   RxString content = ''.obs;
 
-//==============================> Get Terms and Condition Method <==========================
-  getTermsCondition() async {
+//==============================> Get About Us Method <==========================
+  getAboutUs() async {
     isLoading.value = true;
     Map<String, String> header = {'Content-Type': 'application/json'};
-    var response = await ApiClient.getData(ApiConstants.getTermsConditionEndPoint, headers: header);
+    var response = await ApiClient.getData(ApiConstants.getAboutUsEndPoint,
+        headers: header);
     if (response.statusCode == 200) {
       var data = response.body;
       var attributes = data['data']['attributes']['content'];

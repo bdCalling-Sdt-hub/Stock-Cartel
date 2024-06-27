@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
-import '../../services/api_client.dart';
-import '../../services/api_constants.dart';
+import '../services/api_client.dart';
+import '../services/api_constants.dart';
 
 class PrivacyPolicyController extends GetxController {
   RxBool isLoading = false.obs;

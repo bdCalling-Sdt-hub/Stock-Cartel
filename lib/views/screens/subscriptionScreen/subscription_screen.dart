@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:stock_cartel/utils/app_colors.dart';
 import 'package:stock_cartel/views/widgets/custom_page_loading.dart';
-import '../../../controllers/subscriptionController/subscription_controller.dart';
+import '../../../controllers/subscription_controller.dart';
 import '../../../models/subscription_model.dart';
 import '../../../routes/app_routes.dart';
 import '../../../utils/app_strings.dart';

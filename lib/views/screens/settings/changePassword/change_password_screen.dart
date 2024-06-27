@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:stock_cartel/controllers/authController/auth_controller.dart';
-import '../../../../controllers/changePasswordController/change_password_controller.dart';
+import 'package:stock_cartel/controllers/auth_controller.dart';
+import '../../../../controllers/change_password_controller.dart';
 import '../../../../routes/app_routes.dart';
 import '../../../../utils/app_colors.dart';
 import '../../../../utils/app_constants.dart';
@@ -107,7 +107,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                             value);
                         if (value.isEmpty) {
                           return "Please re-enter password";
-                        } else if (!data) {
+                        } else if (data) {
                           return "Insecure password detected.";
                         } else if (newPasswordCtrl.text != value) {
                           return "Password did not match.";

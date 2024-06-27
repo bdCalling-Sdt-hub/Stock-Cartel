@@ -8,7 +8,7 @@ import 'package:stock_cartel/services/socket_service.dart';
 import 'package:stock_cartel/utils/app_constants.dart';
 import 'package:stock_cartel/utils/messages.dart';
 import 'package:stock_cartel/views/screens/splashScreen/splash_screen.dart';
-import 'controllers/authController/auth_controller.dart';
+import 'controllers/auth_controller.dart';
 import 'controllers/localaization_controller.dart';
 import 'controllers/theme_controller.dart';
 import 'helpers/di.dart' as di;

@@ -11,6 +11,7 @@ class GroupListModel {
   final DateTime? createdAt;
   final DateTime? updatedAt;
   final int? v;
+  final int? unreadCount;
 
   GroupListModel({
     this.lastMessage,
@@ -25,6 +26,7 @@ class GroupListModel {
     this.createdAt,
     this.updatedAt,
     this.v,
+    this.unreadCount,
   });
 
   factory GroupListModel.fromJson(Map<String, dynamic> json) => GroupListModel(
@@ -34,6 +36,7 @@ class GroupListModel {
     adminId: json["adminId"] == null ? null : Id.fromJson(json["adminId"]),
     participantsId: json["participantsId"] == null ? [] : List<Id>.from(json["participantsId"]!.map((x) => Id.fromJson(x))),
     name: json["name"],
+    unreadCount: json["unreadCount"],
     avatar: json["avatar"] == null ? null : Avatar.fromJson(json["avatar"]),
     groupType: json["groupType"],
     unreadMessages: json["unreadMessages"] == null ? null : UnreadMessages.fromJson(json["unreadMessages"]),
