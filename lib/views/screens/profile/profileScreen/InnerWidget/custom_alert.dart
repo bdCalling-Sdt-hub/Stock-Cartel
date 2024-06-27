@@ -51,7 +51,7 @@ class CustomAlert extends StatelessWidget {
                           await PrefsHelper.remove(AppConstants.isLogged);
                           await PrefsHelper.remove(AppConstants.id);
                           await PrefsHelper.remove(AppConstants.bearerToken);
-                          //await PrefsHelper.remove(AppConstants.subscription);
+                          // await PrefsHelper.remove(AppConstants.subscription);
                           Get.offAllNamed(AppRoutes.logInScreen);
                         })),
               ],

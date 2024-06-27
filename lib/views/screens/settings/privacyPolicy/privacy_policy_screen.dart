@@ -3,7 +3,7 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:stock_cartel/views/widgets/custom_page_loading.dart';
-import '../../../../controllers/privacyPolicyController/privacy_policy_controller.dart';
+import '../../../../controllers/privacy_policy_controller.dart';
 import '../../../../utils/app_strings.dart';
 import '../../../widgets/custom_text.dart';
 

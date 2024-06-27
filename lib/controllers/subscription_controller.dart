@@ -5,10 +5,10 @@ import 'package:get/get.dart';
 import 'package:get/get_rx/get_rx.dart';
 import 'package:http/http.dart' as http;
 
-import '../../models/subscription_model.dart';
-import '../../services/api_client.dart';
-import '../../services/api_constants.dart';
-import '../../utils/app_constants.dart';
+import '../models/subscription_model.dart';
+import '../services/api_client.dart';
+import '../services/api_constants.dart';
+import '../utils/app_constants.dart';
 
 
 class SubscriptionController extends GetxController {

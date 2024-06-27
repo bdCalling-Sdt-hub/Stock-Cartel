@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import '../../../../controllers/authController/auth_controller.dart';
+import '../../../../controllers/auth_controller.dart';
 import '../../../../routes/app_routes.dart';
 import '../../../../utils/app_colors.dart';
 import '../../../../utils/app_icons.dart';
@@ -74,7 +74,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                             showFlagDialog: true,
                             onChanged: (countryCode) {
                               setState(() {
-                                _selectedCountryCode = countryCode.dialCode!;
+                               _authController.selectedCountryCodess = countryCode.dialCode!;
                               });
                             },
                             initialSelection: 'BD',
@@ -115,7 +115,6 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                     text: AppStrings.getOtp.tr,
                     loading: _authController.forgotLoading.value,
                     onTap: () {
-                      Get.toNamed(AppRoutes.verifyNumberScreen);
                       if (_formKey.currentState!.validate()) {
                         _authController.forgotPassword(phoneNumberCTRl.text.trim());
                       }

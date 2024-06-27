@@ -9,7 +9,7 @@ import 'package:stock_cartel/views/widgets/custom_button.dart';
 import 'package:stock_cartel/views/widgets/custom_text.dart';
 import 'package:stock_cartel/views/widgets/custom_text_field.dart';
 
-import '../../../../controllers/authController/auth_controller.dart';
+import '../../../../controllers/auth_controller.dart';
 import '../../../../utils/app_icons.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -76,7 +76,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             });
                           },
                           initialSelection: 'BD',
-                          favorite: ['+880', 'BD'],
                           showCountryOnly: false,
                           showOnlyCountryWhenClosed: false,
                           alignLeft: false,

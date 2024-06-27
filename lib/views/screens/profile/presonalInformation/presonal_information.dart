@@ -4,7 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import '../../../../../utils/app_colors.dart';
 import '../../../../../utils/app_icons.dart';
-import '../../../../controllers/profileController/profile_controller.dart';
+import '../../../../controllers/profile_controller.dart';
 import '../../../../routes/app_routes.dart';
 import '../../../widgets/custom_list_tile.dart';
 import '../../../widgets/custom_text.dart';

@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
-import 'package:stock_cartel/controllers/createAccountController/create_account_controller.dart';
+import 'package:stock_cartel/controllers/create_account_controller.dart';
 import 'package:stock_cartel/utils/app_images.dart';
 import '../../../helpers/prefs_helpers.dart';
 import '../../../routes/app_routes.dart';
@@ -39,7 +39,7 @@ class _SplashScreenState extends State<SplashScreen> {
         //     Get.offAllNamed(AppRoutes.subscriptionScreen);
         //   }
         } else {
-          Get.offAllNamed(AppRoutes.logInScreen);
+          Get.offAllNamed(AppRoutes.languageScreen);
         }
       } else {
         Get.offAllNamed(AppRoutes.onboardingScreen);

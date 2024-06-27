@@ -1,11 +1,11 @@
 import 'dart:io';
 import 'package:get/get.dart';
-import '../../helpers/prefs_helpers.dart';
-import '../../models/profile_model.dart';
-import '../../services/api_checker.dart';
-import '../../services/api_client.dart';
-import '../../services/api_constants.dart';
-import '../../utils/app_constants.dart';
+import '../helpers/prefs_helpers.dart';
+import '../models/profile_model.dart';
+import '../services/api_checker.dart';
+import '../services/api_client.dart';
+import '../services/api_constants.dart';
+import '../utils/app_constants.dart';
 
 class ProfileController extends GetxController {
   @override

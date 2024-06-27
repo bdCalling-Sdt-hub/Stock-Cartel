@@ -1,10 +1,10 @@
 import 'package:get/get.dart';
 import 'package:stock_cartel/services/api_constants.dart';
-import '../../helpers/prefs_helpers.dart';
-import '../../models/read_only_chat_screen_model.dart';
-import '../../services/api_checker.dart';
-import '../../services/api_client.dart';
-import '../../utils/app_constants.dart';
+import '../helpers/prefs_helpers.dart';
+import '../models/read_only_chat_screen_model.dart';
+import '../services/api_checker.dart';
+import '../services/api_client.dart';
+import '../utils/app_constants.dart';
 
 class ReadOnlyChatController extends GetxController {
   var messageList = [].obs;

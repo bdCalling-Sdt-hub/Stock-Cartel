@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'package:get/get.dart';
-import '../../models/notification_model.dart';
-import '../../services/api_client.dart';
-import '../../services/api_constants.dart';
+import '../models/notification_model.dart';
+import '../services/api_client.dart';
+import '../services/api_constants.dart';
 
 class NotificationController extends GetxController {
   RxInt page = 1.obs;

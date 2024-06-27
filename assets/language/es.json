@@ -69,5 +69,6 @@
   "Enter mobile number to reset password.": "Ingrese el número de teléfono móvil para restablecer la contraseña.",
   "Forgot Password": "olvidó contraseña",
   "Do you want to logout your profile?": "¿Quieres cerrar sesión en tu perfil?",
-  "Read Only,Sending messages are not allowed in this chat.": "Solo lectura, no se permite enviar mensajes en este chat"
+  "Read Only,Sending messages are not allowed in this chat.": "Solo lectura, no se permite enviar mensajes en este chat",
+  "Joined": "Unida"
 }

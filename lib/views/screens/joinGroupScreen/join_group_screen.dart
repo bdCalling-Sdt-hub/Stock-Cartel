@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:stock_cartel/controllers/joinGroupController/join_group_controller.dart';
+import 'package:stock_cartel/controllers/join_group_controller.dart';
 import 'package:stock_cartel/models/join_group_model.dart';
 import 'package:stock_cartel/utils/app_colors.dart';
 import 'package:stock_cartel/views/widgets/custom_text.dart';
@@ -36,15 +36,17 @@ class _JoinGroupScreenState extends State<JoinGroupScreen> {
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 20.w),
         child: Obx(
-              () =>  _joinGroupController.joinGroupList.isEmpty
-              ? Center(child: CustomText(text: "No group found!"))
+              () =>  _joinGroupController.joinLoading.value
+              ? const Center(child: CustomPageLoading())
+              : _joinGroupController.joinGroupList.isEmpty
+              ? Center(child: CustomText(text: "No data found!"))
               : RefreshIndicator(
                 onRefresh: ()async{
                   _joinGroupController.fetchJoinGroupList();
                 },
                 child: ListView.builder(
                             itemCount: _joinGroupController.joinGroupList.length,
-                            padding: EdgeInsets.zero,
+                              padding: EdgeInsets.only(top: 10.h),
                             itemBuilder: (context, index) {
                 var groupData = _joinGroupController.joinGroupList[index];
                 return Container(
@@ -87,19 +89,19 @@ class _JoinGroupScreenState extends State<JoinGroupScreen> {
                         ),
                         //==========================> Join Button <===============================
                         SizedBox(
-                          width: 70.w,
                           height: 30.h,
                           child: ElevatedButton(
                             style: ButtonStyle(
-                              backgroundColor: WidgetStateProperty.all(AppColors.primaryColor),
+                              backgroundColor:groupData.isJoin!? WidgetStateProperty.all(AppColors.primaryColor.withOpacity(0.5)):WidgetStateProperty.all(AppColors.primaryColor),
                             ),
                             onPressed: (){
-                              var roomId = groupData.roomId;
-                              _joinGroupController.postJoinGroupList(groupData.roomId!);
+                              if(!groupData.isJoin!){
+                                _joinGroupController.postJoinGroupList(groupData.roomId!,index);
+                              }
                             },
                             child: CustomText(
-                            text: 'Join'.tr,
-                            color: Colors.white,
+                            text:groupData.isJoin!?"Joined".tr :'Join'.tr,
+                            color:Colors.white,
                             fontsize: 8.sp,
                           ),
                           ),

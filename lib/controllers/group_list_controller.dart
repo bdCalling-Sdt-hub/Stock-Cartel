@@ -3,10 +3,10 @@ import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:stock_cartel/services/api_checker.dart';
 import 'package:stock_cartel/services/api_constants.dart';
-import '../../helpers/prefs_helpers.dart';
-import '../../models/group_list_model.dart';
-import '../../services/api_client.dart';
-import '../../utils/app_constants.dart';
+import '../helpers/prefs_helpers.dart';
+import '../models/group_list_model.dart';
+import '../services/api_client.dart';
+import '../utils/app_constants.dart';
 
 class GroupListController extends GetxController {
   var groupList = <GroupListModel>[].obs;
@@ -34,6 +34,8 @@ class GroupListController extends GetxController {
       if (response.statusCode == 200) {
         List<dynamic> jsonResponse = response.body['data']['attributes'];
         groupList.value = jsonResponse.map((data) => GroupListModel.fromJson(data)).toList();
+        isLoading(false);
+      }else if(response.statusCode==404){
         isLoading(false);
       } else {
         ApiChecker.checkApi(response);

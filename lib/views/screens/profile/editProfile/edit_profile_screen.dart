@@ -9,7 +9,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:stock_cartel/helpers/prefs_helpers.dart';
 import 'package:stock_cartel/services/api_constants.dart';
-import '../../../../controllers/profileController/profile_controller.dart';
+import '../../../../controllers/profile_controller.dart';
 import '../../../../utils/app_colors.dart';
 import '../../../../utils/app_icons.dart';
 import '../../../../utils/app_strings.dart';

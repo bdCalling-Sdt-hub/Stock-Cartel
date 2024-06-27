@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import '../../../../controllers/authController/auth_controller.dart';
+import '../../../../controllers/auth_controller.dart';
 import '../../../../routes/app_routes.dart';
 import '../../../../utils/app_constants.dart';
 import '../../../../utils/app_strings.dart';
@@ -57,7 +57,7 @@ class SetNewPasswordScreen extends StatelessWidget {
                     bool data = AppConstants.passwordValidator.hasMatch(value);
                     if (value.isEmpty) {
                       return "Please enter confirm password";
-                    } else if (!data) {
+                    } else if (data) {
                       return "Insecure password detected.";
                     }else if(setPasswordCTRl.text !=value){
                       return "Password did not match.";
@@ -73,7 +73,7 @@ class SetNewPasswordScreen extends StatelessWidget {
                       onTap: () {
                         if (_formKey.currentState!.validate()) {
                           _authController.setPassword(
-                              Get.arguments, confirmPasswordCTRl.text);
+                             '${Get.parameters['phone']}', confirmPasswordCTRl.text);
                         }
                       }),
                 ),

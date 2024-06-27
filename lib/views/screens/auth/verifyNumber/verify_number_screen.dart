@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:stock_cartel/routes/app_routes.dart';
 import 'package:stock_cartel/utils/app_colors.dart';
-import '../../../../controllers/authController/auth_controller.dart';
+import '../../../../controllers/auth_controller.dart';
 import '../../../../utils/app_strings.dart';
 import '../../../widgets/custom_button.dart';
 import '../../../widgets/custom_text.dart';
@@ -82,8 +82,7 @@ class _VerifyNumberScreenState extends State<VerifyNumberScreen> {
                   onTap: () {
                     if (_authCtrl.otpCtrl.text.length > 5) {
                       _authCtrl.handleOtpVery(
-
-                          phone: "${_authCtrl.selectedCountryCode}${prameters['phone']}",
+                          phone: "${prameters['phone']}",
                           otp: _authCtrl.otpCtrl.text,
                           type: "${prameters['screenType']}");
                     }

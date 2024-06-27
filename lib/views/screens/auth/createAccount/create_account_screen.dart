@@ -5,8 +5,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:stock_cartel/controllers/authController/auth_controller.dart';
-import 'package:stock_cartel/controllers/createAccountController/create_account_controller.dart';
+import 'package:stock_cartel/controllers/auth_controller.dart';
+import 'package:stock_cartel/controllers/create_account_controller.dart';
 import 'package:stock_cartel/utils/app_colors.dart';
 import 'package:stock_cartel/utils/app_images.dart';
 import '../../../../services/api_constants.dart';
@@ -34,12 +34,6 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
   Uint8List? _image;
   File? selectedIMage;
 
-  @override
-  void initState() {
-    super.initState();
-    nameCTRl.text = parameter['name'] ?? '';
-    passwordCTRl.text = parameter['password'] ?? '';
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -134,7 +128,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                           _createAccountController.createProfile(
                             nameCTRl.text,
                             passwordCTRl.text,
-                            _authController.phoneNumberCTRl.text,
+                            parameter['phone'],
                             selectedIMage
                           );
                         }

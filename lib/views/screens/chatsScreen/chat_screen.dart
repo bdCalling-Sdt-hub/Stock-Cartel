@@ -10,12 +10,12 @@ import 'package:get/get.dart';
 import 'package:grouped_list/grouped_list.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
-import 'package:stock_cartel/controllers/profileController/profile_controller.dart';
+import 'package:stock_cartel/controllers/profile_controller.dart';
 import 'package:stock_cartel/helpers/prefs_helpers.dart';
 import '../../../../utils/app_colors.dart';
 import '../../../../utils/app_images.dart';
-import '../../../controllers/chatScreenController/chat_screen_controller.dart';
-import '../../../controllers/groupListController/group_list_controller.dart';
+import '../../../controllers/chat_screen_controller.dart';
+import '../../../controllers/group_list_controller.dart';
 import '../../../helpers/time_format.dart';
 import '../../../models/chat_model.dart';
 import '../../../models/chat_screen_model.dart';
@@ -257,8 +257,7 @@ class _ChatScreenState extends State<ChatScreen> {
                           padding: EdgeInsets.all(8.0.w),
                           child: CustomText(
                             text:
-                                'Read Only, Sending messages are not allowed in this chat.'
-                                    .tr,
+                                'Read Only, Sending messages are not allowed in this chat.'.tr,
                             maxline: 2,
                             fontsize: 10.sp,
                             textAlign: TextAlign.center,
@@ -267,7 +266,7 @@ class _ChatScreenState extends State<ChatScreen> {
                         ),
                       ),
                     )
-                  : _profileController.profileModel.value.data!.attributes!.isBlocked?Center(
+                  : _profileController.profileModel.value.data?.attributes?.isBlocked ?? false ? Center(
                     child: Container(
                       decoration: BoxDecoration(
                           border: Border.all(

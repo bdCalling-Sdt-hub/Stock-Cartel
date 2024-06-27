@@ -58,6 +58,8 @@ class TopSection extends StatelessWidget {
                             Border.all(width: 2.w, color: AppColors.white)),
                         child: CachedNetworkImage(
                           imageUrl: "${ApiConstants.imageBaseUrl}/$image",
+                          placeholder: (context, url) =>
+                          const CircularProgressIndicator(),
                           fit: BoxFit.cover,
                         ),
                       )),

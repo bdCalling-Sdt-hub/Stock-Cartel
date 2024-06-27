@@ -2,10 +2,10 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import '../../routes/app_routes.dart';
-import '../../services/api_checker.dart';
-import '../../services/api_client.dart';
-import '../../services/api_constants.dart';
+import '../routes/app_routes.dart';
+import '../services/api_checker.dart';
+import '../services/api_client.dart';
+import '../services/api_constants.dart';
 
 class ChangePasswordController extends GetxController {
 
@@ -15,8 +15,9 @@ class ChangePasswordController extends GetxController {
     changeLoading(true);
     var body = {"oldPassword": oldPassword, "newPassword": password};
     var response =
-    await ApiClient.postData(ApiConstants.changePasswordEndPoint, json.encode(body));
-    if (response.statusCode == 200) {
+    await ApiClient.postData(ApiConstants.changePasswordEndPoint, body);
+    if (response.statusCode == 201 ) {
+      Get.back();
       Fluttertoast.showToast(msg: response.body['message'],toastLength:Toast.LENGTH_LONG,gravity: ToastGravity.CENTER,backgroundColor:Colors.green,textColor:Colors.white);
     } else {
       ApiChecker.checkApi(response);

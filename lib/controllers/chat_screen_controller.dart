@@ -5,11 +5,11 @@ import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
 import 'package:stock_cartel/services/api_constants.dart';
 import 'package:stock_cartel/services/socket_service.dart';
-import '../../helpers/prefs_helpers.dart';
-import '../../models/chat_model.dart';
-import '../../services/api_checker.dart';
-import '../../services/api_client.dart';
-import '../../utils/app_constants.dart';
+import '../helpers/prefs_helpers.dart';
+import '../models/chat_model.dart';
+import '../services/api_checker.dart';
+import '../services/api_client.dart';
+import '../utils/app_constants.dart';
 
 class ChatController extends GetxController {
   late ScrollController scrollController;

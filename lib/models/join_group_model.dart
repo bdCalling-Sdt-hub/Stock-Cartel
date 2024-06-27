@@ -50,6 +50,7 @@ class Attribute {
   final LastMessage? lastMessage;
   final String? id;
   final String? roomId;
+  bool? isJoin;
   final String? adminId;
   final List<String>? participantsId;
   final String? name;
@@ -71,6 +72,7 @@ class Attribute {
     this.groupType,
     this.unreadMessages,
     this.createdAt,
+    this.isJoin,
     this.updatedAt,
     this.v,
   });
@@ -82,6 +84,7 @@ class Attribute {
     adminId: json["adminId"],
     participantsId: json["participantsId"] == null ? [] : List<String>.from(json["participantsId"]!.map((x) => x)),
     name: json["name"],
+    isJoin: false,
     avatar: json["avatar"] == null ? null : Avatar.fromJson(json["avatar"]),
     groupType: json["groupType"],
     unreadMessages: Map.from(json["unreadMessages"]!).map((k, v) => MapEntry<String, int>(k, v)),
