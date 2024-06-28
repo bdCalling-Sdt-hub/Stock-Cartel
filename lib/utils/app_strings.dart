@@ -57,7 +57,7 @@ class AppStrings {
   static String profile = "Profile";
   static String personalInformation = "Personal Information";
   static String settings = "Settings";
-  static String logOut = "Log out";
+  static String logOut = "Log Out";
   static String updateProfile = "Update Profile";
 
 
@@ -74,6 +74,7 @@ class AppStrings {
   static String oldPassword = "Old password";
   static String reEnterPassword = "Re-enter new password";
   static String doYou = "Do you want to logout your profile?";
+  static String areYou = "Are you sure to cancel your subscription?";
 
 
 

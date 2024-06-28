@@ -11,6 +11,7 @@ import '../../../../utils/app_strings.dart';
 import '../../../widgets/bottom_menu..dart';
 import 'InnerWidget/custom_alert.dart';
 import 'InnerWidget/custom_list_tile.dart';
+import 'InnerWidget/subscription_alert.dart';
 import 'InnerWidget/top_profile_card.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -45,6 +46,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
                 child: Column(
                   children: [
+                    //========================> Personal Information <========================
                     CustomListTile(
                       onTap: () {
                         Get.toNamed(AppRoutes.personalInformation);
@@ -53,6 +55,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       prefixIcon: SvgPicture.asset(AppIcons.person,
                           color: AppColors.primaryColor),
                     ),
+                    //========================> Settings Section <========================
                     CustomListTile(
                       onTap: () {
                         Get.toNamed(AppRoutes.settingsScreen);
@@ -61,6 +64,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       prefixIcon: SvgPicture.asset(AppIcons.settings,
                           color: AppColors.primaryColor),
                     ),
+                    //========================> Subscription Cancel <========================
+                    CustomListTile(
+                      onTap: () {
+                        showDialog(
+                            context: context,
+                            builder: (context) {
+                              return SubscriptionAlert();
+                            });
+                      },
+                      title: 'Subscription Cancel'.tr,
+                      prefixIcon: SvgPicture.asset(AppIcons.subIcon,
+                          color: AppColors.primaryColor),
+                    ),
+                    //========================> LogOut Section <========================
                     CustomListTile(
                       onTap: () {
                         showDialog(
