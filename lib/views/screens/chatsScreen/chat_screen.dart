@@ -276,7 +276,7 @@ class _ChatScreenState extends State<ChatScreen> {
                         padding: EdgeInsets.all(8.0.w),
                         child: CustomText(
                           text:
-                          'Admin has blocked you. Please contact with admin.'.tr,
+                          'Admin has blocked you. Please contact the admin.'.tr,
                           fontsize: 10.sp,
                           maxline: 2,
                           textAlign: TextAlign.center,
