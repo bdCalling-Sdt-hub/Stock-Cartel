@@ -12,6 +12,7 @@ class Assets {
   static const String iconsClipboardList = 'assets/icons/clipboard-list.svg';
   static const String iconsCog = 'assets/icons/cog.svg';
   static const String iconsCounter = 'assets/icons/Counter.svg';
+  static const String iconsCrown = 'assets/icons/Crown.svg';
   static const String iconsEditCam = 'assets/icons/editCam.svg';
   static const String iconsExclamationCircle = 'assets/icons/exclamation-circle.svg';
   static const String iconsEye = 'assets/icons/eye.svg';

@@ -40,7 +40,7 @@
   "Notifications": "Notificaciones",
   "Personal Information": "Información Personal",
   "Settings": "Ajustes",
-  "Log out": "Cerrar sesión",
+  "Log Out": "Cerrar Sesión",
   "Update Profile": "Actualizar Perfil",
   "Change password": "Cambiar contraseña",
   "Privacy policy": "Política de privacidad",
@@ -66,9 +66,11 @@
   "Join": "Unirse",
   "All Group": "Todo el grupo",
   "Get OTP": "Obtener OTP",
+  "Subscription Cancel": "Cancelar suscripción",
   "Enter mobile number to reset password.": "Ingrese el número de teléfono móvil para restablecer la contraseña.",
   "Forgot Password": "olvidó contraseña",
   "Do you want to logout your profile?": "¿Quieres cerrar sesión en tu perfil?",
+  "Are you sure to cancel your subscription?": "¿Estás segura de cancelar tu suscripción?",
   "Read Only,Sending messages are not allowed in this chat.": "Solo lectura, no se permite enviar mensajes en este chat",
   "Joined": "Unida"
 }

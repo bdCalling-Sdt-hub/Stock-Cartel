@@ -40,7 +40,7 @@
 "Notifications": "Notifications",
 "Personal Information": "Personal Information",
 "Settings": "Settings",
-"Log out": "Log out",
+"Log Out": "Log Out",
 "Update Profile": "Update Profile",
 "Change password": "Change password",
 "Privacy policy": "Privacy policy",
@@ -69,6 +69,8 @@
 "Join": "Join",
 "Joined":"Joined",
 "All Group": "All Group",
+"Subscription Cancel": "Subscription Cancel",
 "Do you want to logout your profile?": "Do you want to logout your profile?",
+"Are you sure to cancel your subscription?": "Are you sure to cancel your subscription?",
 "Read Only,Sending messages are not allowed in this chat.": "Read Only,Sending messages are not allowed in this chat."
 }
