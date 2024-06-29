@@ -69,8 +69,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       onTap: () {
                         Get.toNamed(AppRoutes.languageScreen, parameters: {'screenType': 'profileScreen'});
                       },
-                      title: AppStrings.chooseLanguage.tr,
-                      prefixIcon: SvgPicture.asset(AppIcons.website,
+                      title: 'Change Language'.tr,
+                      prefixIcon: SvgPicture.asset(AppIcons.translateIcon,
                           color: AppColors.primaryColor),
                     ),
                     //========================> Subscription Cancel <========================

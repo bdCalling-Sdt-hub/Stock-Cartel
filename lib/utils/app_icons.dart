@@ -29,6 +29,7 @@ class AppIcons{
   static const String photo = "$basePath/photo.svg";
   static const String groupIcon = "$basePath/groupIcon.svg";
   static const String subIcon = "$basePath/Crown.svg";
+  static const String translateIcon = "$basePath/translate.svg";
 
 
 }
