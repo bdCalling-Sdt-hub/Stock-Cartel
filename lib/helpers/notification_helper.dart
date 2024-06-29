@@ -2,22 +2,20 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter/foundation.dart';
-import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:http/http.dart' as http;
-
 
 class NotificationHelper {
   static Future<void> initLocalNotification(
       FlutterLocalNotificationsPlugin fln) async {
     AndroidInitializationSettings initializationSettingsAndroid =
-    const AndroidInitializationSettings("@mipmap/ic_launcher");
+        const AndroidInitializationSettings("@mipmap/ic_launcher");
     var initializationSettingsIOS = const DarwinInitializationSettings();
     var initializationSettings = InitializationSettings(
         android: initializationSettingsAndroid, iOS: initializationSettingsIOS);
     fln
         .resolvePlatformSpecificImplementation<
-        AndroidFlutterLocalNotificationsPlugin>()
+            AndroidFlutterLocalNotificationsPlugin>()
         ?.requestNotificationsPermission();
 
     await fln.initialize(
@@ -41,7 +39,7 @@ class NotificationHelper {
   ///  Show Notification In local
   static Future<void> showNotification(
       {required Map<String, dynamic> body,
-        required FlutterLocalNotificationsPlugin fln}) async {
+      required FlutterLocalNotificationsPlugin fln}) async {
     debugPrint("==========> Notification Socket Response $body");
     if (body['image'] != null) {
       try {
@@ -62,7 +60,7 @@ class NotificationHelper {
       Map<String, dynamic>? notificationBody,
       FlutterLocalNotificationsPlugin fln) async {
     const AndroidNotificationDetails androidPlatformChannelSpecifics =
-    AndroidNotificationDetails(
+        AndroidNotificationDetails(
       'notification', // meta-data android value
       'notification', // meta-data android value
       playSound: true,
@@ -78,7 +76,7 @@ class NotificationHelper {
         iOS: iOSPlatformChannelSpecifics);
     await fln.show(0, title, body, platformChannelSpecifics,
         payload:
-        notificationBody != null ? jsonEncode(notificationBody) : null);
+            notificationBody != null ? jsonEncode(notificationBody) : null);
   }
 
 // <-------------------------- Show Big Text Notification  --------------------------->
@@ -94,7 +92,7 @@ class NotificationHelper {
       htmlFormatContentTitle: true,
     );
     AndroidNotificationDetails androidPlatformChannelSpecifics =
-    AndroidNotificationDetails(
+        AndroidNotificationDetails(
       'notification',
       'notification',
       importance: Importance.max,
@@ -109,7 +107,7 @@ class NotificationHelper {
         iOS: iOSPlatformChannelSpecifics);
     await fln.show(0, title, body, platformChannelSpecifics,
         payload:
-        notificationBody != null ? jsonEncode(notificationBody) : null);
+            notificationBody != null ? jsonEncode(notificationBody) : null);
   }
 
 // <-------------------------- Show Big Picture Notification Hiden largeIcon --------------------------->
@@ -122,9 +120,9 @@ class NotificationHelper {
       FlutterLocalNotificationsPlugin fln) async {
     final String largeIconPath = await _downloadAndSaveFile(image, 'largeIcon');
     final String bigPicturePath =
-    await _downloadAndSaveFile(image, 'bigPicture');
+        await _downloadAndSaveFile(image, 'bigPicture');
     final BigPictureStyleInformation bigPictureStyleInformation =
-    BigPictureStyleInformation(
+        BigPictureStyleInformation(
       FilePathAndroidBitmap(bigPicturePath),
       hideExpandedLargeIcon: true,
       contentTitle: title,
@@ -133,7 +131,7 @@ class NotificationHelper {
       htmlFormatSummaryText: true,
     );
     final AndroidNotificationDetails androidPlatformChannelSpecifics =
-    AndroidNotificationDetails(
+        AndroidNotificationDetails(
       'notification',
       'notification',
       largeIcon: FilePathAndroidBitmap(largeIconPath),
@@ -149,7 +147,7 @@ class NotificationHelper {
         iOS: iOSPlatformChannelSpecifics);
     await fln.show(0, title, body, platformChannelSpecifics,
         payload:
-        notificationBody != null ? jsonEncode(notificationBody) : null);
+            notificationBody != null ? jsonEncode(notificationBody) : null);
   }
 
   static Future<String> _downloadAndSaveFile(
@@ -167,6 +165,5 @@ class NotificationHelper {
   static void handleNotificationRedirection(Map<String, dynamic> data) {
     // Use the data in the message.data to determine which page to redirect to.
     // For example, suppose you send a 'page' key in your notificati  on data:
-
   }
 }
