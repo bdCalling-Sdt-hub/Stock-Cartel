@@ -5,11 +5,9 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:shimmer/shimmer.dart';
 import 'package:stock_cartel/controllers/group_list_controller.dart';
 import 'package:stock_cartel/controllers/profile_controller.dart';
 import 'package:stock_cartel/helpers/time_format.dart';
-import 'package:stock_cartel/services/api_client.dart';
 import 'package:stock_cartel/services/api_constants.dart';
 import 'package:stock_cartel/services/socket_service.dart';
 import 'package:stock_cartel/views/widgets/custom_page_loading.dart';
@@ -20,7 +18,6 @@ import '../../../utils/app_colors.dart';
 import '../../../utils/app_icons.dart';
 import '../../../utils/app_images.dart';
 import '../../widgets/bottom_menu..dart';
-import 'package:timeago/timeago.dart' as timeago;
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({super.key});
@@ -139,6 +136,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                       child: CachedNetworkImage(
                                                         imageUrl: '${ApiConstants.imageBaseUrl}${groupData.avatar!.publicFileUrl}',
                                                         fit: BoxFit.cover,
+
                                                       ),
                                                     ),
                                                   ),
@@ -151,8 +149,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                       children: [
                                                         CustomText(
                                                           text: '${groupData.name}',
-                                                          fontWeight: FontWeight.w500,
-                                                          fontsize: 18.w,
+                                                          fontsize: 16.h,
                                                           maxline: 1,
                                                           textAlign: TextAlign.start,
                                                         ),

@@ -1,28 +1,21 @@
-import 'dart:async';
 import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_chat_bubble/chat_bubble.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:grouped_list/grouped_list.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:stock_cartel/controllers/profile_controller.dart';
 import 'package:stock_cartel/helpers/prefs_helpers.dart';
 import '../../../../utils/app_colors.dart';
-import '../../../../utils/app_images.dart';
 import '../../../controllers/chat_screen_controller.dart';
 import '../../../controllers/group_list_controller.dart';
-import '../../../helpers/time_format.dart';
 import '../../../models/chat_model.dart';
-import '../../../models/chat_screen_model.dart';
-import '../../../services/api_constants.dart';
+import '../../../services/socket_service.dart';
 import '../../../utils/app_constants.dart';
 import '../../../utils/app_icons.dart';
-import '../../widgets/custom_loading.dart';
 import '../../widgets/custom_text.dart';
 import '../../widgets/custom_text_field.dart';
 import 'package:timeago/timeago.dart' as timeago;
@@ -47,6 +40,7 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   void initState() {
+    listenChat();
     getUserId();
     _chatController.listenMessage(roomId);
     _chatController.scrollController =
@@ -59,7 +53,6 @@ class _ChatScreenState extends State<ChatScreen> {
       if (_chatController.scrollController.position.pixels <=
           _chatController.scrollController.position.minScrollExtent) {
         print("====> scroll Top");
-
         // _chatController.loadMore(Get.arguments);
         // _controller.loadMore(userData.id);
       } else if (_chatController.scrollController.position.pixels ==
@@ -71,9 +64,14 @@ class _ChatScreenState extends State<ChatScreen> {
 
     super.initState();
   }
+  listenChat(){
+    SocketService.socket.on("chat/deleted", (data){
+      _chatController.fastLoad(roomId);
+      debugPrint("update message : $data");
+    });
+  }
 
   var userId = "";
-
   getUserId() async {
     userId = await PrefsHelper.getString(AppConstants.id);
   }
@@ -136,8 +134,9 @@ class _ChatScreenState extends State<ChatScreen> {
               SizedBox(height: 20.h),
               Obx(
                 () => Expanded(
-                  child: Stack(
-                    children: [
+                  child:
+                  //Stack(
+                    //children: [
                       GroupedListView<ChatModel, DateTime>(
                         elements: _chatController.chatList.value,
                         controller: _chatController.scrollController,
@@ -194,7 +193,7 @@ class _ChatScreenState extends State<ChatScreen> {
                           );
                         },
                       ),
-                      Positioned(
+                     /* Positioned(
                           top: 20,
                           left: Get.width / 2.5,
                           child:
@@ -204,9 +203,9 @@ class _ChatScreenState extends State<ChatScreen> {
                                         color: Colors.grey,
                                       ),
                                     )
-                                  : const SizedBox())),
-                      if (_imagePath.isNotEmpty)
-                        Positioned(
+                                  : const SizedBox())),*/
+                     // if (_imagePath.isNotEmpty)
+                       /* Positioned(
                           bottom: 0.h,
                           left: 0.w,
                           child: Column(
@@ -240,9 +239,9 @@ class _ChatScreenState extends State<ChatScreen> {
                               ),
                             ],
                           ),
-                        ),
-                    ],
-                  ),
+                        ),*/
+                   // ],
+                 // ),
                 ),
               ),
               SizedBox(height: 10.h),
