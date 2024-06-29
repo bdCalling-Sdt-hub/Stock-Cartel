@@ -18,12 +18,7 @@ class LanguageScreen extends StatefulWidget {
 }
 
 class _LanguageScreenState extends State<LanguageScreen> {
-  LocalizationController localizationController =
-      Get.find<LocalizationController>();
-  /*var data = [
-    {'name': 'English'},
-    {'name': 'Spanish'},
-  ];*/
+  LocalizationController localizationController = Get.find<LocalizationController>();
   var selectedOption;
 
   @override
@@ -98,7 +93,12 @@ class _LanguageScreenState extends State<LanguageScreen> {
               text: AppStrings.continues.tr,
               onTap: () {
                 if (selectedOption != null) {
-                  Get.toNamed(AppRoutes.onboardingScreen);
+                  if( Get.parameters ['screenType']== 'profileScreen'){
+                    Get.toNamed(AppRoutes.profileScreen);
+                  }
+                  else{
+                    Get.toNamed(AppRoutes.onboardingScreen);
+                  }
                 } else {
                   return Get.snackbar('Error', 'Please select a language',
                       colorText: Colors.red);
