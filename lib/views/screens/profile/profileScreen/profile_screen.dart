@@ -64,6 +64,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       prefixIcon: SvgPicture.asset(AppIcons.settings,
                           color: AppColors.primaryColor),
                     ),
+                    //========================> Change Language <========================
+                    CustomListTile(
+                      onTap: () {
+                        Get.toNamed(AppRoutes.languageScreen, parameters: {'screenType': 'profileScreen'});
+                      },
+                      title: AppStrings.chooseLanguage.tr,
+                      prefixIcon: SvgPicture.asset(AppIcons.website,
+                          color: AppColors.primaryColor),
+                    ),
                     //========================> Subscription Cancel <========================
                     CustomListTile(
                       onTap: () {
